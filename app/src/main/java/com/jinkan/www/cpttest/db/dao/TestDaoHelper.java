@@ -7,16 +7,20 @@ import com.jinkan.www.cpttest.db.dao.dao_factory.BaseDao;
 import com.jinkan.www.cpttest.db.dao.dao_factory.DataBaseCallBack;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Created by Sampson on 2018/12/14.
  * CPTTest
  */
-public class TestDaoUits extends BaseDao<TestEntity> {
+@Singleton
+public class TestDaoHelper extends BaseDao<TestEntity> {
     private TestDao testDao;
 
-    public TestDaoUits(Context context) {
+    @Inject
+    public TestDaoHelper(Context context) {
         testDao = AppDatabase.getInstance(context).testDao();
-
     }
 
     private static class MyDataBaseAsyncTask extends DataBaseAsyncTask<TestEntity> {
