@@ -12,15 +12,15 @@ import androidx.room.PrimaryKey;
 public class TestEntity {
     @PrimaryKey
     @NonNull
-    public String testID = "";
-    public String testDate;
-    public String projectNumber;
-    public String holeNumber;
-    public float holeHigh;
-    public float waterLevel;
-    public String location;
-    public String tester;
-    public String testType;
-    public String testProbeType;
-    public String testDataID;
+    public String testID = "1";
+    public String testDate = "1";
+    public String projectNumber = "1";
+    public String holeNumber = "1";
+    public float holeHigh = 33;
+    public float waterLevel = 44;
+    public String location = "1";
+    public String tester = "1";
+    public String testType = "1";
+    public String testProbeType = "1";
+    public String testDataID = "1";
 }

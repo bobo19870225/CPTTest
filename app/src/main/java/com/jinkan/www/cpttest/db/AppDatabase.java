@@ -5,15 +5,12 @@ import android.content.Context;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * Created by Sampson on 2018/12/10.
@@ -56,7 +53,7 @@ public abstract class AppDatabase extends RoomDatabase {
      */
     private static AppDatabase buildDatabase(final Context appContext) {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
-                .addMigrations(MIGRATION_1_2)
+//                .addMigrations(MIGRATION_1_2)
                 .build();
     }
 
@@ -78,15 +75,15 @@ public abstract class AppDatabase extends RoomDatabase {
         return mIsDatabaseCreated;
     }
 
-    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE VIRTUAL TABLE IF NOT EXISTS `productsFts` USING FTS4("
-                    + "`name` TEXT, `description` TEXT, content=`products`)");
-            database.execSQL("INSERT INTO productsFts (`rowid`, `name`, `description`) "
-                    + "SELECT `id`, `name`, `description` FROM products");
-
-        }
-    };
+//    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+//
+//        @Override
+//        public void migrate(@NonNull SupportSQLiteDatabase database) {
+//            database.execSQL("CREATE VIRTUAL TABLE IF NOT EXISTS `productsFts` USING FTS4("
+//                    + "`name` TEXT, `description` TEXT, content=`products`)");
+//            database.execSQL("INSERT INTO productsFts (`rowid`, `name`, `description`) "
+//                    + "SELECT `id`, `name`, `description` FROM products");
+//
+//        }
+//    };
 }
