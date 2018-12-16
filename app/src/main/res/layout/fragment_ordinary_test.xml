@@ -36,18 +36,16 @@
             <TableRow>
 
                 <RelativeLayout
+                    android:onClick="@{()->model.newOrdinaryTest()}"
                     android:id="@+id/new_test"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_button"
-                    android:clickable="true"
                     android:padding="24dp">
 
                     <ImageView
@@ -71,14 +69,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:onClick="@{()->model.reDoOrdinaryTest()}"
                     android:id="@+id/test_again"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_button"
@@ -106,14 +103,13 @@
             <TableRow>
 
                 <RelativeLayout
+                    android:onClick="@{()->model.showHistoryData()}"
                     android:id="@+id/history_data"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_button"
@@ -139,14 +135,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:onClick="@{()->model.showOrdinaryProbe()}"
                     android:id="@+id/common_probe_list"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_button"

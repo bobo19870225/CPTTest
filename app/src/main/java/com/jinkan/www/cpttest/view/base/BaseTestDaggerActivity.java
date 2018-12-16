@@ -27,11 +27,6 @@ public class BaseTestDaggerActivity extends MVVMDialogDaggerActivity<BaseTestVie
 
 
     @Override
-    protected void setView() {
-
-    }
-
-    @Override
     public int initView() {
 //        drawChartHelper = new DrawChartHelper();
         return R.layout.activity_base_test;
@@ -121,6 +116,12 @@ public class BaseTestDaggerActivity extends MVVMDialogDaggerActivity<BaseTestVie
         }
         return true;
     }
+
+    @Override
+    protected void setMVVMView() {
+
+    }
+
 
 //    public void showModifyDialog(String strDistance) {
 //        LayoutInflater layoutInflater = getLayoutInflater();

@@ -66,12 +66,13 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
 
 
     @Override
-    protected void setView() {
+    protected void setMVVMView() {
         view_page = mViewDataBinding.viewPage;
         navigation = mViewDataBinding.navigation;
 //        JPushInterface.init(getApplicationContext());//初始化JPush
         initViewPage();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
 
     private void initViewPage() {

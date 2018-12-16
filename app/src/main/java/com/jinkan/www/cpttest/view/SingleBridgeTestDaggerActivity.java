@@ -10,9 +10,8 @@ public class SingleBridgeTestDaggerActivity extends BaseTestDaggerActivity {
 
 
     @Override
-    protected void setView() {
+    protected void setMVVMView() {
+        super.setMVVMView();
 
     }
-
-
 }
