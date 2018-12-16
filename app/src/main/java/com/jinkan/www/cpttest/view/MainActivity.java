@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityMainBinding;
+import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.parameter.SystemConstant;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view_model.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_MULTI_TEST;
 import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_TEST;
@@ -27,7 +30,8 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel, ActivityMainBi
 
 
     private boolean isWireless;
-
+    @Inject
+    public TestDaoHelper testDaoHelper;
     @Override
     protected void setView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());

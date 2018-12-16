@@ -3,7 +3,6 @@ package com.jinkan.www.cpttest.view_model;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
-import com.jinkan.www.cpttest.db.dao.dao_factory.DataFactory;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.view.MainActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
@@ -24,8 +23,8 @@ public class MainViewModel extends BaseViewModel<MainActivity> {
     public MutableLiveData<String> obsLocation = new MutableLiveData<>();
     public MutableLiveData<String> obsTester = new MutableLiveData<>();
     public MutableLiveData<String> obsTestType = new MutableLiveData<>();
-    @Inject
-    TestDaoHelper testDaoHelper;
+//    @Inject
+//    TestDaoHelper testDaoHelper;
 
     public void submit() {
         TestEntity testEntity = new TestEntity();
@@ -65,8 +64,9 @@ public class MainViewModel extends BaseViewModel<MainActivity> {
         }
         testEntity.testType = obsTestType.getValue();
 
-        TestDaoHelper testDaoHelper = DataFactory.getBaseData(TestDaoHelper.class, getView().getApplicationContext());
-        testDaoHelper.addData(testEntity, () -> getView().showToast("添加成功"));
+//        TestDaoHelper testDaoHelper = DataFactory.getBaseData(TestDaoHelper.class, getView().getApplicationContext());
+
+        getView().testDaoHelper.addData(testEntity, () -> getView().showToast("添加成功"));
         getView().goTo(SingleBridgeTestActivity.class, new String[]{"1", "2"});
     }
 

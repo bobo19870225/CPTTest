@@ -23,18 +23,18 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import dagger.android.support.DaggerAppCompatActivity;
 
 /**
  * Created by bobo on 2017/3/5.
  * LastCPT
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends DaggerAppCompatActivity implements View.OnClickListener {
     protected Object mData;
     protected FragmentManager mFragmentManager;
     protected View mRootView;
