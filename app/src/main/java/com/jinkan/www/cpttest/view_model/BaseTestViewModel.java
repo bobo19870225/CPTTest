@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.jinkan.www.cpttest.db.AppDatabase;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
-import com.jinkan.www.cpttest.view.BaseTestActivity;
+import com.jinkan.www.cpttest.view.base.BaseTestDaggerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import androidx.lifecycle.LiveData;
  * Created by Sampson on 2018/4/12.
  * LastCPT
  */
-public class BaseTestViewModel extends BaseViewModel<BaseTestActivity> implements ISkip {
+public class BaseTestViewModel extends BaseViewModel<BaseTestDaggerActivity> implements ISkip {
     public final ObservableField<String> obsProjectNumber = new ObservableField<>("");
     public final ObservableField<String> obsHoleNumber = new ObservableField<>("");
     public final ObservableField<String> obsProbeNumber = new ObservableField<>("");

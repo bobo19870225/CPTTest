@@ -2,23 +2,14 @@ package com.jinkan.www.cpttest.view_model;
 
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.view.MainActivity;
-
-import javax.inject.Inject;
+import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
 
 /**
  * Created by Sampson on 2018/12/16.
  * CPTTest
  */
 
-public class MainViewModel extends BaseViewModel<MainActivity> {
-    @Inject
-    public MainViewModel() {
-
-    }
-
-
-
+public class OrdinaryTestViewModel extends BaseViewModel<OrdinaryTestFragment> {
     @Override
     public void init(Object data) {
 

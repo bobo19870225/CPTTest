@@ -2,13 +2,13 @@ package com.jinkan.www.cpttest.view_model;
 
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
+import com.jinkan.www.cpttest.view.SingleBridgeTestDaggerActivity;
 
 /**
  * Created by Sampson on 2018/12/14.
  * CPTTest
  */
-public class SingleBridgeTestVM extends BaseViewModel<SingleBridgeTestActivity> {
+public class SingleBridgeTestVM extends BaseViewModel<SingleBridgeTestDaggerActivity> {
     @Override
     public void init(Object data) {
 

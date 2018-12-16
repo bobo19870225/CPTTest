@@ -2,13 +2,14 @@
  * Copyright (c) 2018. 代码著作权归卢声波所有。
  */
 
-package com.jinkan.www.cpttest.view;
+package com.jinkan.www.cpttest.view.base;
 
 import android.annotation.SuppressLint;
 import android.view.KeyEvent;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityBaseTestBinding;
+import com.jinkan.www.cpttest.view.MVVMDialogDaggerActivity;
 import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
 
 
@@ -18,7 +19,7 @@ import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
 
 
 @SuppressLint("Registered")
-public class BaseTestActivity extends MVVMDialogActivity<BaseTestViewModel, ActivityBaseTestBinding> {
+public class BaseTestDaggerActivity extends MVVMDialogDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> {
 
     //    protected DrawChartHelper drawChartHelper;
     protected String strProjectNumber;
@@ -92,7 +93,7 @@ public class BaseTestActivity extends MVVMDialogActivity<BaseTestViewModel, Acti
     }
 
     @Override
-    protected BaseTestViewModel createdViewModel() {
+    public BaseTestViewModel createdViewModel() {
         return new BaseTestViewModel();
     }
 
@@ -124,7 +125,7 @@ public class BaseTestActivity extends MVVMDialogActivity<BaseTestViewModel, Acti
 //    public void showModifyDialog(String strDistance) {
 //        LayoutInflater layoutInflater = getLayoutInflater();
 //        View view = layoutInflater.inflate(R.layout.dialog_modify_distance, findViewById(R.id.dialog));
-//        final Dialog alertDialog = new AlertDialog.Builder(BaseTestActivity.this)
+//        final Dialog alertDialog = new AlertDialog.Builder(BaseTestDaggerActivity.this)
 //                .setView(view)
 //                .create();
 //        alertDialog.show();

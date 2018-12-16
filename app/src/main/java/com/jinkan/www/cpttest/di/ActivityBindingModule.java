@@ -1,8 +1,8 @@
 package com.jinkan.www.cpttest.di;
 
-import com.jinkan.www.cpttest.view.BaseActivity;
 import com.jinkan.www.cpttest.view.MainActivity;
-import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
+import com.jinkan.www.cpttest.view.NewTestDaggerActivity;
+import com.jinkan.www.cpttest.view.SingleBridgeTestDaggerActivity;
 import com.jinkan.www.cpttest.view_model.BaseModule;
 import com.jinkan.www.cpttest.view_model.MainModule;
 
@@ -19,12 +19,16 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBindingModule {
     @ActivityScoped
-    @ContributesAndroidInjector(modules = MainModule.class)
-    abstract MainActivity mainActivity();
+    @ContributesAndroidInjector(modules = BaseModule.class)
+    abstract NewTestDaggerActivity newTestDaggerActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = BaseModule.class)
-    abstract SingleBridgeTestActivity singleBridgeTestActivity();
+    abstract SingleBridgeTestDaggerActivity singleBridgeTestActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = MainModule.class)
+    abstract MainActivity mainActivity();
 //    @ActivityScoped
 //    @ContributesAndroidInjector(modules = AddEditTaskModule.class)
 //    abstract AddEditTaskActivity addEditTaskActivity();

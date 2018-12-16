@@ -2,14 +2,16 @@
  * Copyright (c) 2018. 代码著作权归卢声波所有。
  */
 
-package com.jinkan.www.cpttest.view;
+package com.jinkan.www.cpttest.view.base;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jinkan.www.cpttest.view_model.BaseViewModel;
 import com.jinkan.www.cpttest.BR;
+import com.jinkan.www.cpttest.view.MVVMView;
+import com.jinkan.www.cpttest.view_model.BaseViewModel;
+
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -19,7 +21,8 @@ import androidx.databinding.ViewDataBinding;
  * MVVM View基类
  */
 
-public abstract class BaseMVVMActivity<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseActivity {
+public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseDaggerActivity
+        implements MVVMView<VM, VDB> {
     protected VM mViewModel;
     protected VDB mViewDataBinding;
 
@@ -36,7 +39,13 @@ public abstract class BaseMVVMActivity<VM extends BaseViewModel, VDB extends Vie
         mViewModel.init(mData);
     }
 
-    protected abstract VM createdViewModel();
+    @Override
+    public VDB setViewDataBinding(int layOutId) {
+        VDB viewDataBinding = DataBindingUtil.setContentView(this, layOutId);
+        viewDataBinding.setVariable(BR.model, mViewModel);
+        viewDataBinding.setLifecycleOwner(this);
+        return viewDataBinding;
+    }
 
     @Override
     protected void onDestroy() {
@@ -47,10 +56,8 @@ public abstract class BaseMVVMActivity<VM extends BaseViewModel, VDB extends Vie
 
     @Override
     protected void init(int viewId) {
-        mViewDataBinding = DataBindingUtil.setContentView(this, viewId);
-        mViewDataBinding.setVariable(BR.model, mViewModel);
-        mViewDataBinding.setLifecycleOwner(this);
-//         ViewModelProviders.of(this, new ViewModelProvider.NewInstanceFactory()).get(MainViewModel.class);
+        mViewDataBinding = setViewDataBinding(viewId);
+//         ViewModelProviders.of(this, new ViewModelProvider.NewInstanceFactory()).get(NewTestViewModel.class);
         mRootView = mViewDataBinding.getRoot();
         mFragmentManager = getSupportFragmentManager();
     }
