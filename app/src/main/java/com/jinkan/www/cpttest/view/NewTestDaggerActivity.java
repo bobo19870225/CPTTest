@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityNewTestBinding;
+import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.parameter.SystemConstant;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import androidx.lifecycle.ViewModelProviders;
 
 import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_MULTI_TEST;
 import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_TEST;
@@ -30,9 +33,10 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
 
 
     private boolean isWireless;
-    @Inject
-    public NewTestViewModel newTestViewModel;
 
+    @Inject
+    public
+    TestDaoHelper testDaoHelper;
     @Override
     protected void setView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
@@ -60,7 +64,7 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
             listView.setOnItemClickListener((parent, view, position, id) -> {
 
                 TextView tv_item = view.findViewById(R.id.TextView);
-                newTestViewModel.setTypeText((String) tv_item.getText());
+                mViewModel.setTypeText((String) tv_item.getText());
 //                test_type.setText(tv_item.getText());
                 popupWindow.dismiss();
             });
@@ -78,7 +82,7 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
             listView.setOnItemClickListener((parent, view, position, id) -> {
 
                 TextView tv_item = view.findViewById(R.id.TextView);
-                newTestViewModel.setTypeText((String) tv_item.getText());
+                mViewModel.setTypeText((String) tv_item.getText());
 //                test_type.setText(tv_item.getText());
                 popupWindow.dismiss();
             });
@@ -96,6 +100,6 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
 
     @Override
     public NewTestViewModel createdViewModel() {
-        return new NewTestViewModel();
+        return ViewModelProviders.of(this).get(NewTestViewModel.class);
     }
 }
