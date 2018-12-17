@@ -23,18 +23,38 @@ public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB exten
     protected VM mViewModel;
     protected VDB mViewDataBinding;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = createdViewModel();
+        if (mViewModel == null)
+            throw new RuntimeException("ViewModel can't be null!");
+        mViewModel.attachView(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewModel.clear();
+        mViewModel.detachView();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int viewId = setLayOutId();
         mViewDataBinding = DataBindingUtil.inflate(inflater, viewId, container, false);
-        mViewModel = createdViewModel();
-        if (mViewModel == null)
-            throw new RuntimeException("ViewModel can't be null!");
         mViewDataBinding.setVariable(BR.model, mViewModel);
         mViewDataBinding.setLifecycleOwner(this);
 //         ViewModelProviders.of(this, new ViewModelProvider.NewInstanceFactory()).get(NewTestViewModel.class);
         mRootView = mViewDataBinding.getRoot();
+        mViewModel.init(mData);
         return mRootView;
     }
 

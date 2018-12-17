@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view_model;
 
 import android.content.Intent;
 
+import com.jinkan.www.cpttest.view.NewTestDaggerActivity;
 import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
 
 /**
@@ -10,6 +11,20 @@ import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
  */
 
 public class OrdinaryTestViewModel extends BaseViewModel<OrdinaryTestFragment> {
+
+    public void newTest() {
+        getView().goTo(NewTestDaggerActivity.class, null);
+    }
+
+    public void reDoTest() {
+    }
+
+    public void showHistoryData() {
+    }
+
+    public void showOrdinaryProbe() {
+    }
+
     @Override
     public void init(Object data) {
 
