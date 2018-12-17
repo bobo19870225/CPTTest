@@ -5,6 +5,7 @@ import com.jinkan.www.cpttest.view.NewTestDaggerActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestDaggerActivity;
 import com.jinkan.www.cpttest.view_model.BaseModule;
 import com.jinkan.www.cpttest.view_model.MainModule;
+import com.jinkan.www.cpttest.view_model.NewTestModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -19,7 +20,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBindingModule {
     @ActivityScoped
-    @ContributesAndroidInjector(modules = BaseModule.class)
+    @ContributesAndroidInjector(modules = NewTestModule.class)
     abstract NewTestDaggerActivity newTestDaggerActivity();
 
     @ActivityScoped

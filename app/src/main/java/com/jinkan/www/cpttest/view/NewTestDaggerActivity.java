@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityNewTestBinding;
-import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.parameter.SystemConstant;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
@@ -32,7 +31,7 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
 
     private boolean isWireless;
     @Inject
-    public TestDaoHelper testDaoHelper;
+    public NewTestViewModel newTestViewModel;
 
     @Override
     protected void setView() {
@@ -61,7 +60,7 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
             listView.setOnItemClickListener((parent, view, position, id) -> {
 
                 TextView tv_item = view.findViewById(R.id.TextView);
-                mViewModel.setTypeText((String) tv_item.getText());
+                newTestViewModel.setTypeText((String) tv_item.getText());
 //                test_type.setText(tv_item.getText());
                 popupWindow.dismiss();
             });
@@ -79,7 +78,7 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
             listView.setOnItemClickListener((parent, view, position, id) -> {
 
                 TextView tv_item = view.findViewById(R.id.TextView);
-                mViewModel.setTypeText((String) tv_item.getText());
+                newTestViewModel.setTypeText((String) tv_item.getText());
 //                test_type.setText(tv_item.getText());
                 popupWindow.dismiss();
             });
