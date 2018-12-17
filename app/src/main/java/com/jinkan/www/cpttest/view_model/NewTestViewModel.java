@@ -6,8 +6,6 @@ import android.content.Intent;
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
@@ -25,14 +23,13 @@ public class NewTestViewModel extends BaseViewModel {
     public MutableLiveData<String> obsTester = new MutableLiveData<>();
     public MutableLiveData<String> obsTestType = new MutableLiveData<>();
     public MutableLiveData<String> toastMsg = new MutableLiveData<>();
+    public MutableLiveData<Boolean> ifGoTo = new MutableLiveData<>();
 
-
+    private TestDaoHelper testDaoHelper;
     public NewTestViewModel(@NonNull Application application) {
         super(application);
     }
 
-    @Inject
-    TestDaoHelper testDaoHelper;
 
     public void submit() {
         TestEntity testEntity = new TestEntity();
@@ -72,7 +69,7 @@ public class NewTestViewModel extends BaseViewModel {
         }
         testEntity.testType = obsTestType.getValue();
         testDaoHelper.addData(testEntity, () -> toastMsg.setValue("添加成功！"));
-//        getView().goTo(SingleBridgeTestDaggerActivity.class, new String[]{"1", "2"});
+        ifGoTo.setValue(true);
     }
 
     @Override
@@ -95,6 +92,6 @@ public class NewTestViewModel extends BaseViewModel {
     }
 
     public void setTestDaoHelper(TestDaoHelper testDaoHelper) {
-
+        this.testDaoHelper = testDaoHelper;
     }
 }

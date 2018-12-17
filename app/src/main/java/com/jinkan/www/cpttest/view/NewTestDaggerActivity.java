@@ -29,19 +29,21 @@ import static com.jinkan.www.cpttest.parameter.SystemConstant.VANE_TEST;
 
 public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewModel, ActivityNewTestBinding> {
 
-
     private boolean isWireless;
 
-
-    @Inject
-    TestDaoHelper testDaoHelper;
     @Inject
     NewTestViewModel newTestViewModel;
-
+    @Inject
+    TestDaoHelper testDaoHelper;
     @Override
     protected void setMVVMView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
         mViewModel.toastMsg.observe(this, this::showToast);
+        mViewModel.ifGoTo.observe(this, aBoolean -> {
+            if (aBoolean)
+                goTo(SingleBridgeTestDaggerActivity.class, new String[]{mViewModel.obsProjectNumber.getValue(), mViewModel.obsHoleNumber.getValue()});
+        });
+        mViewModel.setTestDaoHelper(testDaoHelper);
     }
 
     private PopupWindow popupWindow;
