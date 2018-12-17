@@ -1,23 +1,21 @@
 package com.jinkan.www.cpttest.view_model;
 
+import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.view.MainActivity;
-
-import javax.inject.Inject;
+import androidx.annotation.NonNull;
 
 /**
  * Created by Sampson on 2018/12/16.
  * CPTTest
  */
 
-public class MainViewModel extends BaseViewModel<MainActivity> {
-    @Inject
-    public MainViewModel() {
+public class MainViewModel extends BaseViewModel {
 
+
+    public MainViewModel(@NonNull Application application) {
+        super(application);
     }
-
-
 
     @Override
     public void init(Object data) {

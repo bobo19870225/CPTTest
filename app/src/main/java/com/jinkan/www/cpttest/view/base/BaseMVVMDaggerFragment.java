@@ -29,7 +29,6 @@ public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB exten
         mViewModel = createdViewModel();
         if (mViewModel == null)
             throw new RuntimeException("ViewModel can't be null!");
-        mViewModel.attachView(this);
     }
 
     @Override
@@ -42,7 +41,6 @@ public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB exten
     public void onDestroy() {
         super.onDestroy();
         mViewModel.clear();
-        mViewModel.detachView();
     }
 
     @Nullable

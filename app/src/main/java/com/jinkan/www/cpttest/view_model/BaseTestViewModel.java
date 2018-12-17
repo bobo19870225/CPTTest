@@ -1,24 +1,25 @@
 package com.jinkan.www.cpttest.view_model;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.db.AppDatabase;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
-import com.jinkan.www.cpttest.view.base.BaseTestDaggerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 /**
  * Created by Sampson on 2018/4/12.
  * LastCPT
  */
-public class BaseTestViewModel extends BaseViewModel<BaseTestDaggerActivity> implements ISkip {
+public class BaseTestViewModel extends AndroidViewModel implements ISkip {
     public final ObservableField<String> obsProjectNumber = new ObservableField<>("");
     public final ObservableField<String> obsHoleNumber = new ObservableField<>("");
     public final ObservableField<String> obsProbeNumber = new ObservableField<>("");
@@ -41,29 +42,22 @@ public class BaseTestViewModel extends BaseViewModel<BaseTestDaggerActivity> imp
     private String probeID;
     private TestEntity testModel;
 
-    @Override
-    public void init(Object data) {
-//        HeadSetHelper.getInstance().setOnHeadSetListener(this::doRecord);
-//        HeadSetHelper.getInstance().open(getView().getApplicationContext());
-        String[] strings = (String[]) data;//1.mac,2.工程编号,3.孔号,4.试验类型
-        loadTestData(strings[0] + "_" + strings[1]);
-        getTestParameters(strings[0], strings[1]);
+    public BaseTestViewModel(@NonNull Application application) {
+        super(application);
     }
 
-    private void getTestParameters(String projectNumber, String holeNumber) {
-        TestDao testDao = AppDatabase.getInstance(getView().getApplicationContext()).testDao();
-        LiveData<List<TestEntity>> liveData = testDao.getTestEntityByPrjNumberAndHoleNumber(projectNumber, holeNumber);
-        List<TestEntity> testEntities = liveData.getValue();
-        if (testEntities != null && !testEntities.isEmpty()) {
-            testModel = testEntities.get(0);
-            obsProjectNumber.set(testModel.projectNumber);
-            obsHoleNumber.set(testModel.holeNumber);
-        } else {
-            myView.get().showToast("找不到该孔信息");
-        }
-        testDao.getAllTestes().observe(getView(), testEntities1 -> {
-            myView.get().showToast("找不到该孔信息");
-        });
+
+//    public void init(Object data) {
+////        HeadSetHelper.getInstance().setOnHeadSetListener(this::doRecord);
+////        HeadSetHelper.getInstance().open(getView().getApplicationContext());
+//        String[] strings = (String[]) data;//1.mac,2.工程编号,3.孔号,4.试验类型
+//        loadTestData(strings[0] + "_" + strings[1]);
+//        getTestParameters(strings[0], strings[1]);
+//    }
+
+    public LiveData<List<TestEntity>> getTestParameters(TestDao testDao, String projectNumber, String holeNumber) {
+        return testDao.getTestEntityByPrjNumberAndHoleNumber(projectNumber, holeNumber);
+
 //        TestDaoUits testDaoUits = DataFactory.getBaseData(TestDaoUits.class, getView().getApplicationContext());
 //        testDaoUits.getData(new DataLoadCallBack<TestEntity>() {
 //            @Override
@@ -154,16 +148,6 @@ public class BaseTestViewModel extends BaseViewModel<BaseTestDaggerActivity> imp
 //
 //            }
 //        }, testDataID);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
-    public void clear() {
-//        bluetoothCommService.stop();
     }
 
 
@@ -396,7 +380,7 @@ public class BaseTestViewModel extends BaseViewModel<BaseTestDaggerActivity> imp
 
     @Override
     public void skipForResult(Intent intent, int requestCode) {
-        getView().startActivityForResult(intent, requestCode);
+//        getView().startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -406,7 +390,7 @@ public class BaseTestViewModel extends BaseViewModel<BaseTestDaggerActivity> imp
 
     @Override
     public void sendToastMsg(String msg) {
-        getView().showToast(msg);
+//        getView().showToast(msg);
     }
 
     public void setDistance(String distance) {

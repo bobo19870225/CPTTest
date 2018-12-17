@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.FragmentOrdinaryTestBinding;
+import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.di.ActivityScoped;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.OrdinaryTestViewModel;
@@ -13,6 +14,7 @@ import com.jinkan.www.cpttest.view_model.OrdinaryTestViewModel;
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * Created by Sampson on 2018/12/16.
@@ -25,6 +27,9 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
         // Requires empty public constructor
     }
 
+    @Inject
+    public
+    TestDaoHelper testDaoHelper;
     @Override
     protected int setLayOutId() {
         return R.layout.fragment_ordinary_test;
@@ -32,7 +37,7 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
 
     @Override
     public OrdinaryTestViewModel createdViewModel() {
-        return new OrdinaryTestViewModel();
+        return ViewModelProviders.of(this).get(OrdinaryTestViewModel.class);
     }
 
     @Override
@@ -42,11 +47,13 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
 
     @Override
     protected void setView() {
+        mViewModel.action.observe(this, s -> {
+            if (s.endsWith("NewTest")) {
+                goTo(NewTestDaggerActivity.class, null);
+            }
+        });
 
     }
 
-    @Override
-    public void onClick(View view) {
 
-    }
 }

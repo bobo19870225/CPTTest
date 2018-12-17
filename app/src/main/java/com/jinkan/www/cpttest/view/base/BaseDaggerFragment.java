@@ -20,7 +20,7 @@ import dagger.android.support.DaggerFragment;
  * 碎片基类
  */
 
-public abstract class BaseDaggerFragment extends DaggerFragment implements View.OnClickListener {
+public abstract class BaseDaggerFragment extends DaggerFragment {
     protected View mRootView;
     protected Object mData;
 

@@ -1,14 +1,19 @@
 package com.jinkan.www.cpttest.view_model;
 
+import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.view.SingleBridgeTestDaggerActivity;
+import androidx.annotation.NonNull;
 
 /**
  * Created by Sampson on 2018/12/14.
  * CPTTest
  */
-public class SingleBridgeTestVM extends BaseViewModel<SingleBridgeTestDaggerActivity> {
+public class SingleBridgeTestVM extends BaseViewModel {
+    public SingleBridgeTestVM(@NonNull Application application) {
+        super(application);
+    }
+
     @Override
     public void init(Object data) {
 

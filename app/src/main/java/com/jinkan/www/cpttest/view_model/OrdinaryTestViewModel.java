@@ -1,19 +1,26 @@
 package com.jinkan.www.cpttest.view_model;
 
+import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.view.NewTestDaggerActivity;
-import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/16.
  * CPTTest
  */
 
-public class OrdinaryTestViewModel extends BaseViewModel<OrdinaryTestFragment> {
+public class OrdinaryTestViewModel extends BaseViewModel {
 
+    public OrdinaryTestViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    public MutableLiveData<String> action = new MutableLiveData<>();
     public void newTest() {
-        getView().goTo(NewTestDaggerActivity.class, null);
+        action.setValue("NewTest");
+
     }
 
     public void reDoTest() {

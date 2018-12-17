@@ -34,7 +34,7 @@ import dagger.android.support.DaggerAppCompatActivity;
  * LastCPT
  */
 
-public abstract class BaseDaggerActivity extends DaggerAppCompatActivity implements View.OnClickListener {
+public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     protected Object mData;
     protected FragmentManager mFragmentManager;
     protected View mRootView;

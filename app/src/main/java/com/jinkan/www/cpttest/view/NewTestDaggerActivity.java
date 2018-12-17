@@ -21,8 +21,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_MULTI_TEST;
 import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_TEST;
 import static com.jinkan.www.cpttest.parameter.SystemConstant.SINGLE_BRIDGE_MULTI_TEST;
@@ -34,12 +32,16 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
 
     private boolean isWireless;
 
+
     @Inject
-    public
     TestDaoHelper testDaoHelper;
+    @Inject
+    NewTestViewModel newTestViewModel;
+
     @Override
-    protected void setView() {
+    protected void setMVVMView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
+        mViewModel.toastMsg.observe(this, this::showToast);
     }
 
     private PopupWindow popupWindow;
@@ -100,6 +102,7 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
 
     @Override
     public NewTestViewModel createdViewModel() {
-        return ViewModelProviders.of(this).get(NewTestViewModel.class);
+        return newTestViewModel;
+//        return ViewModelProviders.of(this).get(NewTestViewModel.class);
     }
 }

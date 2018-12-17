@@ -4,36 +4,25 @@
 
 package com.jinkan.www.cpttest.view_model;
 
+import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.view.MVVMView;
-
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
-
-import androidx.lifecycle.ViewModel;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 
 /**
  * Created by lushengbo on 2018/1/12.
  * MVVM ViewModel 基类
+ * 这种写法存在问题，ViewModel不应该持有Activity
  */
 
-public abstract class BaseViewModel<V extends MVVMView> extends ViewModel {
-    protected Reference<V> myView;
+public abstract class BaseViewModel extends AndroidViewModel {
 
 
-    public void attachView(V view) {
-        myView = new WeakReference<>(view);
+    public BaseViewModel(@NonNull Application application) {
+        super(application);
     }
 
-    public V getView() {
-        return myView.get();
-    }
-
-
-    public void detachView() {
-        myView = null;
-    }
 
     public abstract void init(Object data);
 

@@ -8,9 +8,14 @@ import android.annotation.SuppressLint;
 import android.view.KeyEvent;
 
 import com.jinkan.www.cpttest.R;
-import com.jinkan.www.cpttest.databinding.ActivityBaseTestBinding;
-import com.jinkan.www.cpttest.view.MVVMDialogDaggerActivity;
+import com.jinkan.www.cpttest.db.dao.TestDao;
+import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.view.DialogDaggerActivity;
 import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
+
+import javax.inject.Inject;
+
+import androidx.lifecycle.ViewModelProviders;
 
 
 /**
@@ -19,17 +24,32 @@ import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
 
 
 @SuppressLint("Registered")
-public class BaseTestDaggerActivity extends MVVMDialogDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> {
+public class BaseTestDaggerActivity extends DialogDaggerActivity {
 
     //    protected DrawChartHelper drawChartHelper;
     protected String strProjectNumber;
     protected String strHoleNumber;
-
-
+    protected BaseTestViewModel baseTestViewModel;
+    @Inject
+    TestDao testDao;
     @Override
     protected void setView() {
+        String[] strings = (String[]) mData;//1.mac,2.工程编号,3.孔号,4.试验类型
+        mac = strings[0];
+        strProjectNumber = strings[0];
+        strHoleNumber = strings[1];
+        baseTestViewModel = ViewModelProviders.of(this).get(BaseTestViewModel.class);
+        baseTestViewModel.getTestParameters(testDao, strProjectNumber, strHoleNumber)
+                .observe(this, testEntities -> {
+                    if (testEntities != null && !testEntities.isEmpty()) {
+                        TestEntity testEntity = testEntities.get(0);
+                        baseTestViewModel.obsProjectNumber.set(testEntity.projectNumber);
+                        baseTestViewModel.obsHoleNumber.set(testEntity.holeNumber);
+                    }
 
+                });
     }
+
 
     @Override
     public int initView() {
@@ -92,11 +112,6 @@ public class BaseTestDaggerActivity extends MVVMDialogDaggerActivity<BaseTestVie
 //        mViewModel.linkDevice(mac);
     }
 
-    @Override
-    public BaseTestViewModel createdViewModel() {
-        return new BaseTestViewModel();
-    }
-
 
 //    public void showTestData(List<TestDataEntity> testDataModels) {
 ////        deep.setText(StringUtils.format(testDataModels.get(testDataModels.size() - 1).deep, 1));
@@ -117,10 +132,11 @@ public class BaseTestDaggerActivity extends MVVMDialogDaggerActivity<BaseTestVie
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK) {
-            mViewModel.doRecord();
+            baseTestViewModel.doRecord();
         }
         return true;
     }
+
 
 //    public void showModifyDialog(String strDistance) {
 //        LayoutInflater layoutInflater = getLayoutInflater();

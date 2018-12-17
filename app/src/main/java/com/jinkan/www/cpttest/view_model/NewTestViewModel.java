@@ -1,11 +1,14 @@
 package com.jinkan.www.cpttest.view_model;
 
+import android.app.Application;
 import android.content.Intent;
 
+import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
-import com.jinkan.www.cpttest.view.NewTestDaggerActivity;
-import com.jinkan.www.cpttest.view.SingleBridgeTestDaggerActivity;
 
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 /**
@@ -13,7 +16,7 @@ import androidx.lifecycle.MutableLiveData;
  * CPTTest
  */
 
-public class NewTestViewModel extends BaseViewModel<NewTestDaggerActivity> {
+public class NewTestViewModel extends BaseViewModel {
     public MutableLiveData<String> obsProjectNumber = new MutableLiveData<>();
     public MutableLiveData<String> obsHoleNumber = new MutableLiveData<>();
     public MutableLiveData<String> obsHoleHigh = new MutableLiveData<>();
@@ -21,50 +24,55 @@ public class NewTestViewModel extends BaseViewModel<NewTestDaggerActivity> {
     public MutableLiveData<String> obsLocation = new MutableLiveData<>();
     public MutableLiveData<String> obsTester = new MutableLiveData<>();
     public MutableLiveData<String> obsTestType = new MutableLiveData<>();
+    public MutableLiveData<String> toastMsg = new MutableLiveData<>();
 
+
+    public NewTestViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    @Inject
+    TestDaoHelper testDaoHelper;
 
     public void submit() {
         TestEntity testEntity = new TestEntity();
         if (obsProjectNumber.getValue() == null) {
-            getView().showToast("工程编号不能为空");
+            toastMsg.setValue("工程编号不能为空");
             return;
         }
         testEntity.projectNumber = obsProjectNumber.getValue();
 
         if (obsHoleNumber.getValue() == null) {
-            getView().showToast("孔号不能为空");
+            toastMsg.setValue("孔号不能为空");
             return;
         }
         testEntity.holeNumber = obsHoleNumber.getValue();
         testEntity.testID = obsProjectNumber.getValue() + "_" + obsHoleNumber.getValue();
         if (obsHoleHigh.getValue() == null) {
-            getView().showToast("孔口高程不能为空");
+            toastMsg.setValue("孔口高程不能为空");
             return;
         }
         testEntity.holeHigh = Float.valueOf(obsHoleHigh.getValue());
 
         if (obsWaterLevel.getValue() == null) {
-            getView().showToast("地下水位不能为空");
+            toastMsg.setValue("地下水位不能为空");
             return;
         }
         testEntity.waterLevel = Float.valueOf(obsWaterLevel.getValue());
 
         if (obsTester.getValue() == null) {
-            getView().showToast("操作员不能为空");
+            toastMsg.setValue("操作员不能为空");
             return;
         }
         testEntity.tester = obsTester.getValue();
 
         if (obsTestType.getValue() == null) {
-            getView().showToast("试验类型不能为空");
+            toastMsg.setValue("试验类型不能为空");
             return;
         }
         testEntity.testType = obsTestType.getValue();
-
-//        TestDaoHelper testDaoHelper = DataFactory.getBaseData(TestDaoHelper.class, getView().getApplicationContext());
-
-        getView().testDaoHelper.addData(testEntity, () -> getView().showToast("添加成功"));
-        getView().goTo(SingleBridgeTestDaggerActivity.class, new String[]{"1", "2"});
+        testDaoHelper.addData(testEntity, () -> toastMsg.setValue("添加成功！"));
+//        getView().goTo(SingleBridgeTestDaggerActivity.class, new String[]{"1", "2"});
     }
 
     @Override
@@ -84,5 +92,9 @@ public class NewTestViewModel extends BaseViewModel<NewTestDaggerActivity> {
 
     public void setTypeText(String testType) {
         obsTestType.setValue(testType);
+    }
+
+    public void setTestDaoHelper(TestDaoHelper testDaoHelper) {
+
     }
 }

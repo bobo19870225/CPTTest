@@ -5,17 +5,16 @@
 package com.jinkan.www.cpttest.view;
 
 
-import com.jinkan.www.cpttest.view_model.BaseViewModel;
-
 import androidx.annotation.LayoutRes;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModel;
 
 /**
  * Created by bobo on 2017/3/12.
  * 接口
  */
 
-public interface MVVMView<VM extends BaseViewModel, VDB extends ViewDataBinding> {
+public interface MVVMView<VM extends ViewModel, VDB extends ViewDataBinding> {
     VM createdViewModel();
 
     VDB setViewDataBinding(@LayoutRes int layOutId);

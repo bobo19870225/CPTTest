@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
  * 碎片基类
  */
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener {
+public abstract class BaseFragment extends Fragment {
     protected View mRootView;
     protected Object mData;
 

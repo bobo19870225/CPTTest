@@ -6,7 +6,6 @@ package com.jinkan.www.cpttest.view.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.jinkan.www.cpttest.BR;
 import com.jinkan.www.cpttest.view.MVVMView;
@@ -29,20 +28,28 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
+
+    @Override
+    protected final void setView() {
         if (createdViewModel() == null) {
             throw new RuntimeException("ViewModel can't be null!");
         } else {
             mViewModel = createdViewModel();
+            mViewDataBinding.setVariable(BR.model, mViewModel);
         }
-        super.onCreate(savedInstanceState);
-        mViewModel.attachView(this);
-        mViewModel.init(mData);
+        setMVVMView();
     }
+
+    protected abstract void setMVVMView();
 
     @Override
     public VDB setViewDataBinding(int layOutId) {
         VDB viewDataBinding = DataBindingUtil.setContentView(this, layOutId);
-        viewDataBinding.setVariable(BR.model, mViewModel);
+//        viewDataBinding.setVariable(BR.model, mViewModel);
         viewDataBinding.setLifecycleOwner(this);
         return viewDataBinding;
     }
@@ -51,7 +58,7 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
     protected void onDestroy() {
         super.onDestroy();
         mViewModel.clear();
-        mViewModel.detachView();
+//        mViewModel.detachView();
     }
 
     @Override
@@ -62,11 +69,6 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
         mFragmentManager = getSupportFragmentManager();
     }
 
-
-    @Override
-    public void onClick(View view) {
-
-    }
 
     /**
      * Dispatch incoming result to the correct fragment.

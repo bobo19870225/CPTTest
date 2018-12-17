@@ -28,6 +28,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, ActivityMainBinding> {
@@ -66,7 +67,7 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
 
 
     @Override
-    protected void setView() {
+    protected void setMVVMView() {
         view_page = mViewDataBinding.viewPage;
         navigation = mViewDataBinding.navigation;
 //        JPushInterface.init(getApplicationContext());//初始化JPush
@@ -114,13 +115,9 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
 
     @Override
     public MainViewModel createdViewModel() {
-        return new MainViewModel();
+        return ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
