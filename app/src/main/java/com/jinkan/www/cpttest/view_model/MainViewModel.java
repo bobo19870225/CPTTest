@@ -12,7 +12,7 @@ import javax.inject.Inject;
  */
 
 public class MainViewModel extends BaseViewModel<MainActivity> {
-
+    @Inject
     public MainViewModel() {
 
     }

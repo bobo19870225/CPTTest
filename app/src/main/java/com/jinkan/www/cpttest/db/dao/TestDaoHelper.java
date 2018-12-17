@@ -1,5 +1,8 @@
 package com.jinkan.www.cpttest.db.dao;
 
+import android.content.Context;
+
+import com.jinkan.www.cpttest.db.AppDatabase;
 import com.jinkan.www.cpttest.db.dao.dao_factory.BaseDao;
 import com.jinkan.www.cpttest.db.dao.dao_factory.DataBaseCallBack;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
@@ -13,12 +16,11 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TestDaoHelper extends BaseDao<TestEntity> {
-    @Inject
-    TestDao testDao;
+    private TestDao testDao;
 
     @Inject
-    public TestDaoHelper() {
-
+    public TestDaoHelper(Context context) {
+        testDao = AppDatabase.getInstance(context).testDao();
     }
 
     private static class MyDataBaseAsyncTask extends DataBaseAsyncTask<TestEntity> {

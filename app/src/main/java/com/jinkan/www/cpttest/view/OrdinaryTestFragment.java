@@ -6,9 +6,7 @@ import android.view.ViewGroup;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.FragmentOrdinaryTestBinding;
-import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.di.ActivityScoped;
-import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.OrdinaryTestViewModel;
 
@@ -22,12 +20,6 @@ import androidx.annotation.Nullable;
  */
 @ActivityScoped
 public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestViewModel, FragmentOrdinaryTestBinding> {
-    @Inject
-    public
-    TestDao testDao;
-    @Inject
-    public
-    PreferencesUtil preferencesUtil;
     @Inject
     public OrdinaryTestFragment() {
         // Requires empty public constructor

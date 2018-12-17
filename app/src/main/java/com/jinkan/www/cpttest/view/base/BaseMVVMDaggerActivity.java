@@ -29,23 +29,15 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    protected final void setView() {
         if (createdViewModel() == null) {
             throw new RuntimeException("ViewModel can't be null!");
         } else {
             mViewModel = createdViewModel();
         }
+        super.onCreate(savedInstanceState);
         mViewModel.attachView(this);
         mViewModel.init(mData);
-        setMVVMView();
     }
-
-    protected abstract void setMVVMView();
 
     @Override
     public VDB setViewDataBinding(int layOutId) {

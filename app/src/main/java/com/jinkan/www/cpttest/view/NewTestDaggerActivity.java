@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityNewTestBinding;
+import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.parameter.SystemConstant;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
@@ -30,13 +31,11 @@ public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewMod
 
 
     private boolean isWireless;
-//    @Inject
-//    public NewTestViewModel newTestViewModel;
-
-
+    @Inject
+    public TestDaoHelper testDaoHelper;
 
     @Override
-    protected void setMVVMView() {
+    protected void setView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
     }
 

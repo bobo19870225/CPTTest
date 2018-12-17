@@ -3,8 +3,6 @@ package com.jinkan.www.cpttest.di;
 import android.app.Application;
 
 import com.jinkan.www.cpttest.CPTApplication;
-import com.jinkan.www.cpttest.db.RepositoryModule;
-import com.jinkan.www.cpttest.util.UtilModule;
 
 import javax.inject.Singleton;
 
@@ -27,8 +25,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component(modules = {ApplicationModule.class,
         ActivityBindingModule.class,
-        UtilModule.class,
-        RepositoryModule.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<CPTApplication> {
 

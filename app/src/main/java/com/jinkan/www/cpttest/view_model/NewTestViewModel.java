@@ -2,8 +2,6 @@ package com.jinkan.www.cpttest.view_model;
 
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
-import com.jinkan.www.cpttest.db.dao.dao_factory.DataFactory;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.view.NewTestDaggerActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestDaggerActivity;
@@ -14,7 +12,6 @@ import androidx.lifecycle.MutableLiveData;
  * Created by Sampson on 2018/12/13.
  * CPTTest
  */
-
 public class NewTestViewModel extends BaseViewModel<NewTestDaggerActivity> {
     public MutableLiveData<String> obsProjectNumber = new MutableLiveData<>();
     public MutableLiveData<String> obsHoleNumber = new MutableLiveData<>();
@@ -26,10 +23,6 @@ public class NewTestViewModel extends BaseViewModel<NewTestDaggerActivity> {
 //    @Inject
 //    TestDaoHelper testDaoHelper;
 
-//    @Inject
-//    public NewTestViewModel() {
-//
-//    }
     public void submit() {
         TestEntity testEntity = new TestEntity();
         if (obsProjectNumber.getValue() == null) {
@@ -68,15 +61,15 @@ public class NewTestViewModel extends BaseViewModel<NewTestDaggerActivity> {
         }
         testEntity.testType = obsTestType.getValue();
 
-        TestDaoHelper testDaoHelper = DataFactory.getBaseData(TestDaoHelper.class, getView().getApplicationContext());
+//        TestDaoHelper testDaoHelper = DataFactory.getBaseData(TestDaoHelper.class, getView().getApplicationContext());
 
-//        testDaoHelper.addData(testEntity, () -> getView().showToast("添加成功"));
+        getView().testDaoHelper.addData(testEntity, () -> getView().showToast("添加成功"));
         getView().goTo(SingleBridgeTestDaggerActivity.class, new String[]{"1", "2"});
     }
 
     @Override
     public void init(Object data) {
-//        getView().showToast("I am here");
+
     }
 
     @Override
