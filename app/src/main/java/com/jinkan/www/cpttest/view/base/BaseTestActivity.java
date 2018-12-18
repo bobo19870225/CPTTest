@@ -24,7 +24,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 
 @SuppressLint("Registered")
-public class BaseTestDaggerActivity extends DialogDaggerActivity {
+public class BaseTestActivity extends DialogDaggerActivity {
 
     //    protected DrawChartHelper drawChartHelper;
     protected String strProjectNumber;
@@ -141,7 +141,7 @@ public class BaseTestDaggerActivity extends DialogDaggerActivity {
 //    public void showModifyDialog(String strDistance) {
 //        LayoutInflater layoutInflater = getLayoutInflater();
 //        View view = layoutInflater.inflate(R.layout.dialog_modify_distance, findViewById(R.id.dialog));
-//        final Dialog alertDialog = new AlertDialog.Builder(BaseTestDaggerActivity.this)
+//        final Dialog alertDialog = new AlertDialog.Builder(BaseTestActivity.this)
 //                .setView(view)
 //                .create();
 //        alertDialog.show();

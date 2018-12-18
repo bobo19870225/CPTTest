@@ -25,7 +25,7 @@
         <activity android:name=".view.NewTestActivity" />
 
 
-        <activity android:name=".view.SingleBridgeTestDaggerActivity" />
+        <activity android:name=".view.SingleBridgeTestActivity" />
 
     </application>
 

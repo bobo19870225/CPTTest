@@ -6,7 +6,8 @@ import android.view.ViewGroup;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.FragmentOrdinaryTestBinding;
-import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
+import com.jinkan.www.cpttest.db.dao.TestDao;
+import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.di.ActivityScoped;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.OrdinaryTestViewModel;
@@ -28,8 +29,7 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
     }
 
     @Inject
-    public
-    TestDaoHelper testDaoHelper;
+    TestDao testDao;
     @Override
     protected int setLayOutId() {
         return R.layout.fragment_ordinary_test;
@@ -47,6 +47,12 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
 
     @Override
     protected void setView() {
+        mViewModel.setTestDao(testDao);
+        mViewModel.getAllTestes().observe(this, testEntities -> {
+            TestEntity testEntity = testEntities.get(0);
+            goTo(SingleBridgeTestActivity.class,
+                    new String[]{testEntity.projectNumber, testEntity.holeNumber});
+        });
         mViewModel.action.observe(this, s -> {
             if (s.endsWith("NewTest")) {
                 goTo(NewTestActivity.class, null);
