@@ -8,10 +8,17 @@ import android.annotation.SuppressLint;
 import android.view.KeyEvent;
 
 import com.jinkan.www.cpttest.R;
+import com.jinkan.www.cpttest.databinding.ActivityBaseTestBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
+import com.jinkan.www.cpttest.db.entity.TestDataEntity;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
-import com.jinkan.www.cpttest.view.DialogDaggerActivity;
+import com.jinkan.www.cpttest.util.StringUtil;
+import com.jinkan.www.cpttest.view.DialogMVVMDaggerActivity;
+import com.jinkan.www.cpttest.view.chart.DrawChartHelper;
 import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,31 +31,35 @@ import androidx.lifecycle.ViewModelProviders;
 
 
 @SuppressLint("Registered")
-public class BaseTestActivity extends DialogDaggerActivity {
-
-    //    protected DrawChartHelper drawChartHelper;
-    protected String strProjectNumber;
-    protected String strHoleNumber;
-    protected BaseTestViewModel baseTestViewModel;
+public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> {
+    @Inject
+    DrawChartHelper drawChartHelper;
     @Inject
     TestDao testDao;
+    protected String strProjectNumber;
+    protected String strHoleNumber;
+
+
     @Override
-    protected void setView() {
+    protected void setMVVMView() {
         String[] strings = (String[]) mData;//1.mac,2.工程编号,3.孔号,4.试验类型
         mac = strings[0];
         strProjectNumber = strings[0];
         strHoleNumber = strings[1];
-        baseTestViewModel = ViewModelProviders.of(this).get(BaseTestViewModel.class);
-        baseTestViewModel.getTestParameters(testDao, strProjectNumber, strHoleNumber)
+
+        mViewModel.getTestParameters(testDao, strProjectNumber, strHoleNumber)
                 .observe(this, testEntities -> {
                     if (testEntities != null && !testEntities.isEmpty()) {
                         TestEntity testEntity = testEntities.get(0);
-                        baseTestViewModel.obsProjectNumber.set(testEntity.projectNumber);
-                        baseTestViewModel.obsHoleNumber.set(testEntity.holeNumber);
+                        mViewModel.obsProjectNumber.set(testEntity.projectNumber);
+                        mViewModel.obsHoleNumber.set(testEntity.holeNumber);
                     }
 
                 });
+
     }
+
+
 
 
     @Override
@@ -113,35 +124,40 @@ public class BaseTestActivity extends DialogDaggerActivity {
     }
 
 
-//    public void showTestData(List<TestDataEntity> testDataModels) {
-////        deep.setText(StringUtils.format(testDataModels.get(testDataModels.size() - 1).deep, 1));
-//        List<float[]> listPoints = new ArrayList<>();
-//        for (TestDataEntity testDataModel : testDataModels) {
-//            listPoints.add(new float[]{testDataModel.qc,
-//                    testDataModel.fs,
-//                    testDataModel.fa,
-//                    testDataModel.deep});
-//        }
-//        drawChartHelper.addPointsToChart(listPoints);
-//    }
+    public void showTestData(List<TestDataEntity> testDataModels) {
+        mViewDataBinding.deep.setText(StringUtil.format(testDataModels.get(testDataModels.size() - 1).deep, 1));
+        List<float[]> listPoints = new ArrayList<>();
+        for (TestDataEntity testDataModel : testDataModels) {
+            listPoints.add(new float[]{testDataModel.qc,
+                    testDataModel.fs,
+                    testDataModel.fa,
+                    testDataModel.deep});
+        }
+        drawChartHelper.addPointsToChart(listPoints);
+    }
 
-//    public void showRecordValue(float qc, float fs, float fa, float deep) {
-//        drawChartHelper.addOnePointToChart(new float[]{qc, fs, fa, deep});
-//    }
+    public void showRecordValue(float qc, float fs, float fa, float deep) {
+        drawChartHelper.addOnePointToChart(new float[]{qc, fs, fa, deep});
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK) {
-            baseTestViewModel.doRecord();
+            mViewModel.doRecord();
         }
         return true;
+    }
+
+    @Override
+    public BaseTestViewModel createdViewModel() {
+        return ViewModelProviders.of(this).get(BaseTestViewModel.class);
     }
 
 
 //    public void showModifyDialog(String strDistance) {
 //        LayoutInflater layoutInflater = getLayoutInflater();
 //        View view = layoutInflater.inflate(R.layout.dialog_modify_distance, findViewById(R.id.dialog));
-//        final Dialog alertDialog = new AlertDialog.Builder(BaseTestActivity.this)
+//        final Dialog alertDialog = new AlertDialog.Builder(BaseTestActivityMVVM.this)
 //                .setView(view)
 //                .create();
 //        alertDialog.show();

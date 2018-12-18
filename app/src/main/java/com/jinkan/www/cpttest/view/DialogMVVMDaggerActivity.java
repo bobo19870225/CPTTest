@@ -17,8 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jinkan.www.cpttest.R;
-import com.jinkan.www.cpttest.view.base.BaseDaggerActivity;
+import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
+import com.jinkan.www.cpttest.view_model.BaseViewModel;
 import com.jinkan.www.cpttest.view_model.IShowDialog;
+
+import androidx.databinding.ViewDataBinding;
 
 
 /**
@@ -26,12 +29,12 @@ import com.jinkan.www.cpttest.view_model.IShowDialog;
  * 显示各种对话框
  */
 
-public abstract class DialogDaggerActivity extends BaseDaggerActivity implements IShowDialog {
+public abstract class DialogMVVMDaggerActivity<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseMVVMDaggerActivity<VM, VDB> implements IShowDialog {
     private Dialog loadingDialog;
 
     @Override
     public void showWaitDialog(String msg, boolean isTransBg, boolean isCancelable) {
-        LayoutInflater inflater = LayoutInflater.from(DialogDaggerActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(DialogMVVMDaggerActivity.this);
         View v = inflater.inflate(R.layout.dialog_loading, null);             // 得到加载view
         RelativeLayout layout = v.findViewById(R.id.dialog_view);// 加载布局
 
@@ -39,12 +42,12 @@ public abstract class DialogDaggerActivity extends BaseDaggerActivity implements
         ImageView spaceshipImage = v.findViewById(R.id.img);
         TextView tipTextView = v.findViewById(R.id.tipTextView);   // 提示文字
         // 加载动画
-        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(DialogDaggerActivity.this, R.anim.rotate_animation);
+        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(DialogMVVMDaggerActivity.this, R.anim.rotate_animation);
         // 使用ImageView显示动画
         spaceshipImage.startAnimation(hyperspaceJumpAnimation);
         tipTextView.setText(msg);// 设置加载信息
 
-        loadingDialog = new Dialog(DialogDaggerActivity.this, isTransBg ? R.style.TransDialogStyle : R.style.WhiteDialogStyle);    // 创建自定义样式dialog
+        loadingDialog = new Dialog(DialogMVVMDaggerActivity.this, isTransBg ? R.style.TransDialogStyle : R.style.WhiteDialogStyle);    // 创建自定义样式dialog
         loadingDialog.setContentView(layout);
         loadingDialog.setCancelable(isCancelable);
         loadingDialog.setCanceledOnTouchOutside(false);

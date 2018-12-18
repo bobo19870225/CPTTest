@@ -44,13 +44,12 @@ android {
 
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Support libraries
     implementation deps.support.app_compat
     implementation deps.support.v4
     implementation deps.support.design
     implementation deps.support.cardview
-
     // Architecture components
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
@@ -63,23 +62,21 @@ dependencies {
     implementation deps.dagger.android_support
     annotationProcessor deps.dagger.android_support_compiler
     annotationProcessor deps.dagger.compiler
-//    annotationProcessor "com.google.dagger:dagger-compiler:2.16"
-//    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
-//    implementation "com.google.dagger:dagger:2.16"
-//    implementation "com.google.dagger:dagger-android:2.16"
-//    implementation "com.google.dagger:dagger-android-support:2.16"
-//    annotationProcessor "com.google.dagger:dagger-android-processor:2.16"
+    //    annotationProcessor "com.google.dagger:dagger-compiler:2.16"
+    //    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+    //    implementation "com.google.dagger:dagger:2.16"
+    //    implementation "com.google.dagger:dagger-android:2.16"
+    //    implementation "com.google.dagger:dagger-android-support:2.16"
+    //    annotationProcessor "com.google.dagger:dagger-android-processor:2.16"
     // Android Testing Support Library's runner and rules
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.atsl.rules
     androidTestImplementation deps.room.testing
     androidTestImplementation deps.arch_core.testing
-
     // Espresso UI Testing
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
     androidTestImplementation deps.espresso.intents
-
     // Resolve conflicts between main and test APK:
     androidTestImplementation deps.support.annotations
     androidTestImplementation deps.support.v4

@@ -12,14 +12,13 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 /**
  * Created by Sampson on 2018/4/12.
  * LastCPT
  */
-public class BaseTestViewModel extends AndroidViewModel implements ISkip {
+public class BaseTestViewModel extends BaseViewModel implements ISkip {
     public final ObservableField<String> obsProjectNumber = new ObservableField<>("");
     public final ObservableField<String> obsHoleNumber = new ObservableField<>("");
     public final ObservableField<String> obsProbeNumber = new ObservableField<>("");
@@ -44,6 +43,21 @@ public class BaseTestViewModel extends AndroidViewModel implements ISkip {
 
     public BaseTestViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    @Override
+    public void init(Object data) {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
+    @Override
+    public void clear() {
+
     }
 
 

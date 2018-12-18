@@ -2,8 +2,58 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "ef6a84f584d7560a20fa39aea1ea4d07",
+    "identityHash": "e6e4a597c5d28ce10aeed0de92cb34a3",
     "entities": [
+      {
+        "tableName": "testData",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`testDataID` TEXT NOT NULL, `probeID` TEXT, `deep` REAL NOT NULL, `qc` REAL NOT NULL, `fs` REAL NOT NULL, `fa` REAL NOT NULL, PRIMARY KEY(`testDataID`))",
+        "fields": [
+          {
+            "fieldPath": "testDataID",
+            "columnName": "testDataID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "probeID",
+            "columnName": "probeID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "deep",
+            "columnName": "deep",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qc",
+            "columnName": "qc",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fs",
+            "columnName": "fs",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fa",
+            "columnName": "fa",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "testDataID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
       {
         "tableName": "test",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`testID` TEXT NOT NULL, `testDate` TEXT, `projectNumber` TEXT, `holeNumber` TEXT, `holeHigh` REAL NOT NULL, `waterLevel` REAL NOT NULL, `location` TEXT, `tester` TEXT, `testType` TEXT, `testProbeType` TEXT, `testDataID` TEXT, PRIMARY KEY(`testID`))",
@@ -88,7 +138,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ef6a84f584d7560a20fa39aea1ea4d07\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e6e4a597c5d28ce10aeed0de92cb34a3\")"
     ]
   }
 }

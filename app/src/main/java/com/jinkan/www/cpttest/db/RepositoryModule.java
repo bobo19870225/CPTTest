@@ -3,6 +3,7 @@ package com.jinkan.www.cpttest.db;
 import android.app.Application;
 
 import com.jinkan.www.cpttest.db.dao.TestDao;
+import com.jinkan.www.cpttest.db.dao.TestDataDao;
 
 import javax.inject.Singleton;
 
@@ -30,5 +31,9 @@ abstract public class RepositoryModule {
         return db.testDao();
     }
 
-
+    @Singleton
+    @Provides
+    static TestDataDao provideTestDataDao(AppDatabase db) {
+        return db.testDataDao();
+    }
 }

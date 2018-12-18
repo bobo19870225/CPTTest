@@ -1,9 +1,9 @@
 package com.jinkan.www.cpttest.di;
 
+import com.jinkan.www.cpttest.view.base.BaseTestActivityMVVM;
 import com.jinkan.www.cpttest.view.main.MainActivity;
 import com.jinkan.www.cpttest.view.NewTestActivity;
-import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
-import com.jinkan.www.cpttest.view.base.BaseTestActivity;
+import com.jinkan.www.cpttest.view.SingleBridgeTestActivityMVVM;
 import com.jinkan.www.cpttest.view_model.BaseModule;
 import com.jinkan.www.cpttest.view_model.main.MainModule;
 import com.jinkan.www.cpttest.view_model.new_test.NewTestModule;
@@ -26,11 +26,11 @@ public abstract class ActivityBindingModule {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = BaseModule.class)
-    abstract SingleBridgeTestActivity singleBridgeTestActivity();
+    abstract SingleBridgeTestActivityMVVM singleBridgeTestActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = BaseModule.class)
-    abstract BaseTestActivity baseTestDaggerActivity();
+    abstract BaseTestActivityMVVM baseTestDaggerActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = MainModule.class)

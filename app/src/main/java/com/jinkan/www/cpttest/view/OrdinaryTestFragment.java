@@ -50,7 +50,7 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
         mViewModel.setTestDao(testDao);
         mViewModel.allTestes.observe(this, testEntities -> {
             TestEntity testEntity = testEntities.get(0);
-            goTo(SingleBridgeTestActivity.class,
+            goTo(SingleBridgeTestActivityMVVM.class,
                     new String[]{testEntity.projectNumber, testEntity.holeNumber});
         });
 
