@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.cpttest.view_model.NewTestViewModel" />
+            type="com.jinkan.www.cpttest.view_model.new_test.NewTestViewModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

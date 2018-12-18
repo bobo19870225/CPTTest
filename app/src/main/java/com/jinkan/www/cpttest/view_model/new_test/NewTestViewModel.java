@@ -1,10 +1,11 @@
-package com.jinkan.www.cpttest.view_model;
+package com.jinkan.www.cpttest.view_model.new_test;
 
 import android.app.Application;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.view_model.BaseViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;

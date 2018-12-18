@@ -9,7 +9,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.cpttest.view_model.MainViewModel" />
+            type="com.jinkan.www.cpttest.view_model.main.MainViewModel" />
     </data>
 
     <RelativeLayout

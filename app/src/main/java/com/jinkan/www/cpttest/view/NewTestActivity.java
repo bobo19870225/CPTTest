@@ -14,7 +14,7 @@ import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.parameter.SystemConstant;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
-import com.jinkan.www.cpttest.view_model.NewTestViewModel;
+import com.jinkan.www.cpttest.view_model.new_test.NewTestViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import static com.jinkan.www.cpttest.parameter.SystemConstant.SINGLE_BRIDGE_MULT
 import static com.jinkan.www.cpttest.parameter.SystemConstant.SINGLE_BRIDGE_TEST;
 import static com.jinkan.www.cpttest.parameter.SystemConstant.VANE_TEST;
 
-public class NewTestDaggerActivity extends BaseMVVMDaggerActivity<NewTestViewModel, ActivityNewTestBinding> {
+public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, ActivityNewTestBinding> {
 
     private boolean isWireless;
 

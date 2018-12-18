@@ -1,13 +1,12 @@
 package com.jinkan.www.cpttest.di;
 
-import com.jinkan.www.cpttest.view.MainActivity;
-import com.jinkan.www.cpttest.view.NewTestDaggerActivity;
+import com.jinkan.www.cpttest.view.main.MainActivity;
+import com.jinkan.www.cpttest.view.NewTestActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestDaggerActivity;
-import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view.base.BaseTestDaggerActivity;
 import com.jinkan.www.cpttest.view_model.BaseModule;
-import com.jinkan.www.cpttest.view_model.MainModule;
-import com.jinkan.www.cpttest.view_model.NewTestModule;
+import com.jinkan.www.cpttest.view_model.main.MainModule;
+import com.jinkan.www.cpttest.view_model.new_test.NewTestModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -23,7 +22,7 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = NewTestModule.class)
-    abstract NewTestDaggerActivity newTestDaggerActivity();
+    abstract NewTestActivity newTestDaggerActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = BaseModule.class)

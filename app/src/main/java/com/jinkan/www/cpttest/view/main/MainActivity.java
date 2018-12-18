@@ -2,7 +2,7 @@
  * Copyright (c) 2018. 代码著作权归卢声波所有。
  */
 
-package com.jinkan.www.cpttest.view;
+package com.jinkan.www.cpttest.view.main;
 
 import android.app.AlertDialog;
 import android.os.Handler;
@@ -17,9 +17,10 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityMainBinding;
+import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
 import com.jinkan.www.cpttest.view.adapter.MyPagerAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
-import com.jinkan.www.cpttest.view_model.MainViewModel;
+import com.jinkan.www.cpttest.view_model.main.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

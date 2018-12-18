@@ -1,7 +1,9 @@
-package com.jinkan.www.cpttest.view_model;
+package com.jinkan.www.cpttest.view_model.main;
 
 import android.app.Application;
 import android.content.Intent;
+
+import com.jinkan.www.cpttest.view_model.BaseViewModel;
 
 import androidx.annotation.NonNull;
 

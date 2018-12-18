@@ -49,7 +49,7 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
     protected void setView() {
         mViewModel.action.observe(this, s -> {
             if (s.endsWith("NewTest")) {
-                goTo(NewTestDaggerActivity.class, null);
+                goTo(NewTestActivity.class, null);
             }
         });
 

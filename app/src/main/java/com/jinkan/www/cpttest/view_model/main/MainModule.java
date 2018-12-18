@@ -1,4 +1,4 @@
-package com.jinkan.www.cpttest.view_model;
+package com.jinkan.www.cpttest.view_model.main;
 
 import com.jinkan.www.cpttest.di.FragmentScoped;
 import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
