@@ -9,7 +9,7 @@ import com.jinkan.www.cpttest.db.entity.TestEntity;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 /**
@@ -23,20 +23,15 @@ public class OrdinaryTestViewModel extends BaseViewModel {
         super(application);
     }
 
-    public LiveData<List<TestEntity>> allTestes = new MutableLiveData<>();
     private TestDao testDao;
-    public MutableLiveData<String> action = new MutableLiveData<>();
-
+    public final MutableLiveData<String> action = new MutableLiveData<>();
+    public final MediatorLiveData<List<TestEntity>> allTestes = new MediatorLiveData<>();
     public void newTest() {
         action.setValue("NewTest");
     }
 
     public void reDoTest() {
-        allTestes = testDao.getAllTestes();
-    }
-
-    public LiveData<List<TestEntity>> getAllTestes() {
-        return allTestes;
+        allTestes.addSource(testDao.getAllTestes(), allTestes::setValue);
     }
 
     public void showHistoryData() {
