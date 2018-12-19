@@ -5,7 +5,10 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.db.dao.TestDao;
+import com.jinkan.www.cpttest.db.dao.TestDataDao;
+import com.jinkan.www.cpttest.db.entity.TestDataEntity;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 
 import java.util.ArrayList;
@@ -43,15 +46,16 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     private boolean isIdentification;
     private String probeID;
     private TestEntity testModel;
-
+    private TestDataDao testDataDao;
     public BaseTestViewModel(@NonNull Application application) {
         super(application);
     }
 
     @Override
-    public void init(Object data) {
-
+    public void inject(Object... objects) {
+        testDataDao = (TestDataDao) objects[0];
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -93,8 +97,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
         Float faEffectiveValue = obsFaEffectiveValue.get();
         if (faEffectiveValue != null)
             testDataModel.fa = faEffectiveValue;
-        TestDataDaoForRoom testDataDaoForRoom = AppDatabase.getInstance(getView().getApplicationContext()).testDataDaoForRoom();
-        testDataDaoForRoom.insertTestDataEntity(testDataModel);
+        testDataDao.insertTestDataEntity(testDataModel);
         Boolean aBoolean = obsIsShock.get();
         if (aBoolean != null)
             if (aBoolean) {
@@ -304,54 +307,20 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
 
     private List mModels = new ArrayList();
 
-    public void saveTestDataToSD(final String fileType) {
-        TestDataDaoForRoom testDataDaoForRoom = AppDatabase.getInstance(getView().getApplicationContext()).testDataDaoForRoom();
-        LiveData<List<TestDataEntity>> liveData = testDataDaoForRoom.getTestDataByTestId(testModel.projectNumber + "_" + testModel.holeNumber);
-        List<TestDataEntity> testDataEntities = liveData.getValue();
-        if (testDataEntities != null && !testDataEntities.isEmpty()) {
-            mModels = testDataEntities;
-            DataUtils.getInstance()
-                    .saveDataToSd(getView().getApplicationContext(),
-                            testDataEntities,
-                            fileType,
-                            testModel,
-                            BaseTestViewModel.this);
-        } else {
-            toast.setValue("读取数据失败！");
-        }
-
-//        TestDataDao testDataData = DataFactory.getBaseData(TestDataDao.class);
-//        testDataData.getData(new DataLoadCallBack<TestDataModel>() {
-//
-//            @Override
-//            public void onDataLoaded(List<TestDataModel> models) {
-//                mModels = models;
-//                DataUtil.getInstance()
-//                        .saveDataToSd(getView().getApplicationContext(),
-//                                models,
-//                                fileType,
-//                                testModel,
-//                                BaseTestViewModel.this);
-//            }
-//
-//            @Override
-//            public void onDataNotAvailable() {
-//                myView.get().showToast("读取数据失败！");
-//            }
-//        }, testModel.projectNumber + "_" + testModel.holeNumber);
+    public LiveData<List<TestDataEntity>> saveTestDataToSD(final String fileType, DataUtil dataUtil, TestDataDao testDataDao) {
+        return testDataDao.getTestDataByTestId(testModel.projectNumber + "_" + testModel.holeNumber);
 
     }
 
     private String mFileType;
 
-    public void emailTestData(String fileType) {
+    public void emailTestData(String fileType, DataUtil dataUtil) {
         mFileType = fileType;
-        sendEmail();
+        sendEmail(dataUtil);
     }
 
-    private void sendEmail() {
-        DataUtils.getInstance().emailData(
-                getView().getApplicationContext(),
+    private void sendEmail(DataUtil dataUtil) {
+        dataUtil.emailData(
                 mModels,
                 mFileType,
                 testModel,

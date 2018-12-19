@@ -17,8 +17,10 @@ import android.widget.EditText;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityBaseTestBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
+import com.jinkan.www.cpttest.db.dao.TestDataDao;
 import com.jinkan.www.cpttest.db.entity.TestDataEntity;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.view.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view.chart.DrawChartHelper;
@@ -29,7 +31,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import static com.jinkan.www.cpttest.util.SystemConstant.EMAIL_TYPE_HN_111;
@@ -54,9 +55,20 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
     DrawChartHelper drawChartHelper;
     @Inject
     TestDao testDao;
+    @Inject
+    TestDataDao testDataDao;
+    @Inject
+    ProbeDao probeDao;
+    @Inject
+    DataUtil dataUtil;
     protected String strProjectNumber;
     protected String strHoleNumber;
     private String mac;
+
+    @Override
+    protected Object[] injectToViewModel() {
+        return new Object[]{testDataDao, probeDao};
+    }
 
     @Override
     protected void setMVVMView() {
@@ -111,8 +123,16 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
                 .setTitle("请选择发送的数据类型")
                 .setSingleChoiceItems(emailItems, 0, (dialog, which) -> emailType = emailItems[which])
                 .setPositiveButton("确定", (dialog, which) -> {
-                    mViewModel.saveTestDataToSD(emailType);
-                    mViewModel.emailTestData(emailType);
+                    mViewModel.saveTestDataToSD(emailType, dataUtil, testDataDao)
+                            .observe(this, testDataEntities -> {
+                                if (testDataEntities != null && !testDataEntities.isEmpty()) {
+                                    mModels = testDataEntities;
+                                    dataUtil.saveDataToSd(testDataEntities, fileType, testModel, mViewModel);
+                                } else {
+                                    showToast("读取数据失败！");
+                                }
+                            });
+                    mViewModel.emailTestData(emailType, dataUtil);
                 })
                 .setNegativeButton("取消", (dialog, which) -> {
                     emailType = emailItems[0];
@@ -129,7 +149,7 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
         Dialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("请选择要保存的数据类型")
                 .setSingleChoiceItems(saveItems, 0, (dialog, which) -> saveType = saveItems[which])
-                .setPositiveButton("确定", (dialog, which) -> mViewModel.saveTestDataToSD(saveType))
+                .setPositiveButton("确定", (dialog, which) -> mViewModel.saveTestDataToSD(saveType, dataUtil, testDataDao))
                 .setNegativeButton("取消", (dialog, which) -> {
                     saveType = saveItems[0];
                     dialog.dismiss();

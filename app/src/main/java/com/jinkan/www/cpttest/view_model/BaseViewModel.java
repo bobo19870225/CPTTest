@@ -24,7 +24,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
     }
 
 
-    public abstract void init(Object data);
+    public abstract void inject(Object... objects);
 
     public abstract void onActivityResult(int requestCode, int resultCode, Intent data);
 

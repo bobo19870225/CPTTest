@@ -41,6 +41,7 @@ import static com.jinkan.www.cpttest.util.SystemConstant.SAVE_TYPE_ZHD_TXT;
  */
 
 public class DataUtil {
+    private Context context;
     private static final float PI = 3.1415F;
     public static final int SET_EMAIL = 1;
     //    private static volatile DataUtil INSTANCE;
@@ -63,13 +64,12 @@ public class DataUtil {
 //        return INSTANCE;
 //    }
     @Inject
-    private DataUtil() {
-        //mISkip = iSkip;
+    private DataUtil(Context context) {
+        this.context = context;
     }
 
     @SuppressWarnings("unchecked")
-    public void saveDataToSd(
-            final Context context, List models, String saveType, Object testModel, final ISkip iSkip) {
+    public void saveDataToSd(List models, String saveType, Object testModel, final ISkip iSkip) {
         StringBuilder content = new StringBuilder();
         String strReturn = "\r\n";
         String strTable = "\t";
@@ -490,7 +490,7 @@ public class DataUtil {
     private Float maxCu = 0f;
 
     @SuppressWarnings("unchecked")
-    public void saveDataToSd(final Context context, List<CrossTestDataEntity> models, TestEntity testModel, final ISkip iSkip) {
+    public void saveDataToSd(List<CrossTestDataEntity> models, TestEntity testModel, final ISkip iSkip) {
         StringBuilder content = new StringBuilder();
         String strReturn = "\r\n";
         String strTable = "\t";
@@ -668,7 +668,7 @@ public class DataUtil {
         }
     }
 
-    public void emailData(Context context, List models, String saveType, Object testModel, ISkip iSkip) {
+    public void emailData(List models, String saveType, Object testModel, ISkip iSkip) {
         String fileName = null;
         String name = null;
         if (testModel instanceof TestEntity) {
@@ -708,10 +708,10 @@ public class DataUtil {
                 && StringUtil.isNotEmpty(sEmailPassword)
                 && StringUtil.isNotEmpty(rEmail)) {
             if (MyFileUtil.fileIsExists(fileName)) {
-                sendFile(context, fileName, sEmail, sEmailPassword, rEmail, iSkip);
+                sendFile(fileName, sEmail, sEmailPassword, rEmail, iSkip);
             } else {
-                saveDataToSd(context, models, saveType, testModel, iSkip);
-                sendFile(context, fileName, sEmail, sEmailPassword, rEmail, iSkip);
+                saveDataToSd(models, saveType, testModel, iSkip);
+                sendFile(fileName, sEmail, sEmailPassword, rEmail, iSkip);
             }
 
         } else {
@@ -719,7 +719,7 @@ public class DataUtil {
         }
     }
 
-    public void emailData(Context context, List<CrossTestDataEntity> models, TestEntity testModel, ISkip iSkip) {
+    public void emailData(List<CrossTestDataEntity> models, TestEntity testModel, ISkip iSkip) {
         String fileName = testModel.projectNumber + "_" + testModel.holeNumber + ".txt";
         Map<String, String> emailPreferences = preferencesUtil.getEmailPreferences();
         String sEmail = emailPreferences.get("sEmail");
@@ -729,10 +729,10 @@ public class DataUtil {
                 && StringUtil.isNotEmpty(sEmailPassword)
                 && StringUtil.isNotEmpty(rEmail)) {
             if (MyFileUtil.fileIsExists(fileName)) {
-                sendFile(context, fileName, sEmail, sEmailPassword, rEmail, iSkip);
+                sendFile(fileName, sEmail, sEmailPassword, rEmail, iSkip);
             } else {
-                saveDataToSd(context, models, testModel, iSkip);
-                sendFile(context, fileName, sEmail, sEmailPassword, rEmail, iSkip);
+                saveDataToSd(models, testModel, iSkip);
+                sendFile(fileName, sEmail, sEmailPassword, rEmail, iSkip);
             }
 
         } else {
@@ -741,7 +741,6 @@ public class DataUtil {
     }
 
     private void sendFile(
-            Context context,
             String fileName,
             String sEmail,
             String sEmailPassword,

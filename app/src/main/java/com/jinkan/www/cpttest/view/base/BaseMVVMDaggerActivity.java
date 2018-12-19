@@ -5,13 +5,11 @@
 package com.jinkan.www.cpttest.view.base;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.jinkan.www.cpttest.BR;
 import com.jinkan.www.cpttest.view.MVVMView;
 import com.jinkan.www.cpttest.view_model.BaseViewModel;
 
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
@@ -25,13 +23,6 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
     protected VM mViewModel;
     protected VDB mViewDataBinding;
 
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Override
     protected final void setView() {
@@ -41,8 +32,11 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
             mViewModel = createdViewModel();
             mViewDataBinding.setVariable(BR.model, mViewModel);
         }
+        mViewModel.inject(injectToViewModel());
         setMVVMView();
     }
+
+    protected abstract Object[] injectToViewModel();
 
     protected abstract void setMVVMView();
 
