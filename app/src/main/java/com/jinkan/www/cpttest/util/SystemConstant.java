@@ -2,7 +2,7 @@
  * Copyright (c) 2018. 代码著作权归卢声波所有。
  */
 
-package com.jinkan.www.cpttest.parameter;
+package com.jinkan.www.cpttest.util;
 
 import java.util.UUID;
 
@@ -32,7 +32,7 @@ public class SystemConstant {
     public static final String DOUBLE_BRIDGE_4 = "双桥4型";
     public static final String DOUBLE_BRIDGE_6 = "双桥6型";
     public static final String VANE = "十字板";
-    //    public static final String APP_ID = "1106510070";
+//    public static final String APP_ID = "1106510070";
 //    public static final String APP_KEY = "mrCPpB1zl3qyhmWi";
 //    public static final String JPUSH_APP_KEY = "e87122fdb968a4fd6512bc2d";
     public static final String TX_CHANNEL_NUMBER = "1003143";

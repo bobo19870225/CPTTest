@@ -26,6 +26,7 @@
 
 
         <activity android:name=".view.SingleBridgeTestActivityMVVM" />
+        <activity android:name=".view.SetEmailActivity" />
 
     </application>
 
