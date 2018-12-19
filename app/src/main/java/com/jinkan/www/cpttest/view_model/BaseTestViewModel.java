@@ -2,6 +2,8 @@ package com.jinkan.www.cpttest.view_model;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.db.dao.ProbeDao;
@@ -13,9 +15,13 @@ import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.util.VibratorUtil;
+import com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService;
+import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
@@ -54,6 +60,10 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     private TestDataDao testDataDao;
     private ProbeDao probeDao;
     private VibratorUtil vibratorUtil;
+    private BluetoothUtil bluetoothUtil;
+    @Inject
+    BluetoothCommService bluetoothCommService;
+
     public BaseTestViewModel(@NonNull Application application) {
         super(application);
     }
@@ -63,6 +73,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
         testDataDao = (TestDataDao) objects[0];
         probeDao = (ProbeDao) objects[1];
         vibratorUtil = (VibratorUtil) objects[2];
+        bluetoothUtil = (BluetoothUtil) objects[3];
     }
 
 
@@ -271,8 +282,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     public void linkDevice(String mac) {
 
         getView().showWaitDialog("正在连接蓝牙", false, false);
-        BluetoothAdapter bluetoothAdapter = BluetoothUtils.getInstance().
-                getBluetoothAdapter();
+        BluetoothAdapter bluetoothAdapter = bluetoothUtil.getBluetoothAdapter();
         if (bluetoothAdapter.isEnabled()) {// 蓝牙已打开
             BluetoothDevice bluetoothDevice = bluetoothAdapter.getRemoteDevice(mac);
             bluetoothCommService.connect(bluetoothDevice);
