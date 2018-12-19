@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Intent;
 
+import com.jinkan.www.cpttest.db.dao.ProbeDao;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.dao.TestDataDao;
+import com.jinkan.www.cpttest.db.entity.ProbeEntity;
 import com.jinkan.www.cpttest.db.entity.TestDataEntity;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
+import com.jinkan.www.cpttest.util.VibratorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 /**
@@ -43,10 +47,13 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     public final ObservableField<Boolean> obsIsShock = new ObservableField<>(false);
     public final MutableLiveData<String> action = new MutableLiveData<>();
     public final MutableLiveData<String> toast = new MutableLiveData<>();
+    public final MediatorLiveData<List<ProbeEntity>> loadProbe = new MediatorLiveData<>();
     private boolean isIdentification;
     private String probeID;
     private TestEntity testModel;
     private TestDataDao testDataDao;
+    private ProbeDao probeDao;
+    private VibratorUtil vibratorUtil;
     public BaseTestViewModel(@NonNull Application application) {
         super(application);
     }
@@ -54,6 +61,8 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     @Override
     public void inject(Object... objects) {
         testDataDao = (TestDataDao) objects[0];
+        probeDao = (ProbeDao) objects[1];
+        vibratorUtil = (VibratorUtil) objects[2];
     }
 
 
@@ -101,7 +110,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
         Boolean aBoolean = obsIsShock.get();
         if (aBoolean != null)
             if (aBoolean) {
-                VibratorUtils.Vibrate(myView.get(), 200);
+                vibratorUtil.Vibrate(200);
             }
         if (qcEffectiveValue != null && fsEffectiveValue != null && faEffectiveValue != null && aFloat != null)
             myView.get().showRecordValue(qcEffectiveValue, fsEffectiveValue, faEffectiveValue, aFloat);
@@ -193,38 +202,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
         if (!isIdentification) {
             isIdentification = true;
             probeID = sn;
-            ProbeDaoForRoom probeDaoForRoom = AppDatabase.getInstance(getView().getApplicationContext()).probeDaoForRoom();
-            LiveData<List<ProbeEntity>> liveData = probeDaoForRoom.getProbeByProbeId(sn);
-            List<ProbeEntity> probeEntities = liveData.getValue();
-            if (probeEntities != null && !probeEntities.isEmpty()) {
-                ProbeEntity probeModel = probeEntities.get(0);
-                obsProbeNumber.set(probeModel.number);
-                obsQcCoefficient.set(String.valueOf(probeModel.qc_coefficient));
-                obsQcLimit.set(String.valueOf(probeModel.qc_limit));
-                obsFsCoefficient.set(String.valueOf(probeModel.fs_coefficient));
-                obsFsLimit.set(String.valueOf(probeModel.fs_limit));
-            } else {
-                toast.setValue("该探头未添加到探头列表中，暂时不能使用，请在探头列表里添加该探头");
-            }
-
-//            ProbeDao probeDao = DataFactory.getBaseData(ProbeDao.class);
-//            probeDao.getData(new DataLoadCallBack<ProbeModel>() {
-//
-//                @Override
-//                public void onDataLoaded(List<ProbeModel> models) {
-//                    ProbeModel probeModel = models.get(0);
-//                    obsProbeNumber.set(probeModel.number);
-//                    obsQcCoefficient.set(String.valueOf(probeModel.qc_coefficient));
-//                    obsQcLimit.set(String.valueOf(probeModel.qc_limit));
-//                    obsFsCoefficient.set(String.valueOf(probeModel.fs_coefficient));
-//                    obsFsLimit.set(String.valueOf(probeModel.fs_limit));
-//                }
-//
-//                @Override
-//                public void onDataNotAvailable() {
-//                    myView.get().showToast("该探头未添加到探头列表中，暂时不能使用，请在探头列表里添加该探头");
-//                }
-//            }, sn);
+            loadProbe.addSource(probeDao.getProbeByProbeId(sn), loadProbe::setValue);
         }
 
     }

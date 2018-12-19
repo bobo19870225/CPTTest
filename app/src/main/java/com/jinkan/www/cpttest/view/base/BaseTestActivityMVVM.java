@@ -16,12 +16,15 @@ import android.widget.EditText;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityBaseTestBinding;
+import com.jinkan.www.cpttest.db.dao.ProbeDao;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.dao.TestDataDao;
+import com.jinkan.www.cpttest.db.entity.ProbeEntity;
 import com.jinkan.www.cpttest.db.entity.TestDataEntity;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
+import com.jinkan.www.cpttest.util.VibratorUtil;
 import com.jinkan.www.cpttest.view.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view.chart.DrawChartHelper;
 import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
@@ -61,13 +64,15 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
     ProbeDao probeDao;
     @Inject
     DataUtil dataUtil;
+    @Inject
+    VibratorUtil vibratorUtil;
     protected String strProjectNumber;
     protected String strHoleNumber;
     private String mac;
 
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[]{testDataDao, probeDao};
+        return new Object[]{testDataDao, probeDao, vibratorUtil};
     }
 
     @Override
@@ -83,6 +88,19 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
                     showModifyDialog(mViewModel.obsStringDeepDistance.get());
                     break;
             }
+        });
+        mViewModel.loadProbe.observe(this, probeEntities -> {
+            if (probeEntities != null && !probeEntities.isEmpty()) {
+                ProbeEntity probeModel = probeEntities.get(0);
+                mViewModel.obsProbeNumber.set(probeModel.number);
+                mViewModel.obsQcCoefficient.set(String.valueOf(probeModel.qc_coefficient));
+                mViewModel.obsQcLimit.set(String.valueOf(probeModel.qc_limit));
+                mViewModel.obsFsCoefficient.set(String.valueOf(probeModel.fs_coefficient));
+                mViewModel.obsFsLimit.set(String.valueOf(probeModel.fs_limit));
+            } else {
+                showToast("该探头未添加到探头列表中，暂时不能使用，请在探头列表里添加该探头");
+            }
+
         });
         mViewModel.getTestParameters(testDao, strProjectNumber, strHoleNumber)
                 .observe(this, testEntities -> {
