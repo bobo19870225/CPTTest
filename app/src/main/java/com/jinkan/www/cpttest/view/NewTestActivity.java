@@ -47,7 +47,7 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
         mViewModel.toastMsg.observe(this, this::showToast);
         mViewModel.ifGoTo.observe(this, aBoolean -> {
             if (aBoolean)
-                goTo(SingleBridgeTestActivityMVVM.class, new String[]{mViewModel.obsProjectNumber.getValue(), mViewModel.obsHoleNumber.getValue()});
+                goTo(SingleBridgeTestActivity.class, new String[]{mViewModel.obsProjectNumber.getValue(), mViewModel.obsHoleNumber.getValue()});
         });
         mViewModel.setTestDaoHelper(testDaoHelper);
     }

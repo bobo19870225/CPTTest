@@ -27,6 +27,8 @@ import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.util.VibratorUtil;
+import com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService;
+import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
 import com.jinkan.www.cpttest.view.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view.chart.DrawChartHelper;
 import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
@@ -56,7 +58,7 @@ import static com.jinkan.www.cpttest.util.SystemConstant.SAVE_TYPE_ZHD_TXT;
 
 
 @SuppressLint("Registered")
-public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> implements ISkip {
+public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> implements ISkip {
     @Inject
     DrawChartHelper drawChartHelper;
     @Inject
@@ -69,13 +71,24 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
     DataUtil dataUtil;
     @Inject
     VibratorUtil vibratorUtil;
+    @Inject
+    BluetoothUtil bluetoothUtil;
+    @Inject
+    BluetoothCommService bluetoothCommService;
+
     protected String strProjectNumber;
     protected String strHoleNumber;
     private String mac;
     private TestEntity testEntity;
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[]{testDataDao, probeDao, vibratorUtil, this};
+        return new Object[]{
+                testDataDao,
+                probeDao,
+                vibratorUtil,
+                bluetoothUtil,
+                bluetoothCommService,
+                this};
     }
 
     @Override
@@ -247,7 +260,7 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
     public void showModifyDialog(String strDistance) {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_modify_distance, findViewById(R.id.dialog));
-        final Dialog alertDialog = new AlertDialog.Builder(BaseTestActivityMVVM.this)
+        final Dialog alertDialog = new AlertDialog.Builder(BaseTestActivity.this)
                 .setView(view)
                 .create();
         alertDialog.show();

@@ -21,8 +21,6 @@ import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
@@ -63,8 +61,7 @@ public class BaseTestViewModel extends BaseViewModel {
     private VibratorUtil vibratorUtil;
     private BluetoothUtil bluetoothUtil;
     private ISkip iSkip;
-    @Inject
-    BluetoothCommService bluetoothCommService;
+    private BluetoothCommService bluetoothCommService;
 
     public BaseTestViewModel(@NonNull Application application) {
         super(application);
@@ -76,6 +73,7 @@ public class BaseTestViewModel extends BaseViewModel {
         probeDao = (ProbeDao) objects[1];
         vibratorUtil = (VibratorUtil) objects[2];
         bluetoothUtil = (BluetoothUtil) objects[3];
+        bluetoothCommService = (BluetoothCommService) objects[4];
         iSkip = (ISkip) objects[4];
     }
 
