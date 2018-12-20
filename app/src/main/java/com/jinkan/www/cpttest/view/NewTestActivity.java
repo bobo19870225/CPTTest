@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityNewTestBinding;
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
-import com.jinkan.www.cpttest.parameter.SystemConstant;
+import com.jinkan.www.cpttest.util.SystemConstant;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.new_test.NewTestViewModel;
@@ -21,11 +21,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_MULTI_TEST;
-import static com.jinkan.www.cpttest.parameter.SystemConstant.DOUBLE_BRIDGE_TEST;
-import static com.jinkan.www.cpttest.parameter.SystemConstant.SINGLE_BRIDGE_MULTI_TEST;
-import static com.jinkan.www.cpttest.parameter.SystemConstant.SINGLE_BRIDGE_TEST;
-import static com.jinkan.www.cpttest.parameter.SystemConstant.VANE_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.DOUBLE_BRIDGE_MULTI_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.DOUBLE_BRIDGE_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.SINGLE_BRIDGE_MULTI_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.SINGLE_BRIDGE_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.VANE_TEST;
 
 public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, ActivityNewTestBinding> {
 
@@ -35,6 +35,12 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
     NewTestViewModel newTestViewModel;
     @Inject
     TestDaoHelper testDaoHelper;
+
+    @Override
+    protected Object[] injectToViewModel() {
+        return new Object[0];
+    }
+
     @Override
     protected void setMVVMView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());

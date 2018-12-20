@@ -33,7 +33,7 @@ import androidx.lifecycle.MutableLiveData;
  * Created by Sampson on 2018/4/12.
  * LastCPT
  */
-public class BaseTestViewModel extends BaseViewModel implements ISkip {
+public class BaseTestViewModel extends BaseViewModel {
     public final ObservableField<String> obsProjectNumber = new ObservableField<>("");
     public final ObservableField<String> obsHoleNumber = new ObservableField<>("");
     public final ObservableField<String> obsProbeNumber = new ObservableField<>("");
@@ -54,6 +54,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     public final MutableLiveData<String> action = new MutableLiveData<>();
     public final MutableLiveData<String> toast = new MutableLiveData<>();
     public final MediatorLiveData<List<ProbeEntity>> loadProbe = new MediatorLiveData<>();
+    public final MutableLiveData<float[]> recordValue = new MutableLiveData<>();
     private boolean isIdentification;
     private String probeID;
     private TestEntity testModel;
@@ -61,6 +62,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     private ProbeDao probeDao;
     private VibratorUtil vibratorUtil;
     private BluetoothUtil bluetoothUtil;
+    private ISkip iSkip;
     @Inject
     BluetoothCommService bluetoothCommService;
 
@@ -74,6 +76,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
         probeDao = (ProbeDao) objects[1];
         vibratorUtil = (VibratorUtil) objects[2];
         bluetoothUtil = (BluetoothUtil) objects[3];
+        iSkip = (ISkip) objects[4];
     }
 
 
@@ -124,31 +127,13 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
                 vibratorUtil.Vibrate(200);
             }
         if (qcEffectiveValue != null && fsEffectiveValue != null && faEffectiveValue != null && aFloat != null)
-            myView.get().showRecordValue(qcEffectiveValue, fsEffectiveValue, faEffectiveValue, aFloat);
+            recordValue.setValue(new float[]{qcEffectiveValue, fsEffectiveValue, faEffectiveValue, aFloat});
+//            myView.get().showRecordValue(qcEffectiveValue, fsEffectiveValue, faEffectiveValue, aFloat);
     }
 
 
-    private void loadTestData(String testDataID) {
-//        TestDataDaoForRoom testDataDaoForRoom = AppDatabase.getInstance(getView().getApplicationContext()).testDataDaoForRoom();
-//        LiveData<List<TestDataEntity>> liveData = testDataDaoForRoom.getTestDataByTestId(testDataID);
-//        List<TestDataEntity> testDataEntities = liveData.getValue();
-//        if (testDataEntities != null && !testDataEntities.isEmpty()) {
-//            myView.get().showTestData(testDataEntities);
-//            obsTestDeep.set(testDataEntities.get(testDataEntities.size() - 1).deep);
-//        }
-//        testDataData.getData(new DataLoadCallBack<TestDataModel>() {
-//
-//            @Override
-//            public void onDataLoaded(List<TestDataModel> models) {
-//                myView.get().showTestData(models);
-//                obsTestDeep.set(models.get(models.size() - 1).deep);
-//            }
-//
-//            @Override
-//            public void onDataNotAvailable() {
-//
-//            }
-//        }, testDataID);
+    public LiveData<List<TestDataEntity>> loadTestData(String testDataID) {
+        return testDataDao.getTestDataByTestId(testDataID);
     }
 
 
@@ -280,22 +265,22 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     }
 
     public void linkDevice(String mac) {
-
-        getView().showWaitDialog("正在连接蓝牙", false, false);
+        action.setValue("showWaitDialog");
+//        getView().showWaitDialog("正在连接蓝牙", false, false);
         BluetoothAdapter bluetoothAdapter = bluetoothUtil.getBluetoothAdapter();
         if (bluetoothAdapter.isEnabled()) {// 蓝牙已打开
             BluetoothDevice bluetoothDevice = bluetoothAdapter.getRemoteDevice(mac);
             bluetoothCommService.connect(bluetoothDevice);
         } else {
             // 蓝牙没有打开，调用系统方法要求用户打开蓝牙
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            myView.get().startActivityForResult(intent, 0);
+            action.setValue("startActivityForResult");
+//            myView.get().startActivityForResult(intent, 0);
         }
     }
 
     private List mModels = new ArrayList();
 
-    public LiveData<List<TestDataEntity>> saveTestDataToSD(final String fileType, DataUtil dataUtil, TestDataDao testDataDao) {
+    public LiveData<List<TestDataEntity>> saveTestDataToSD() {
         return testDataDao.getTestDataByTestId(testModel.projectNumber + "_" + testModel.holeNumber);
 
     }
@@ -308,26 +293,7 @@ public class BaseTestViewModel extends BaseViewModel implements ISkip {
     }
 
     private void sendEmail(DataUtil dataUtil) {
-        dataUtil.emailData(
-                mModels,
-                mFileType,
-                testModel,
-                this);
-    }
-
-    @Override
-    public void skipForResult(Intent intent, int requestCode) {
-//        getView().startActivityForResult(intent, requestCode);
-    }
-
-    @Override
-    public void skip(Intent intent) {
-
-    }
-
-    @Override
-    public void sendToastMsg(String msg) {
-        toast.setValue(msg);
+        dataUtil.emailData(mModels, mFileType, testModel, iSkip);
     }
 
     public void setDistance(String distance) {

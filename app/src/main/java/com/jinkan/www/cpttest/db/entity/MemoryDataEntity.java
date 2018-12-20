@@ -1,6 +1,8 @@
 package com.jinkan.www.cpttest.db.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 /**
  * Created by Sampson on 2018/12/11.
@@ -8,6 +10,8 @@ import androidx.room.Entity;
  */
 @Entity(tableName = "memoryData")
 public class MemoryDataEntity {
+    @NonNull
+    @PrimaryKey
     public String probeID;
     public String probeNo;
     public String type;

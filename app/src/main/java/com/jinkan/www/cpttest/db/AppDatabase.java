@@ -2,10 +2,30 @@ package com.jinkan.www.cpttest.db;
 
 import android.content.Context;
 
+import com.jinkan.www.cpttest.db.dao.CalibrationProbeDao;
+import com.jinkan.www.cpttest.db.dao.CalibrationVerificationDao;
+import com.jinkan.www.cpttest.db.dao.CrossTestDataDao;
+import com.jinkan.www.cpttest.db.dao.MemoryDataDao;
+import com.jinkan.www.cpttest.db.dao.MsgDao;
+import com.jinkan.www.cpttest.db.dao.ProbeDao;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.dao.TestDataDao;
+import com.jinkan.www.cpttest.db.dao.WirelessProbeDao;
+import com.jinkan.www.cpttest.db.dao.WirelessResultDataDao;
+import com.jinkan.www.cpttest.db.dao.WirelessTestDao;
+import com.jinkan.www.cpttest.db.dao.WirelessTestDataDao;
+import com.jinkan.www.cpttest.db.entity.CalibrationProbeEntity;
+import com.jinkan.www.cpttest.db.entity.CalibrationVerificationEntity;
+import com.jinkan.www.cpttest.db.entity.CrossTestDataEntity;
+import com.jinkan.www.cpttest.db.entity.MemoryDataEntity;
+import com.jinkan.www.cpttest.db.entity.MsgDataEntity;
+import com.jinkan.www.cpttest.db.entity.ProbeEntity;
 import com.jinkan.www.cpttest.db.entity.TestDataEntity;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.db.entity.WirelessProbeEntity;
+import com.jinkan.www.cpttest.db.entity.WirelessResultDataEntity;
+import com.jinkan.www.cpttest.db.entity.WirelessTestDataEntity;
+import com.jinkan.www.cpttest.db.entity.WirelessTestEntity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -22,10 +42,19 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * LastCPT 2
  */
 @Database(entities = {
-        TestDataEntity.class,
+        CalibrationProbeEntity.class,
+        CalibrationVerificationEntity.class,
+        ProbeEntity.class,
+        MemoryDataEntity.class,
+        MsgDataEntity.class,
         TestEntity.class,
-
-}, version = 3)
+        TestDataEntity.class,
+        CrossTestDataEntity.class,
+        WirelessProbeEntity.class,
+        WirelessResultDataEntity.class,
+        WirelessTestEntity.class,
+        WirelessTestDataEntity.class
+}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;
@@ -34,9 +63,31 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "jk_data";
 
 
+    public abstract CalibrationProbeDao calibrationProbeDao();
+
+    public abstract CalibrationVerificationDao calibrationVerificationDao();
+
+    public abstract ProbeDao probeDao();
+
+    public abstract MemoryDataDao memoryDataDao();
+
+    public abstract MsgDao msgDao();
+
     public abstract TestDao testDao();
 
     public abstract TestDataDao testDataDao();
+
+    public abstract CrossTestDataDao crossTestDataDao();
+
+    public abstract WirelessProbeDao wirelessProbeDao();
+
+    public abstract WirelessResultDataDao wirelessResultDataDao();
+
+    public abstract WirelessTestDao wirelessTestDao();
+
+    public abstract WirelessTestDataDao wirelessTestDataDao();
+
+
 
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
@@ -59,7 +110,8 @@ public abstract class AppDatabase extends RoomDatabase {
      */
     private static AppDatabase buildDatabase(final Context appContext) {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
-                .addMigrations(MIGRATION_2_3)
+//                .addMigrations(MIGRATION_2_3)
+                .fallbackToDestructiveMigration()
                 .build();
     }
 

@@ -42,6 +42,11 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
 
 
     @Override
+    protected Object[] injectToViewModel() {
+        return new Object[0];
+    }
+
+    @Override
     protected void setMVVMView() {
         setToolBar("设置我的邮箱", R.menu.email);
         setEditText();

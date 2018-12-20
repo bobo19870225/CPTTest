@@ -30,6 +30,12 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
 
     @Inject
     TestDao testDao;
+
+    @Override
+    protected Object[] injectToViewModel() {
+        return new Object[0];
+    }
+
     @Override
     protected int setLayOutId() {
         return R.layout.fragment_ordinary_test;

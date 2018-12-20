@@ -15,9 +15,10 @@ public class SingleBridgeTestVM extends BaseViewModel {
     }
 
     @Override
-    public void init(Object data) {
+    public void inject(Object... objects) {
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

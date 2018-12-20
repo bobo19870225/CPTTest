@@ -45,10 +45,10 @@ public class DataUtil {
     private static final float PI = 3.1415F;
     public static final int SET_EMAIL = 1;
     //    private static volatile DataUtil INSTANCE;
-    @Inject
-    TestEntity mTestEntity;
-    @Inject
-    WirelessTestEntity wirelessTestEntity;
+
+    private TestEntity mTestEntity;
+
+    private WirelessTestEntity wirelessTestEntity;
     //private ISkip mISkip;
     @Inject
     PreferencesUtil preferencesUtil;
@@ -64,7 +64,7 @@ public class DataUtil {
 //        return INSTANCE;
 //    }
     @Inject
-    private DataUtil(Context context) {
+    public DataUtil(Context context) {
         this.context = context;
     }
 

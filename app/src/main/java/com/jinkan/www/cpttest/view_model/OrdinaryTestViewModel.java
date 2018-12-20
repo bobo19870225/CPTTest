@@ -23,6 +23,11 @@ public class OrdinaryTestViewModel extends BaseViewModel {
         super(application);
     }
 
+    @Override
+    public void inject(Object... objects) {
+
+    }
+
     private TestDao testDao;
     public final MutableLiveData<String> action = new MutableLiveData<>();
     public final MediatorLiveData<List<TestEntity>> allTestes = new MediatorLiveData<>();
@@ -40,10 +45,6 @@ public class OrdinaryTestViewModel extends BaseViewModel {
     public void showOrdinaryProbe() {
     }
 
-    @Override
-    public void init(Object data) {
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -31,6 +31,11 @@ public class NewTestViewModel extends BaseViewModel {
         super(application);
     }
 
+    @Override
+    public void inject(Object... objects) {
+
+    }
+
 
     public void submit() {
         TestEntity testEntity = new TestEntity();
@@ -73,10 +78,6 @@ public class NewTestViewModel extends BaseViewModel {
         ifGoTo.setValue(true);
     }
 
-    @Override
-    public void init(Object data) {
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

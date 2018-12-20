@@ -68,6 +68,11 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
 
 
     @Override
+    protected Object[] injectToViewModel() {
+        return new Object[0];
+    }
+
+    @Override
     protected void setMVVMView() {
         view_page = mViewDataBinding.viewPage;
         navigation = mViewDataBinding.navigation;

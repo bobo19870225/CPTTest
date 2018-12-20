@@ -7,6 +7,8 @@ package com.jinkan.www.cpttest.view.base;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ import com.jinkan.www.cpttest.util.VibratorUtil;
 import com.jinkan.www.cpttest.view.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view.chart.DrawChartHelper;
 import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
+import com.jinkan.www.cpttest.view_model.ISkip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,7 @@ import static com.jinkan.www.cpttest.util.SystemConstant.SAVE_TYPE_ZHD_TXT;
 
 
 @SuppressLint("Registered")
-public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> {
+public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> implements ISkip {
     @Inject
     DrawChartHelper drawChartHelper;
     @Inject
@@ -69,10 +72,10 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
     protected String strProjectNumber;
     protected String strHoleNumber;
     private String mac;
-
+    private TestEntity testEntity;
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[]{testDataDao, probeDao, vibratorUtil};
+        return new Object[]{testDataDao, probeDao, vibratorUtil, this};
     }
 
     @Override
@@ -81,14 +84,37 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
         mac = strings[0];
         strProjectNumber = strings[0];
         strHoleNumber = strings[1];
+        mViewModel.getTestParameters(testDao, strProjectNumber, strHoleNumber)
+                .observe(this, testEntities -> {
+                    if (testEntities != null && !testEntities.isEmpty()) {
+                        testEntity = testEntities.get(0);
+                        mViewModel.obsProjectNumber.set(testEntity.projectNumber);
+                        mViewModel.obsHoleNumber.set(testEntity.holeNumber);
+                    }
+
+                });
         mViewModel.toast.observe(this, this::showToast);
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "showModifyDialog":
                     showModifyDialog(mViewModel.obsStringDeepDistance.get());
                     break;
+                case "showWaitDialog":
+                    showWaitDialog("正在连接蓝牙", false, false);
+                    break;
+                case "startActivityForResult":
+                    Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(intent, 0);
+                    break;
             }
         });
+        mViewModel.loadTestData(strProjectNumber + "_" + strHoleNumber)
+                .observe(this, testDataEntities -> {
+                    if (testDataEntities != null && !testDataEntities.isEmpty()) {
+                        showTestData(testDataEntities);
+                        mViewModel.obsTestDeep.set(testDataEntities.get(testDataEntities.size() - 1).deep);
+                    }
+                });
         mViewModel.loadProbe.observe(this, probeEntities -> {
             if (probeEntities != null && !probeEntities.isEmpty()) {
                 ProbeEntity probeModel = probeEntities.get(0);
@@ -102,15 +128,8 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
             }
 
         });
-        mViewModel.getTestParameters(testDao, strProjectNumber, strHoleNumber)
-                .observe(this, testEntities -> {
-                    if (testEntities != null && !testEntities.isEmpty()) {
-                        TestEntity testEntity = testEntities.get(0);
-                        mViewModel.obsProjectNumber.set(testEntity.projectNumber);
-                        mViewModel.obsHoleNumber.set(testEntity.holeNumber);
-                    }
+        mViewModel.recordValue.observe(this, floats -> drawChartHelper.addOnePointToChart(floats));
 
-                });
 
     }
 
@@ -133,43 +152,54 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
         return super.onOptionsItemSelected(item);
     }
 
-    private String emailType = EMAIL_TYPE_LY_TXT;
+    private String fileType;
+
     protected String[] emailItems = {EMAIL_TYPE_LY_TXT, EMAIL_TYPE_LY_DAT, EMAIL_TYPE_HN_111, EMAIL_TYPE_LZ_TXT};
 
     protected void showEmailDataDialog() {
         Dialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("请选择发送的数据类型")
-                .setSingleChoiceItems(emailItems, 0, (dialog, which) -> emailType = emailItems[which])
+                .setSingleChoiceItems(emailItems, 0, (dialog, which) -> fileType = emailItems[which])
                 .setPositiveButton("确定", (dialog, which) -> {
-                    mViewModel.saveTestDataToSD(emailType, dataUtil, testDataDao)
+                    mViewModel.saveTestDataToSD()
                             .observe(this, testDataEntities -> {
                                 if (testDataEntities != null && !testDataEntities.isEmpty()) {
-                                    mModels = testDataEntities;
-                                    dataUtil.saveDataToSd(testDataEntities, fileType, testModel, mViewModel);
+//                                    mModels = testDataEntities;
+                                    dataUtil.saveDataToSd(testDataEntities, fileType, testEntity, this);
                                 } else {
                                     showToast("读取数据失败！");
                                 }
                             });
-                    mViewModel.emailTestData(emailType, dataUtil);
+                    mViewModel.emailTestData(fileType, dataUtil);
                 })
                 .setNegativeButton("取消", (dialog, which) -> {
-                    emailType = emailItems[0];
+                    fileType = emailItems[0];
                     dialog.dismiss();
                 }).create();
         alertDialog.show();
     }
 
-    private String saveType = SAVE_TYPE_ZHD_TXT;
+
     protected String[] saveItems = {SAVE_TYPE_ZHD_TXT, SAVE_TYPE_LY_TXT, SAVE_TYPE_LY_DAT, SAVE_TYPE_HN_111, SAVE_TYPE_LZ_TXT};
 
     protected void showSaveDataDialog() {
 
         Dialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("请选择要保存的数据类型")
-                .setSingleChoiceItems(saveItems, 0, (dialog, which) -> saveType = saveItems[which])
-                .setPositiveButton("确定", (dialog, which) -> mViewModel.saveTestDataToSD(saveType, dataUtil, testDataDao))
+                .setSingleChoiceItems(saveItems, 0, (dialog, which) -> fileType = saveItems[which])
+                .setPositiveButton("确定", (dialog, which) ->
+
+                        mViewModel.saveTestDataToSD()
+                                .observe(this, testDataEntities -> {
+                                    if (testDataEntities != null && !testDataEntities.isEmpty()) {
+//                                    mModels = testDataEntities;
+                                        dataUtil.saveDataToSd(testDataEntities, fileType, testEntity, this);
+                                    } else {
+                                        showToast("读取数据失败！");
+                                    }
+                                }))
                 .setNegativeButton("取消", (dialog, which) -> {
-                    saveType = saveItems[0];
+                    fileType = saveItems[0];
                     dialog.dismiss();
                 }).create();
         alertDialog.show();
@@ -199,9 +229,6 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
         drawChartHelper.addPointsToChart(listPoints);
     }
 
-    public void showRecordValue(float qc, float fs, float fa, float deep) {
-        drawChartHelper.addOnePointToChart(new float[]{qc, fs, fa, deep});
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -241,5 +268,20 @@ public class BaseTestActivityMVVM extends DialogMVVMDaggerActivity<BaseTestViewM
         });
         Button cancel = view.findViewById(R.id.cancel);
         cancel.setOnClickListener(view12 -> alertDialog.dismiss());
+    }
+
+    @Override
+    public void skipForResult(Intent intent, int requestCode) {
+        startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void skip(Intent intent) {
+
+    }
+
+    @Override
+    public void sendToastMsg(String msg) {
+        showToast(msg);
     }
 }

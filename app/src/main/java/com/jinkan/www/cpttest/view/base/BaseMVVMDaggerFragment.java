@@ -52,9 +52,11 @@ public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB exten
         mViewDataBinding.setLifecycleOwner(this);
 //         ViewModelProviders.of(this, new ViewModelProvider.NewInstanceFactory()).get(NewTestViewModel.class);
         mRootView = mViewDataBinding.getRoot();
-        mViewModel.init(mData);
+        mViewModel.inject(injectToViewModel());
         return mRootView;
     }
+
+    protected abstract Object[] injectToViewModel();
 
     @Override
     public VDB setViewDataBinding(int layOutId) {
