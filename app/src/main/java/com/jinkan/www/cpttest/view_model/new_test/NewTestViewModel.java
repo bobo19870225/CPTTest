@@ -34,7 +34,6 @@ public class NewTestViewModel extends BaseViewModel {
     public MutableLiveData<String> obsLocation = new MutableLiveData<>();
     public MutableLiveData<String> obsTester = new MutableLiveData<>();
     public MutableLiveData<String> obsTestType = new MutableLiveData<>();
-    public MutableLiveData<String> toastMsg = new MutableLiveData<>();
     public MutableLiveData<BluetoothMessage> action = new MutableLiveData<>();
 
     private BluetoothMessage bluetoothMessage;
@@ -59,41 +58,41 @@ public class NewTestViewModel extends BaseViewModel {
     public void submit() {
         TestEntity testEntity = new TestEntity();
         if (obsProjectNumber.getValue() == null) {
-            toastMsg.setValue("工程编号不能为空");
+            toast.setValue("工程编号不能为空");
             return;
         }
         testEntity.projectNumber = obsProjectNumber.getValue();
 
         if (obsHoleNumber.getValue() == null) {
-            toastMsg.setValue("孔号不能为空");
+            toast.setValue("孔号不能为空");
             return;
         }
         testEntity.holeNumber = obsHoleNumber.getValue();
         testEntity.testID = obsProjectNumber.getValue() + "_" + obsHoleNumber.getValue();
         if (obsHoleHigh.getValue() == null) {
-            toastMsg.setValue("孔口高程不能为空");
+            toast.setValue("孔口高程不能为空");
             return;
         }
         testEntity.holeHigh = Float.valueOf(obsHoleHigh.getValue());
 
         if (obsWaterLevel.getValue() == null) {
-            toastMsg.setValue("地下水位不能为空");
+            toast.setValue("地下水位不能为空");
             return;
         }
         testEntity.waterLevel = Float.valueOf(obsWaterLevel.getValue());
 
         if (obsTester.getValue() == null) {
-            toastMsg.setValue("操作员不能为空");
+            toast.setValue("操作员不能为空");
             return;
         }
         testEntity.tester = obsTester.getValue();
 
         if (obsTestType.getValue() == null) {
-            toastMsg.setValue("试验类型不能为空");
+            toast.setValue("试验类型不能为空");
             return;
         }
         testEntity.testType = obsTestType.getValue();
-        testDaoHelper.addData(testEntity, () -> toastMsg.setValue("添加成功！"));
+        testDaoHelper.addData(testEntity, () -> toast.setValue("添加成功！"));
 
         Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
         String add = linkerPreferences.get("add");

@@ -50,7 +50,6 @@ public class BaseTestViewModel extends BaseViewModel {
     public final ObservableField<String> obsStringDeepDistance = new ObservableField<>("0.1");
     public final ObservableField<Boolean> obsIsShock = new ObservableField<>(false);
     public final MutableLiveData<String> action = new MutableLiveData<>();
-    public final MutableLiveData<String> toast = new MutableLiveData<>();
     public final MediatorLiveData<List<ProbeEntity>> loadProbe = new MediatorLiveData<>();
     public final MutableLiveData<float[]> recordValue = new MutableLiveData<>();
     private boolean isIdentification;

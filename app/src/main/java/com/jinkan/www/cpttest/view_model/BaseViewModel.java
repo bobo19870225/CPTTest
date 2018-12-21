@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by lushengbo on 2018/1/12.
@@ -18,7 +19,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 public abstract class BaseViewModel extends AndroidViewModel {
 
-
+    public final MutableLiveData<String> toast = new MutableLiveData<>();
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }

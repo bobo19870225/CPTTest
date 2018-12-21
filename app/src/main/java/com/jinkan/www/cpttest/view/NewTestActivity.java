@@ -53,7 +53,6 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
     @Override
     protected void setMVVMView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
-        mViewModel.toastMsg.observe(this, this::showToast);
         mViewModel.action.observe(this, bluetoothMessage -> {
             switch (bluetoothMessage.what) {
                 case ACTION_LINK_BLUETOOTH:

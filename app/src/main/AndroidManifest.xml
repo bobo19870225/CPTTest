@@ -31,6 +31,7 @@
 
         <activity android:name=".view.SingleBridgeTestActivity" />
         <activity android:name=".view.SetEmailActivity" />
+        <activity android:name=".view.LinkBluetoothActivity" />
 
     </application>
 

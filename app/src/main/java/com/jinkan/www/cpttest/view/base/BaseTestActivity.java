@@ -106,7 +106,6 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
                     }
 
                 });
-        mViewModel.toast.observe(this, this::showToast);
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "showModifyDialog":

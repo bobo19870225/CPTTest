@@ -33,6 +33,7 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
             mViewDataBinding.setVariable(BR.model, mViewModel);
         }
         mViewModel.inject(injectToViewModel());
+        mViewModel.toast.observe(this, this::showToast);
         setMVVMView();
     }
 
