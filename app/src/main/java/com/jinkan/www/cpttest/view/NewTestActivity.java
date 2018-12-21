@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityNewTestBinding;
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
+import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.SystemConstant;
+import com.jinkan.www.cpttest.util.bluetooth.BluetoothMessage;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.new_test.NewTestViewModel;
@@ -26,6 +28,8 @@ import static com.jinkan.www.cpttest.util.SystemConstant.DOUBLE_BRIDGE_TEST;
 import static com.jinkan.www.cpttest.util.SystemConstant.SINGLE_BRIDGE_MULTI_TEST;
 import static com.jinkan.www.cpttest.util.SystemConstant.SINGLE_BRIDGE_TEST;
 import static com.jinkan.www.cpttest.util.SystemConstant.VANE_TEST;
+import static com.jinkan.www.cpttest.view_model.new_test.NewTestViewModel.ACTION_LINK_BLUETOOTH;
+import static com.jinkan.www.cpttest.view_model.new_test.NewTestViewModel.ACTION_SINGLE_BRIDGE;
 
 public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, ActivityNewTestBinding> {
 
@@ -35,21 +39,32 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
     NewTestViewModel newTestViewModel;
     @Inject
     TestDaoHelper testDaoHelper;
+    @Inject
+    PreferencesUtil preferencesUtil;
+    private boolean isAnalog;
+    @Inject
+    BluetoothMessage bluetoothMessage;
 
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[0];
+        return new Object[]{mData, bluetoothMessage, testDaoHelper, preferencesUtil};
     }
 
     @Override
     protected void setMVVMView() {
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
         mViewModel.toastMsg.observe(this, this::showToast);
-        mViewModel.ifGoTo.observe(this, aBoolean -> {
-            if (aBoolean)
-                goTo(SingleBridgeTestActivity.class, new String[]{mViewModel.obsProjectNumber.getValue(), mViewModel.obsHoleNumber.getValue()});
+        mViewModel.action.observe(this, bluetoothMessage -> {
+            switch (bluetoothMessage.what) {
+                case ACTION_LINK_BLUETOOTH:
+                    goTo(LinkBluetoothActivity.class, bluetoothMessage.obj);
+                    break;
+                case ACTION_SINGLE_BRIDGE:
+                    goTo(SingleBridgeTestActivity.class, bluetoothMessage.obj);
+                    break;
+            }
         });
-        mViewModel.setTestDaoHelper(testDaoHelper);
+
     }
 
     private PopupWindow popupWindow;

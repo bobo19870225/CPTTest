@@ -74,7 +74,7 @@ public class BaseTestViewModel extends BaseViewModel {
         vibratorUtil = (VibratorUtil) objects[2];
         bluetoothUtil = (BluetoothUtil) objects[3];
         bluetoothCommService = (BluetoothCommService) objects[4];
-        iSkip = (ISkip) objects[4];
+        iSkip = (ISkip) objects[5];
     }
 
 

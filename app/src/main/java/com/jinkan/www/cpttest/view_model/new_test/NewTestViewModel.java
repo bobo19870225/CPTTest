@@ -5,10 +5,21 @@ import android.content.Intent;
 
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.util.PreferencesUtil;
+import com.jinkan.www.cpttest.util.StringUtil;
+import com.jinkan.www.cpttest.util.bluetooth.BluetoothMessage;
 import com.jinkan.www.cpttest.view_model.BaseViewModel;
+
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+
+import static com.jinkan.www.cpttest.util.SystemConstant.DOUBLE_BRIDGE_MULTI_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.DOUBLE_BRIDGE_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.SINGLE_BRIDGE_MULTI_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.SINGLE_BRIDGE_TEST;
+import static com.jinkan.www.cpttest.util.SystemConstant.VANE_TEST;
 
 /**
  * Created by Sampson on 2018/12/13.
@@ -24,16 +35,24 @@ public class NewTestViewModel extends BaseViewModel {
     public MutableLiveData<String> obsTester = new MutableLiveData<>();
     public MutableLiveData<String> obsTestType = new MutableLiveData<>();
     public MutableLiveData<String> toastMsg = new MutableLiveData<>();
-    public MutableLiveData<Boolean> ifGoTo = new MutableLiveData<>();
+    public MutableLiveData<BluetoothMessage> action = new MutableLiveData<>();
 
+    private BluetoothMessage bluetoothMessage;
     private TestDaoHelper testDaoHelper;
+    private PreferencesUtil preferencesUtil;
+    private boolean isAnalog;
+    public static final int ACTION_LINK_BLUETOOTH = 0;
+    public static final int ACTION_SINGLE_BRIDGE = 1;
+
     public NewTestViewModel(@NonNull Application application) {
         super(application);
     }
 
     @Override
     public void inject(Object... objects) {
-
+        bluetoothMessage = (BluetoothMessage) objects[1];
+        testDaoHelper = (TestDaoHelper) objects[2];
+        preferencesUtil = (PreferencesUtil) objects[3];
     }
 
 
@@ -75,7 +94,40 @@ public class NewTestViewModel extends BaseViewModel {
         }
         testEntity.testType = obsTestType.getValue();
         testDaoHelper.addData(testEntity, () -> toastMsg.setValue("添加成功！"));
-        ifGoTo.setValue(true);
+
+        Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
+        String add = linkerPreferences.get("add");
+        if (StringUtil.isEmpty(add)) {
+            bluetoothMessage.setValue(ACTION_LINK_BLUETOOTH, new String[]{obsProjectNumber.getValue(),
+                    obsHoleNumber.getValue(),
+                    obsTestType.getValue(),
+                    isAnalog ? "模拟探头" : "数字探头"});
+            action.setValue(bluetoothMessage);
+//            goTo(LinkBluetoothActivity.class, new String[]{strProjectNumber, strHoleNumber, strTestType, isAnalog ? "模拟探头" : "数字探头"});
+        } else {
+            String[] dataToSend = {add, testEntity.projectNumber, testEntity.holeNumber, isAnalog ? "模拟探头" : "数字探头"};
+            switch (testEntity.testType) {
+                case SINGLE_BRIDGE_TEST:
+                    //mac地址，工程编号，孔号。
+                    bluetoothMessage.setValue(ACTION_SINGLE_BRIDGE, dataToSend);
+                    action.setValue(bluetoothMessage);
+                    break;
+                case SINGLE_BRIDGE_MULTI_TEST:
+//                    goTo(SingleBridgeMultifunctionTestActivity.class, dataToSend);
+                    break;
+                case DOUBLE_BRIDGE_TEST:
+//                    goTo(DoubleBridgeTestActivity.class, dataToSend);
+                    break;
+                case DOUBLE_BRIDGE_MULTI_TEST:
+//                    goTo(DoubleBridgeMultifunctionTestActivity.class, dataToSend);
+                    break;
+                case VANE_TEST:
+//                    goTo(CrossTestActivity.class, dataToSend);
+                    break;
+
+            }
+        }
+
     }
 
 
@@ -93,7 +145,5 @@ public class NewTestViewModel extends BaseViewModel {
         obsTestType.setValue(testType);
     }
 
-    public void setTestDaoHelper(TestDaoHelper testDaoHelper) {
-        this.testDaoHelper = testDaoHelper;
-    }
+
 }

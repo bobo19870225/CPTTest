@@ -50,4 +50,10 @@ public class BluetoothMessage {
         clean();
         this.what = what;
     }
+
+    public void setValue(int what, Object obj) {
+        clean();
+        this.what = what;
+        this.obj = obj;
+    }
 }
