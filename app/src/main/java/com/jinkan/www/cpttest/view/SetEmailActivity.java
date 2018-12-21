@@ -7,10 +7,7 @@ package com.jinkan.www.cpttest.view;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.google.android.material.textfield.TextInputLayout;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivitySetEmailBinding;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
@@ -30,13 +27,7 @@ import androidx.lifecycle.ViewModelProviders;
  */
 
 public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, ActivitySetEmailBinding> {
-    private TextInputLayout tt_email;
-    private TextInputLayout tt_password;
-    private TextInputLayout tt_receive_email;
-    private EditText email;
-    private EditText password;
-    private EditText receive_email;
-    private Button test;
+
     @Inject
     PreferencesUtil preferencesUtil;
 
@@ -54,10 +45,10 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
 
     private void setEditText() {
         Map<String, String> emailPreferences = preferencesUtil.getEmailPreferences();
-        email.setText(emailPreferences.get("sEmail"));
-        password.setText(emailPreferences.get("sEmailPassword"));
-        receive_email.setText(emailPreferences.get("rEmail"));
-        email.addTextChangedListener(new TextWatcher() {
+        mViewDataBinding.email.setText(emailPreferences.get("sEmail"));
+        mViewDataBinding.password.setText(emailPreferences.get("sEmailPassword"));
+        mViewDataBinding.receiveEmail.setText(emailPreferences.get("rEmail"));
+        mViewDataBinding.email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -65,7 +56,7 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tt_email.setError("");
+                mViewDataBinding.ttEmail.setError("");
             }
 
             @Override
@@ -73,7 +64,7 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
 
             }
         });
-        password.addTextChangedListener(new TextWatcher() {
+        mViewDataBinding.password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -81,7 +72,7 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tt_password.setError("");
+                mViewDataBinding.ttPassword.setError("");
             }
 
             @Override
@@ -89,7 +80,7 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
 
             }
         });
-        receive_email.addTextChangedListener(new TextWatcher() {
+        mViewDataBinding.receiveEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -97,7 +88,7 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                tt_receive_email.setError("");
+                mViewDataBinding.ttReceiveEmail.setError("");
             }
 
             @Override
@@ -116,12 +107,12 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.done:
-                String StrEmail = email.getText().toString();
-                String StrPassword = password.getText().toString();
-                String strReceiveEmail = receive_email.getText().toString();
+                String StrEmail = mViewDataBinding.email.getText().toString();
+                String StrPassword = mViewDataBinding.password.getText().toString();
+                String strReceiveEmail = mViewDataBinding.receiveEmail.getText().toString();
                 if (StringUtil.isEmail(StrEmail)) {
                     if (StringUtil.isEmpty(StrPassword)) {
-                        tt_password.setError("密码不能为空");
+                        mViewDataBinding.ttPassword.setError("密码不能为空");
                     } else {
                         if (StringUtil.isEmail(strReceiveEmail)) {
                             showToast("设置成功");
@@ -129,12 +120,12 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
                             setResult(RESULT_OK);
                             finish();
                         } else {
-                            tt_receive_email.setError("联系人邮箱不能为空");
+                            mViewDataBinding.ttReceiveEmail.setError("联系人邮箱不能为空");
                         }
 
                     }
                 } else {
-                    tt_email.setError("邮箱地址有误");
+                    mViewDataBinding.ttEmail.setError("邮箱地址有误");
                 }
                 return false;
         }
