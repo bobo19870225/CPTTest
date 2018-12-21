@@ -27,8 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.NewTestActivity" />
-
-
+        <!--权限申请页面-->
+        <activity android:name=".util.acp.AcpActivity" />
         <activity android:name=".view.SingleBridgeTestActivity" />
         <activity android:name=".view.SetEmailActivity" />
         <activity android:name=".view.LinkBluetoothActivity" />

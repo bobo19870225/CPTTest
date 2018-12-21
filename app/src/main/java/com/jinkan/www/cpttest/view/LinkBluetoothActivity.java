@@ -187,7 +187,7 @@ public class LinkBluetoothActivity extends BaseMVVMDaggerActivity<LinkBluetoothV
 
         if (mData instanceof String[]) {
             String[] strings = (String[]) mData;
-            String[] dataToSend = {mac, strings[0], strings[1], strings[3]};
+            String[] dataToSend = {mac, strings[0], strings[1], strings[2]};
             preferencesUtil.saveLinker(mac);
             switch (strings[2]) {
                 case SystemConstant.SINGLE_BRIDGE_TEST:
