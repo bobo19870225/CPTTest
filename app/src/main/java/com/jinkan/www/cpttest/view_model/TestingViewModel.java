@@ -4,12 +4,15 @@ import android.app.Application;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/21.
  * CPTTest
  */
 public class TestingViewModel extends BaseViewModel {
+    public final MutableLiveData strData = new MutableLiveData();
+
     public TestingViewModel(@NonNull Application application) {
         super(application);
     }
