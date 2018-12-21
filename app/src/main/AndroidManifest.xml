@@ -32,6 +32,14 @@
         <activity android:name=".view.SingleBridgeTestActivity" />
         <activity android:name=".view.SetEmailActivity" />
         <activity android:name=".view.LinkBluetoothActivity" />
+        <activity android:name=".view.SingleBridgeMultifunctionTestActivity" />
+        <activity android:name=".view.DoubleBridgeTestActivity" />
+        <activity android:name=".view.DoubleBridgeMultifunctionTestActivity" />
+        <activity android:name=".view.CrossTestActivity" />
+        <activity android:name=".view.TimeSynchronizationActivity" />
+        <activity android:name=".view.SetCalibrationDataActivity" />
+        <activity android:name=".view.CalibrationVerificationActivity" />
+        <activity android:name=".view.TestingActivity" />
 
     </application>
 
