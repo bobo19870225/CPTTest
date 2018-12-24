@@ -49,6 +49,9 @@ public class NewTestViewModel extends BaseViewModel {
 
     @Override
     public void inject(Object... objects) {
+        String mData = (String) objects[0];
+        if (mData.equals("模拟探头"))
+            isAnalog = true;
         bluetoothMessage = (BluetoothMessage) objects[1];
         testDaoHelper = (TestDaoHelper) objects[2];
         preferencesUtil = (PreferencesUtil) objects[3];
@@ -97,10 +100,16 @@ public class NewTestViewModel extends BaseViewModel {
         Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
         String add = linkerPreferences.get("add");
         if (StringUtil.isEmpty(add)) {
-            bluetoothMessage.setValue(ACTION_LINK_BLUETOOTH, new String[]{obsProjectNumber.getValue(),
-                    obsHoleNumber.getValue(),
-                    obsTestType.getValue(),
-                    isAnalog ? "模拟探头" : "数字探头"});
+            bluetoothMessage.setValue
+                    (
+                            ACTION_LINK_BLUETOOTH,
+                            new String[]{
+                                    obsProjectNumber.getValue(),
+                                    obsHoleNumber.getValue(),
+                                    obsTestType.getValue(),
+                                    isAnalog ? "模拟探头" : "数字探头"
+                            }
+                    );
             action.setValue(bluetoothMessage);
 //            goTo(LinkBluetoothActivity.class, new String[]{strProjectNumber, strHoleNumber, strTestType, isAnalog ? "模拟探头" : "数字探头"});
         } else {

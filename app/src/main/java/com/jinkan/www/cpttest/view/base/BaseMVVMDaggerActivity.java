@@ -7,7 +7,6 @@ package com.jinkan.www.cpttest.view.base;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.BR;
-import com.jinkan.www.cpttest.view.MVVMView;
 import com.jinkan.www.cpttest.view_model.BaseViewModel;
 
 import androidx.databinding.DataBindingUtil;

@@ -16,10 +16,12 @@ import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.OrdinaryTestViewModel;
 
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -28,6 +30,7 @@ import androidx.lifecycle.ViewModelProviders;
  */
 @ActivityScoped
 public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestViewModel, FragmentOrdinaryTestBinding> {
+    private int probeType;
     @Inject
     public OrdinaryTestFragment() {
         // Requires empty public constructor
@@ -96,11 +99,25 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
 
         mViewModel.action.observe(this, s -> {
             if (s.equals("NewTest")) {
-                goTo(NewTestActivity.class, null);
+                showChooseDialog();
             }
         });
 
     }
 
+    private void showChooseDialog() {
+
+        CharSequence[] saveItems = new CharSequence[]{"数字探头", "模拟探头"};
+
+        AlertDialog alertDialog = new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                .setTitle("请选择要使用的探头类型")
+                .setSingleChoiceItems(saveItems, 0, (dialog, which) -> probeType = which)
+                .setPositiveButton("确定", (dialog, which) -> goTo(NewTestActivity.class, saveItems[probeType]))
+                .setNegativeButton("取消", (dialog, which) -> {
+                    probeType = 0;
+                    dialog.dismiss();
+                }).create();
+        alertDialog.show();
+    }
 
 }

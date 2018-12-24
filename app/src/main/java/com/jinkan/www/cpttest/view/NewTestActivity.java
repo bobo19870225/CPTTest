@@ -41,7 +41,6 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
     TestDaoHelper testDaoHelper;
     @Inject
     PreferencesUtil preferencesUtil;
-    private boolean isAnalog;
     @Inject
     BluetoothMessage bluetoothMessage;
 
@@ -52,6 +51,11 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
 
     @Override
     protected void setMVVMView() {
+        setToolBar("新增试验");
+        if (mData != null) {
+            if (mData.equals("无缆试验"))
+                isWireless = true;
+        }
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
         mViewModel.action.observe(this, bluetoothMessage -> {
             switch (bluetoothMessage.what) {

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jinkan.www.cpttest.BR;
-import com.jinkan.www.cpttest.view.MVVMView;
 import com.jinkan.www.cpttest.view_model.BaseViewModel;
 
 import androidx.annotation.LayoutRes;

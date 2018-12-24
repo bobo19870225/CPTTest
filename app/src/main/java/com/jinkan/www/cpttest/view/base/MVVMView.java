@@ -2,7 +2,7 @@
  * Copyright (c) 2018. 代码著作权归卢声波所有。
  */
 
-package com.jinkan.www.cpttest.view;
+package com.jinkan.www.cpttest.view.base;
 
 
 import androidx.annotation.LayoutRes;
