@@ -68,6 +68,7 @@ import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.STATE_N
 @SuppressLint("Registered")
 public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel, ActivityBaseTestBinding> implements ISkip {
     @Inject
+    protected
     DrawChartHelper drawChartHelper;
     @Inject
     TestDao testDao;
@@ -88,6 +89,21 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
     protected String strHoleNumber;
     private String mac;
     private TestEntity testEntity;
+    private String fileType;
+    protected String[] emailItems = {
+            EMAIL_TYPE_LY_TXT,
+            EMAIL_TYPE_LY_DAT,
+            EMAIL_TYPE_HN_111,
+            EMAIL_TYPE_LZ_TXT
+    };
+    protected String[] saveItems = {
+            SAVE_TYPE_ZHD_TXT,
+            SAVE_TYPE_LY_TXT,
+            SAVE_TYPE_LY_DAT,
+            SAVE_TYPE_HN_111,
+            SAVE_TYPE_LZ_TXT
+    };
+
     @Override
     protected Object[] injectToViewModel() {
         return new Object[]{
@@ -96,7 +112,8 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
                 vibratorUtil,
                 bluetoothUtil,
                 bluetoothCommService,
-                this};
+                this
+        };
     }
 
     @Override
@@ -221,9 +238,6 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
         return super.onOptionsItemSelected(item);
     }
 
-    private String fileType;
-
-    protected String[] emailItems = {EMAIL_TYPE_LY_TXT, EMAIL_TYPE_LY_DAT, EMAIL_TYPE_HN_111, EMAIL_TYPE_LZ_TXT};
 
     protected void showEmailDataDialog() {
         Dialog alertDialog = new AlertDialog.Builder(this)
@@ -248,8 +262,6 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
         alertDialog.show();
     }
 
-
-    protected String[] saveItems = {SAVE_TYPE_ZHD_TXT, SAVE_TYPE_LY_TXT, SAVE_TYPE_LY_DAT, SAVE_TYPE_HN_111, SAVE_TYPE_LZ_TXT};
 
     protected void showSaveDataDialog() {
 
