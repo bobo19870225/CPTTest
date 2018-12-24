@@ -50,6 +50,14 @@ import static com.jinkan.www.cpttest.util.SystemConstant.SAVE_TYPE_LY_DAT;
 import static com.jinkan.www.cpttest.util.SystemConstant.SAVE_TYPE_LY_TXT;
 import static com.jinkan.www.cpttest.util.SystemConstant.SAVE_TYPE_LZ_TXT;
 import static com.jinkan.www.cpttest.util.SystemConstant.SAVE_TYPE_ZHD_TXT;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.MESSAGE_READ;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.MESSAGE_STATE_CHANGE;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.STATE_CONNECTED;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.STATE_CONNECTING;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.STATE_CONNECT_FAILED;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.STATE_CONNECT_LOST;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.STATE_LISTEN;
+import static com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService.STATE_NONE;
 
 
 /**
@@ -101,6 +109,7 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
                 .observe(this, testEntities -> {
                     if (testEntities != null && !testEntities.isEmpty()) {
                         testEntity = testEntities.get(0);
+                        mViewModel.setTestEntity(testEntity);
                         mViewModel.obsProjectNumber.set(testEntity.projectNumber);
                         mViewModel.obsHoleNumber.set(testEntity.holeNumber);
                     }
@@ -139,6 +148,54 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
                 showToast("该探头未添加到探头列表中，暂时不能使用，请在探头列表里添加该探头");
             }
 
+        });
+        bluetoothCommService.getBluetoothMessageMutableLiveData().observe(this, bluetoothMessage -> {
+            switch (bluetoothMessage.what) {
+                case MESSAGE_STATE_CHANGE:
+                    switch (bluetoothMessage.arg1) {
+                        case STATE_NONE:
+                            break;
+                        case STATE_LISTEN:// 监听连接
+                            break;
+                        case STATE_CONNECTING: // now initiating an outgoing connection
+                            showToast("正在连接");
+                            break;
+                        case STATE_CONNECTED:   // 已连接上远程设备
+                            closeWaitDialog();
+                            showToast("连接成功");
+                            break;
+                        case STATE_CONNECT_FAILED: // 连接失败
+                            closeWaitDialog();
+                            showToast("连接失败");
+                            break;
+                        case STATE_CONNECT_LOST: // 失去连接
+                            showToast("失去连接");
+                            break;
+                    }
+                    break;
+                case MESSAGE_READ:
+                    byte[] b = (byte[]) bluetoothMessage.obj;
+                    String mDate = new String(b);
+                    if (mDate.length() > 40) {
+                        if (mDate.contains("\r")) {
+                            mDate = mDate.substring(0, mDate.indexOf("\r"));
+                        }
+                        mDate = mDate.replace(" ", "");
+                        if (mDate.contains("Sn:")) {
+                            String sn = mDate.substring(mDate.indexOf("Sn:") + 3, mDate.indexOf("Sn:") + 11);
+                            mViewModel.identificationProbe(sn);
+                            Float qcInitialValue = mViewModel.obsQcInitialValue.get();
+                            if (qcInitialValue != null) {
+                                mViewModel.obsQcEffectiveValue.set(mViewModel.getQcEffectiveValue(mDate, qcInitialValue));
+                            }
+                            Float fsInitialValue = mViewModel.obsFsInitialValue.get();
+                            if (fsInitialValue != null)
+                                mViewModel.obsFsEffectiveValue.set(mViewModel.getFsEffectiveValue(mDate, fsInitialValue));
+                            mViewModel.obsFaEffectiveValue.set(mViewModel.getFaEffectiveValue(mDate));
+                        }
+                    }
+                    break;
+            }
         });
         mViewModel.recordValue.observe(this, floats -> drawChartHelper.addOnePointToChart(floats));
 

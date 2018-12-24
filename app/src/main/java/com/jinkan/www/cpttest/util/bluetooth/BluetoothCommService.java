@@ -31,7 +31,7 @@ public class BluetoothCommService {
     //    private final Handler mHandler;
     @Inject
     BluetoothMessage bluetoothMessage;
-    public final MutableLiveData<BluetoothMessage> bluetoothMessageMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<BluetoothMessage> bluetoothMessageMutableLiveData = new MutableLiveData<>();
     private int mState;
     private AcceptThread mAcceptThread;
     private ConnectThread mConnectThread;
@@ -223,7 +223,7 @@ public class BluetoothCommService {
 //        bundle.putString(TOAST, "无法连接设备");
 //        msg.setData(bundle);
 //        mHandler.sendMessage(msg);
-        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_FAILED, -1, "无法连接设备");
+//        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_FAILED, -1, "无法连接设备");
         bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
 
         setState(STATE_CONNECT_FAILED);
@@ -240,7 +240,7 @@ public class BluetoothCommService {
 //        bundle.putString(TOAST, "失去设备的连接");
 //        msg.setData(bundle);
 //        mHandler.sendMessage(msg);
-        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_LOST, -1, "失去设备的连接");
+//        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_LOST, -1, "失去设备的连接");
         bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
 
         setState(STATE_CONNECT_LOST);

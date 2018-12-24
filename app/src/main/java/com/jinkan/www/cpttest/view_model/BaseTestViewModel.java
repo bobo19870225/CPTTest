@@ -1,6 +1,5 @@
 package com.jinkan.www.cpttest.view_model;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -74,6 +73,7 @@ public class BaseTestViewModel extends BaseViewModel {
         bluetoothUtil = (BluetoothUtil) objects[3];
         bluetoothCommService = (BluetoothCommService) objects[4];
         iSkip = (ISkip) objects[5];
+
     }
 
 
@@ -94,11 +94,14 @@ public class BaseTestViewModel extends BaseViewModel {
     public void doRecord() {
         Float floatDeep = obsTestDeep.get();
         if (floatDeep != null) {
-            if (StringUtil.isFloat(obsStringDeepDistance.get())) {
-                obsTestDeep.set(floatDeep + Float.valueOf(obsStringDeepDistance.get()));
-            } else {
-                toast.setValue("测量间距不合法！");
-                return;
+            String s = obsStringDeepDistance.get();
+            if (s != null) {
+                if (StringUtil.isFloat(s)) {
+                    obsTestDeep.set(floatDeep + Float.valueOf(s));
+                } else {
+                    toast.setValue("测量间距不合法！");
+                    return;
+                }
             }
         }
 
@@ -133,65 +136,7 @@ public class BaseTestViewModel extends BaseViewModel {
         return testDataDao.getTestDataByTestId(testDataID);
     }
 
-
-    @SuppressLint("HandlerLeak")
-//    private Handler mHandler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            if (myView != null) {
-//                switch (msg.what) {
-//                    case BluetoothCommService.MESSAGE_READ://读数据
-//                        byte[] b = (byte[]) msg.obj;
-//                        String mDate = new String(b);
-//                        if (mDate.length() > 40) {
-//                            if (mDate.contains("\r")) {
-//                                mDate = mDate.substring(0, mDate.indexOf("\r"));
-//                            }
-//                            mDate = mDate.replace(" ", "");
-//                            if (mDate.contains("Sn:")) {
-//                                String sn = mDate.substring(mDate.indexOf("Sn:") + 3, mDate.indexOf("Sn:") + 11);
-//                                identificationProbe(sn);
-//                                Float qcInitialValue = obsQcInitialValue.get();
-//                                if (qcInitialValue != null) {
-//                                    obsQcEffectiveValue.set(getQcEffectiveValue(mDate, qcInitialValue));
-//                                }
-//                                Float fsInitialValue = obsFsInitialValue.get();
-//                                if (fsInitialValue != null)
-//                                    obsFsEffectiveValue.set(getFsEffectiveValue(mDate, fsInitialValue));
-//                                obsFaEffectiveValue.set(getFaEffectiveValue(mDate));
-//                            }
-//                        }
-//                        break;
-//                    case BluetoothCommService.MESSAGE_TOAST://提示信息
-//                        Bundle bundle = msg.getData();
-//                        String s = bundle.getString(BluetoothCommService.TOAST);
-//                        myView.get().showToast(s);
-//                        break;
-//                    case BluetoothCommService.MESSAGE_DEVICE_NAME:
-//                        bundle = msg.getData();
-//                        String string = bundle.getString(BluetoothCommService.DEVICE_NAME);
-//                        myView.get().showToast(string);
-//                        break;
-//                    case BluetoothCommService.MESSAGE_STATE_CHANGE:
-//                        if (msg.arg1 == BluetoothCommService.STATE_CONNECTED) {
-//                            getView().closeWaitDialog();
-//                            getView().showToast("连接成功");
-//                        } else if (msg.arg1 == BluetoothCommService.STATE_CONNECT_FAILED) {
-//                            getView().closeWaitDialog();
-//                        }
-//                        break;
-//                }
-//            }
-//        }
-//    };
-//    private BluetoothCommService bluetoothCommService = new BluetoothCommService(mHandler);
-
-    /**
-     * 载入探头
-     *
-     * @param sn 探头序列号
-     */
-    private void identificationProbe(String sn) {
+    public void identificationProbe(String sn) {
         if (!isIdentification) {
             isIdentification = true;
             probeID = sn;
@@ -200,7 +145,7 @@ public class BaseTestViewModel extends BaseViewModel {
 
     }
 
-    private float getQcEffectiveValue(String mDate, float qcInitialValue) {
+    public float getQcEffectiveValue(String mDate, float qcInitialValue) {
         if (mDate.contains("Ps:") && mDate.contains("MPa")) {
             String qc = mDate.substring(mDate.indexOf("Ps:") + 3, mDate.indexOf("MPa"));
             if (StringUtil.isFloat(qc)) {
@@ -222,7 +167,7 @@ public class BaseTestViewModel extends BaseViewModel {
 
     }
 
-    private float getFsEffectiveValue(String mDate, float fsInitialValue) {
+    public float getFsEffectiveValue(String mDate, float fsInitialValue) {
         if (mDate.contains("Fs:") && mDate.contains("kPa")) {
             String fs = mDate.substring(mDate.indexOf("Fs:") + 3, mDate.indexOf("kPa"));
             if (StringUtil.isFloat(fs)) {
@@ -237,7 +182,7 @@ public class BaseTestViewModel extends BaseViewModel {
 
     }
 
-    private float getFaEffectiveValue(String mDate) {
+    public float getFaEffectiveValue(String mDate) {
         if (mDate.contains("Fa:") && mDate.contains("Dec")) {
             String fa = mDate.substring(mDate.indexOf("Fa:") + 3, mDate.indexOf("Dec"));
             if (StringUtil.isFloat(fa)) {
@@ -298,4 +243,7 @@ public class BaseTestViewModel extends BaseViewModel {
     }
 
 
+    public void setTestEntity(TestEntity testEntity) {
+        testModel = testEntity;
+    }
 }
