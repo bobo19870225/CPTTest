@@ -40,6 +40,8 @@
         <activity android:name=".view.SetCalibrationDataActivity" />
         <activity android:name=".view.CalibrationVerificationActivity" />
         <activity android:name=".view.TestingActivity" />
+        <activity android:name=".view.HistoryDataActivity" />
+        <activity android:name=".view.CommonProbeActivity" />
 
     </application>
 

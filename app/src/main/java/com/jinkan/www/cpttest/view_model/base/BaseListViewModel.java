@@ -1,31 +1,21 @@
 package com.jinkan.www.cpttest.view_model.base;
 
 import android.app.Application;
-import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 /**
  * Created by Sampson on 2018/12/24.
  * CPTTest
  */
-public class BaseListViewModel extends BaseViewModel {
+public abstract class BaseListViewModel<T> extends BaseViewModel {
+    public final MediatorLiveData<T> listData = new MediatorLiveData<>();
     public BaseListViewModel(@NonNull Application application) {
         super(application);
     }
 
-    @Override
-    public void inject(Object... objects) {
+    public abstract LiveData<T> loadListViewData();
 
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
-    public void clear() {
-
-    }
 }

@@ -1,5 +1,6 @@
 package com.jinkan.www.cpttest.di;
 
+import com.jinkan.www.cpttest.view.HistoryDataActivity;
 import com.jinkan.www.cpttest.view.LinkBluetoothActivity;
 import com.jinkan.www.cpttest.view.NewTestActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
@@ -41,6 +42,9 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract LinkBluetoothActivity LinkBluetoothActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract HistoryDataActivity HistoryDataActivity();
 //    @ActivityScoped
 //    @ContributesAndroidInjector(modules = AddEditTaskModule.class)
 //    abstract AddEditTaskActivity addEditTaskActivity();
