@@ -2,7 +2,7 @@
  * Copyright (c) 2018. 代码著作权归卢声波所有。
  */
 
-package com.jinkan.www.cpttest.view;
+package com.jinkan.www.cpttest.view.base;
 
 import android.app.Dialog;
 import android.view.Gravity;
@@ -17,8 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jinkan.www.cpttest.R;
-import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
-import com.jinkan.www.cpttest.view_model.BaseViewModel;
+import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 import com.jinkan.www.cpttest.view_model.IShowDialog;
 
 import androidx.databinding.ViewDataBinding;

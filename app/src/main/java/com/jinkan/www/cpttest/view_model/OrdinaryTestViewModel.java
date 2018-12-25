@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import java.util.List;
 
@@ -40,9 +41,11 @@ public class OrdinaryTestViewModel extends BaseViewModel {
     }
 
     public void showHistoryData() {
+        action.setValue("HistoryDataActivity");
     }
 
     public void showOrdinaryProbe() {
+        action.setValue("OrdinaryProbeActivity");
     }
 
 

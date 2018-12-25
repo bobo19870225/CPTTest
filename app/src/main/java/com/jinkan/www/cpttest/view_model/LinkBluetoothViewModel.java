@@ -9,6 +9,7 @@ import com.jinkan.www.cpttest.util.acp.AcpListener;
 import com.jinkan.www.cpttest.util.acp.AcpOptions;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothMessage;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
+import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import java.util.List;
 

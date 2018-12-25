@@ -16,6 +16,7 @@ import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.util.VibratorUtil;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
+import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

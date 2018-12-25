@@ -2,7 +2,7 @@
  * Copyright (c) 2018. 代码著作权归卢声波所有。
  */
 
-package com.jinkan.www.cpttest.view_model;
+package com.jinkan.www.cpttest.view_model.base;
 
 import android.app.Application;
 import android.content.Intent;

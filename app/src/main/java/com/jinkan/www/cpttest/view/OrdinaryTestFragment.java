@@ -30,7 +30,7 @@ import androidx.lifecycle.ViewModelProviders;
  */
 @ActivityScoped
 public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestViewModel, FragmentOrdinaryTestBinding> {
-    private int probeType;
+    private int probeType = 0;
     @Inject
     public OrdinaryTestFragment() {
         // Requires empty public constructor
@@ -98,9 +98,18 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
         });
 
         mViewModel.action.observe(this, s -> {
-            if (s.equals("NewTest")) {
-                showChooseDialog();
+            switch (s) {
+                case "NewTest":
+                    showChooseDialog();
+                    break;
+                case "HistoryDataActivity":
+                    goTo(HistoryDataActivity.class, null);
+                    break;
+                case "OrdinaryProbeActivity":
+                    goTo(CommonProbeActivity.class, null);
+                    break;
             }
+
         });
 
     }

@@ -8,7 +8,7 @@ import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothMessage;
-import com.jinkan.www.cpttest.view_model.BaseViewModel;
+import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import java.util.Map;
 

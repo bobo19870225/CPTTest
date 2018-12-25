@@ -29,7 +29,6 @@ import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.util.VibratorUtil;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothCommService;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
-import com.jinkan.www.cpttest.view.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view.chart.DrawChartHelper;
 import com.jinkan.www.cpttest.view_model.BaseTestViewModel;
 import com.jinkan.www.cpttest.view_model.ISkip;

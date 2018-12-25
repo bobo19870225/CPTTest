@@ -1,18 +1,16 @@
-package com.jinkan.www.cpttest.view_model;
+package com.jinkan.www.cpttest.view_model.base;
 
 import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
-
 import androidx.annotation.NonNull;
 
 /**
- * Created by Sampson on 2018/12/19.
+ * Created by Sampson on 2018/12/24.
  * CPTTest
  */
-public class SetEmailViewModel extends BaseViewModel {
-    public SetEmailViewModel(@NonNull Application application) {
+public class BaseListViewModel extends BaseViewModel {
+    public BaseListViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -20,7 +18,6 @@ public class SetEmailViewModel extends BaseViewModel {
     public void inject(Object... objects) {
 
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

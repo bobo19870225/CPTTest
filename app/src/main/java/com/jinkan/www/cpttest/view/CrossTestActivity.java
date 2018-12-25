@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityCrossTestBinding;
+import com.jinkan.www.cpttest.view.base.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.CrossTestViewModel;
 
 import androidx.lifecycle.ViewModelProviders;
