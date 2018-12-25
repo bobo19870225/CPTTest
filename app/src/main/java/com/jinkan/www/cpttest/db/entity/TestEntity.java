@@ -1,5 +1,7 @@
 package com.jinkan.www.cpttest.db.entity;
 
+import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,7 +11,7 @@ import androidx.room.PrimaryKey;
  * LastCPT 2
  */
 @Entity(tableName = "test")
-public class TestEntity {
+public class TestEntity implements ItemHistoryData {
     @PrimaryKey
     @NonNull
     public String testID = "1";
@@ -23,4 +25,24 @@ public class TestEntity {
     public String testType = "1";
     public String testProbeType = "1";
     public String testDataID = "1";
+
+    @Override
+    public String getProjectNumber() {
+        return projectNumber;
+    }
+
+    @Override
+    public String getHoleNumber() {
+        return holeNumber;
+    }
+
+    @Override
+    public String getTestDate() {
+        return testDate;
+    }
+
+    @Override
+    public Object getId() {
+        return testID;
+    }
 }

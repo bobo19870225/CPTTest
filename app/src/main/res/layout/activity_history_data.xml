@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2018. 代码著作权归卢声波所有。
   -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -27,18 +28,13 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
+                app:layoutManager="LinearLayoutManager"
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <TextView
-            android:id="@+id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="暂无数据"
-            android:textSize="24sp"
-            android:visibility="@{model.isEmpty ? View.VISIBLE : View.GONE}" />
+
     </LinearLayout>
 </layout>

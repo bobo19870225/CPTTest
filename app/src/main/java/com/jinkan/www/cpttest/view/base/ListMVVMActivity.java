@@ -17,7 +17,10 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
 
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> mViewModel.loadListViewData().observe(this, this::setListData);
+    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> mViewModel.loadListViewData().observe(this, o -> {
+        stopLoading();
+        setListData(o);
+    });
 
     /**
      * 设置刷新控件
@@ -45,6 +48,14 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
 
     protected abstract void setViewWithOutListView();
 
+    /**
+     * 停止加载数据，一般在加载结束时调用
+     */
+    public void stopLoading() {
+        if (mSwipeRefreshLayout != null) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
     @Override
     protected void toRefresh() {
         if (mSwipeRefreshLayout != null) {

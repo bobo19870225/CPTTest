@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by Sampson on 2018/12/24.
  * CPTTest
  */
-public class MyBaseAdapter<IDB extends ViewDataBinding> extends RecyclerView.Adapter<MyBaseAdapter.ViewHolder> {
+public abstract class MyBaseAdapter<IDB extends ViewDataBinding, T extends Item> extends RecyclerView.Adapter<MyBaseAdapter.ViewHolder> {
 
     @LayoutRes
     private int layoutId;
-    private List mList;
+    protected List<? extends T> mList;
     private Object clickCallback;
 
     public MyBaseAdapter(int layoutId, Object clickCallback) {
@@ -31,7 +31,7 @@ public class MyBaseAdapter<IDB extends ViewDataBinding> extends RecyclerView.Ada
         this.clickCallback = clickCallback;
     }
 
-    public void setList(final List list) {
+    public void setList(final List<? extends T> list) {
         if (mList == null) {
             mList = list;
             notifyItemRangeInserted(0, list.size());
@@ -49,14 +49,13 @@ public class MyBaseAdapter<IDB extends ViewDataBinding> extends RecyclerView.Ada
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return false;
-//                    return ifItemsTheSame(oldItemPosition, newItemPosition);
+                    return mList.get(oldItemPosition).getId().equals(list.get(newItemPosition).getId());
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    return false;
-//                    return ifContentsTheSame(oldItemPosition, newItemPosition);
+
+                    return ifContentsTheSame(oldItemPosition, newItemPosition, list);
 //                    Product newProduct = productList.get(newItemPosition);
 //                    Product oldProduct = mProductList.get(oldItemPosition);
 //                    return newProduct.getId() == oldProduct.getId()
@@ -70,9 +69,7 @@ public class MyBaseAdapter<IDB extends ViewDataBinding> extends RecyclerView.Ada
         }
     }
 
-//    protected abstract boolean ifContentsTheSame(int oldItemPosition, int newItemPosition);
-
-//    protected abstract boolean ifItemsTheSame(int oldItemPosition, int newItemPosition);
+    protected abstract boolean ifContentsTheSame(int oldItemPosition, int newItemPosition, List<? extends T> list);
 
     @SuppressWarnings("unchecked")
     @NonNull

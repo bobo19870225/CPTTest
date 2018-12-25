@@ -14,11 +14,11 @@ import com.jinkan.www.cpttest.databinding.ActivityHistoryDataBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.view.adapter.HistoryDataAdapter;
+import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
 import com.jinkan.www.cpttest.view.adapter.ItemHistoryDataClickCallback;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
 import com.jinkan.www.cpttest.view_model.HistoryDataViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,29 +36,6 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
     private List<TestEntity> mTestEntitys;
     private TestEntity testModel;
 
-    private HistoryDataAdapter historyDataAdapter;
-
-
-    private void setListView() {
-        mTestEntitys = new ArrayList<>();
-
-//        lv_history.setEmptyView(empty);
-//        lv_history.setAdapter(listHistoryAdapter);
-//        //查看详情
-//        lv_history.setOnItemClickListener((parent, view, position, id) -> {
-//            TestEntity testModel = mTestEntitys.get(position);
-//            if (testModel.testType.equals(VANE_TEST)) {
-//                goTo(CrossTestDataDetailsActivity.class, testModel.testDataID);
-//            } else {
-//                goTo(TestDataDetailsActivity.class, testModel.testDataID);
-//            }
-//        });
-//        registerForContextMenu(lv_history);
-//        lv_history.setOnItemLongClickListener((parent, view, position, id) -> {
-//            testModel = mTestEntitys.get(position);
-//            return false;
-//        });
-    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -68,12 +45,17 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
 
     @Override
     protected void setListData(Object o) {
+        HistoryDataAdapter historyDataAdapter = new HistoryDataAdapter(R.layout.item_history_data, (ItemHistoryDataClickCallback) itemHistoryData -> {
+
+        });
+        mViewDataBinding.listView.setAdapter(historyDataAdapter);
         if (o == null) {
             mViewModel.isEmpty.setValue(true);
         } else {
             mViewModel.isEmpty.setValue(false);
+            historyDataAdapter.setList((List) o);
         }
-        historyDataAdapter.setList((List) o);
+
     }
 
 
@@ -115,11 +97,7 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
 
     @Override
     protected void setViewWithOutListView() {
-        mViewDataBinding.listView.setAdapter(
-                new HistoryDataAdapter(R.layout.item_history_data,
-                        (ItemHistoryDataClickCallback) itemHistoryData -> {
 
-                        }));
     }
 
     @Override
