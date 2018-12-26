@@ -4,15 +4,10 @@
 
 package com.jinkan.www.cpttest.view;
 
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityHistoryDataBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
-import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.view.adapter.HistoryDataAdapter;
 import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
 import com.jinkan.www.cpttest.view.adapter.ItemHistoryDataClickCallback;
@@ -21,14 +16,15 @@ import com.jinkan.www.cpttest.view_model.HistoryDataViewModel;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, ActivityHistoryDataBinding, HistoryDataAdapter> {
     @Inject
     TestDao testDao;
-    private TestEntity testModel;
-
+    @Inject
+    TestDaoHelper testDaoHelper;
     @SuppressWarnings("unchecked")
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {
@@ -43,33 +39,8 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, 0, 0, "删除");
-        menu.add(0, 0, 1, "取消");
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case 0:
-                if (testModel != null) {
-                    mViewModel.deleteOneHistoryData(testModel);
-                }
-                break;
-            case 1:
-
-                break;
-            default:
-                break;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-
-    @Override
     protected Object[] injectToViewModel() {
-        return new Object[]{mData, testDao};
+        return new Object[]{mData, testDao, testDaoHelper};
     }
 
 
@@ -84,7 +55,7 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
 
             @Override
             public void onDeleteClick(ItemHistoryData itemHistoryData) {
-
+                showDeleteDialog(itemHistoryData);
             }
         });
         mViewDataBinding.listView.setAdapter(historyDataAdapter);
@@ -101,5 +72,11 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
         return ViewModelProviders.of(this).get(HistoryDataViewModel.class);
     }
 
-
+    private void showDeleteDialog(ItemHistoryData itemHistoryData) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("确定要删除该试验孔的数据吗？删除后无法恢复！")
+                .setPositiveButton("确定", (dialog, which) -> mViewModel.deleteOneHistoryData(itemHistoryData))
+                .setNegativeButton("取消", (dialog, which) -> dialog.dismiss()).create();
+        alertDialog.show();
+    }
 }

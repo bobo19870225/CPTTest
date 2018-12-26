@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.db.dao.TestDao;
+import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
 import com.jinkan.www.cpttest.view_model.base.BaseListViewModel;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import androidx.lifecycle.LiveData;
 public class HistoryDataViewModel extends BaseListViewModel<List<TestEntity>> {
     //    public final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>();
     private TestDao testDao;
-
+    private TestDaoHelper testDaoHelper;
     public HistoryDataViewModel(@NonNull Application application) {
         super(application);
     }
@@ -27,6 +29,7 @@ public class HistoryDataViewModel extends BaseListViewModel<List<TestEntity>> {
     @Override
     public void inject(Object... objects) {
         testDao = (TestDao) objects[1];
+        testDaoHelper = (TestDaoHelper) objects[2];
     }
 
     @Override
@@ -48,7 +51,9 @@ public class HistoryDataViewModel extends BaseListViewModel<List<TestEntity>> {
     }
 
 
-    public void deleteOneHistoryData(TestEntity testEntity) {
-
+    public void deleteOneHistoryData(ItemHistoryData itemHistoryData) {
+        testDaoHelper.deleteData(
+                new String[]{itemHistoryData.getProjectNumber(), itemHistoryData.getHoleNumber()},
+                this::loadListViewData);
     }
 }
