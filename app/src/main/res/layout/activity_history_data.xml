@@ -22,6 +22,14 @@
             android:id="@+id/tool_bar"
             layout="@layout/toolbar" />
 
+        <TextView
+            android:id="@+id/loading_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/no_data"
+            android:textAlignment="center"
+            android:visibility="@{model.isEmpty ? View.VISIBLE : View.GONE}" />
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl"
             android:layout_width="match_parent"

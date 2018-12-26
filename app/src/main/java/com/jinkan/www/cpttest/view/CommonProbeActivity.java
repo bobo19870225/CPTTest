@@ -1,5 +1,6 @@
 package com.jinkan.www.cpttest.view;
 
+import com.jinkan.www.cpttest.view.adapter.MyBaseAdapter;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
 
 import androidx.lifecycle.ViewModel;
@@ -16,14 +17,15 @@ public class CommonProbeActivity extends ListMVVMActivity {
     }
 
     @Override
+    protected MyBaseAdapter setAdapter() {
+        return null;
+    }
+
+    @Override
     protected void setViewWithOutListView() {
 
     }
 
-    @Override
-    protected void setListData(Object o) {
-
-    }
 
     @Override
     protected Object[] injectToViewModel() {

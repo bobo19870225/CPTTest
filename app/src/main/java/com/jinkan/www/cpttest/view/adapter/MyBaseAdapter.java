@@ -56,12 +56,6 @@ public abstract class MyBaseAdapter<IDB extends ViewDataBinding, T extends Item>
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
 
                     return ifContentsTheSame(oldItemPosition, newItemPosition, list);
-//                    Product newProduct = productList.get(newItemPosition);
-//                    Product oldProduct = mProductList.get(oldItemPosition);
-//                    return newProduct.getId() == oldProduct.getId()
-//                            && Objects.equals(newProduct.getDescription(), oldProduct.getDescription())
-//                            && Objects.equals(newProduct.getName(), oldProduct.getName())
-//                            && newProduct.getPrice() == oldProduct.getPrice();
                 }
             });
             mList = list;

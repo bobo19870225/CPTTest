@@ -4,14 +4,15 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/24.
  * CPTTest
  */
 public abstract class BaseListViewModel<T> extends BaseViewModel {
-    public final MediatorLiveData<T> listData = new MediatorLiveData<>();
+
+    public final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>();
     public BaseListViewModel(@NonNull Application application) {
         super(application);
     }

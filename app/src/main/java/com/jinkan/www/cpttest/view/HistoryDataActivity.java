@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, ActivityHistoryDataBinding> {
+public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, ActivityHistoryDataBinding, HistoryDataAdapter> {
     //    @BindView(id = R.id.lv_history)
 //    private ListView lv_history;
 //    @BindView(id = R.id.empty)
@@ -43,20 +43,6 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
         return mViewDataBinding.srl;
     }
 
-    @Override
-    protected void setListData(Object o) {
-        HistoryDataAdapter historyDataAdapter = new HistoryDataAdapter(R.layout.item_history_data, (ItemHistoryDataClickCallback) itemHistoryData -> {
-
-        });
-        mViewDataBinding.listView.setAdapter(historyDataAdapter);
-        if (o == null) {
-            mViewModel.isEmpty.setValue(true);
-        } else {
-            mViewModel.isEmpty.setValue(false);
-            historyDataAdapter.setList((List) o);
-        }
-
-    }
 
 
     @Override
@@ -96,6 +82,19 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
 
 
     @Override
+    protected HistoryDataAdapter setAdapter() {
+
+        HistoryDataAdapter historyDataAdapter = new HistoryDataAdapter(R.layout.item_history_data, new ItemHistoryDataClickCallback() {
+            @Override
+            public void onClick(ItemHistoryData itemHistoryData) {
+
+            }
+        });
+        mViewDataBinding.listView.setAdapter(historyDataAdapter);
+        return historyDataAdapter;
+    }
+
+    @Override
     protected void setViewWithOutListView() {
 
     }
@@ -106,12 +105,4 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
     }
 
 
-//    @Override
-//    public void showHistoryData(List<TestEntity> testModels) {
-//        mTestEntitys.clear();
-//        if (testModels != null) {
-//            mTestEntitys.addAll(testModels);
-//        }
-//        listHistoryAdapter.notifyDataSetChanged();
-//    }
 }

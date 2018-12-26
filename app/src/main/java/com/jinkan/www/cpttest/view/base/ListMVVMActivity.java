@@ -3,7 +3,10 @@ package com.jinkan.www.cpttest.view.base;
 import android.annotation.SuppressLint;
 
 import com.jinkan.www.cpttest.R;
+import com.jinkan.www.cpttest.view.adapter.MyBaseAdapter;
 import com.jinkan.www.cpttest.view_model.base.BaseListViewModel;
+
+import java.util.List;
 
 import androidx.databinding.ViewDataBinding;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -13,14 +16,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * CPTTest
  */
 @SuppressLint("Registered")
-public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends ViewDataBinding> extends BaseMVVMDaggerActivity<VM, VDB> {
-
+public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends ViewDataBinding, A extends MyBaseAdapter> extends BaseMVVMDaggerActivity<VM, VDB> {
+    protected A mAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> mViewModel.loadListViewData().observe(this, o -> {
-        stopLoading();
-        setListData(o);
-    });
+    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = this::loadListData;
 
     /**
      * 设置刷新控件
@@ -43,8 +43,11 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
                     android.R.color.holo_red_dark,
                     android.R.color.holo_purple);
         }
+        mAdapter = setAdapter();
         setViewWithOutListView();
     }
+
+    protected abstract A setAdapter();
 
     protected abstract void setViewWithOutListView();
 
@@ -56,6 +59,7 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
+
     @Override
     protected void toRefresh() {
         if (mSwipeRefreshLayout != null) {
@@ -63,11 +67,23 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
             mSwipeRefreshLayout.setRefreshing(true);//不会出发onRefresh
             onRefreshListener.onRefresh();//强制刷新
         } else {
-            mViewModel.loadListViewData().observe(this, this::setListData);
+            loadListData();
         }
     }
 
-    protected abstract void setListData(Object o);
+    @SuppressWarnings("unchecked")
+    private void loadListData() {
+        stopLoading();
+        mViewModel.loadListViewData().observe(this, o -> {
+            if (o == null) {
+                mViewModel.isEmpty.setValue(true);
+            } else {
+                mViewModel.isEmpty.setValue(false);
+                mAdapter.setList((List) o);
+            }
+
+        });
+    }
 
 
 }
