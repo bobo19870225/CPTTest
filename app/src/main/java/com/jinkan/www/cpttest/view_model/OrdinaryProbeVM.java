@@ -3,8 +3,8 @@ package com.jinkan.www.cpttest.view_model;
 import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.db.dao.TestDao;
-import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.db.dao.ProbeDao;
+import com.jinkan.www.cpttest.db.entity.ProbeEntity;
 import com.jinkan.www.cpttest.view_model.base.BaseListViewModel;
 
 import java.util.List;
@@ -13,29 +13,28 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 /**
- * Created by Sampson on 2018/12/10.
- * LastCPT 2
+ * Created by Sampson on 2018/12/26.
+ * CPTTest
  */
-public class HistoryDataViewModel extends BaseListViewModel<List<TestEntity>> {
-    //    public final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>();
-    private TestDao testDao;
+public class OrdinaryProbeVM extends BaseListViewModel<List<ProbeEntity>> {
 
-    public HistoryDataViewModel(@NonNull Application application) {
+    //    public final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>();
+    private ProbeDao probeDao;
+
+    public OrdinaryProbeVM(@NonNull Application application) {
         super(application);
     }
 
     @Override
-    public void inject(Object... objects) {
-        testDao = (TestDao) objects[1];
+    public LiveData<List<ProbeEntity>> loadListViewData() {
+        return probeDao.getAllProbe();
     }
+
 
     @Override
-    public LiveData<List<TestEntity>> loadListViewData() {
-        return testDao.getAllTestes();
+    public void inject(Object... objects) {
+        probeDao = (ProbeDao) objects[1];
     }
-
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -44,11 +43,6 @@ public class HistoryDataViewModel extends BaseListViewModel<List<TestEntity>> {
 
     @Override
     public void clear() {
-
-    }
-
-
-    public void deleteOneHistoryData(TestEntity testEntity) {
 
     }
 }

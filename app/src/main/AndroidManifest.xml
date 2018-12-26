@@ -41,7 +41,7 @@
         <activity android:name=".view.CalibrationVerificationActivity" />
         <activity android:name=".view.TestingActivity" />
         <activity android:name=".view.HistoryDataActivity" />
-        <activity android:name=".view.CommonProbeActivity" />
+        <activity android:name=".view.OrdinaryProbeActivity" />
 
     </application>
 

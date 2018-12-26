@@ -106,7 +106,7 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
                     goTo(HistoryDataActivity.class, null);
                     break;
                 case "OrdinaryProbeActivity":
-                    goTo(CommonProbeActivity.class, null);
+                    goTo(OrdinaryProbeActivity.class, null);
                     break;
             }
 

@@ -3,6 +3,7 @@ package com.jinkan.www.cpttest.di;
 import com.jinkan.www.cpttest.view.HistoryDataActivity;
 import com.jinkan.www.cpttest.view.LinkBluetoothActivity;
 import com.jinkan.www.cpttest.view.NewTestActivity;
+import com.jinkan.www.cpttest.view.OrdinaryProbeActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
 import com.jinkan.www.cpttest.view.base.BaseTestActivity;
 import com.jinkan.www.cpttest.view.main.MainActivity;
@@ -45,15 +46,9 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector
     abstract HistoryDataActivity HistoryDataActivity();
-//    @ActivityScoped
-//    @ContributesAndroidInjector(modules = AddEditTaskModule.class)
-//    abstract AddEditTaskActivity addEditTaskActivity();
-//
-//    @ActivityScoped
-//    @ContributesAndroidInjector(modules = StatisticsModule.class)
-//    abstract StatisticsActivity statisticsActivity();
-//
-//    @ActivityScoped
-//    @ContributesAndroidInjector(modules = TaskDetailPresenterModule.class)
-//    abstract TaskDetailActivity taskDetailActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract OrdinaryProbeActivity OrdinaryProbeActivity();
+
 }

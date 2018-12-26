@@ -14,12 +14,10 @@ import com.jinkan.www.cpttest.databinding.ActivityHistoryDataBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.view.adapter.HistoryDataAdapter;
-import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
 import com.jinkan.www.cpttest.view.adapter.ItemHistoryDataClickCallback;
+import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
 import com.jinkan.www.cpttest.view_model.HistoryDataViewModel;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,15 +25,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, ActivityHistoryDataBinding, HistoryDataAdapter> {
-    //    @BindView(id = R.id.lv_history)
-//    private ListView lv_history;
-//    @BindView(id = R.id.empty)
-//    private TextView empty;
     @Inject
     TestDao testDao;
-    private List<TestEntity> mTestEntitys;
     private TestEntity testModel;
-
 
     @SuppressWarnings("unchecked")
     @Override

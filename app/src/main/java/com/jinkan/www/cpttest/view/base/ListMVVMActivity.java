@@ -77,11 +77,10 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
         mViewModel.loadListViewData().observe(this, o -> {
             if (o == null) {
                 mViewModel.isEmpty.setValue(true);
-            } else {
+            } else if (o instanceof List && ((List) o).size() != 0) {
                 mViewModel.isEmpty.setValue(false);
                 mAdapter.setList((List) o);
             }
-
         });
     }
 
