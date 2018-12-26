@@ -71,7 +71,8 @@ public abstract class MyBaseAdapter<IDB extends ViewDataBinding, T extends Item>
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         IDB itemBinDing = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), layoutId,
                 parent, false);
-        itemBinDing.setVariable(BR.clickCallback, clickCallback);
+        if (clickCallback != null)
+            itemBinDing.setVariable(BR.clickCallback, clickCallback);
         return new ViewHolder(itemBinDing);
     }
 

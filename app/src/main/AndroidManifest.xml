@@ -42,6 +42,8 @@
         <activity android:name=".view.TestingActivity" />
         <activity android:name=".view.HistoryDataActivity" />
         <activity android:name=".view.OrdinaryProbeActivity" />
+        <activity android:name=".view.CrossTestDataDetailsActivity" />
+        <activity android:name=".view.TestDataDetailsActivity" />
 
     </application>
 

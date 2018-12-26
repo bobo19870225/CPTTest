@@ -5,7 +5,10 @@ package com.jinkan.www.cpttest.view.adapter;
  * CPTTest
  */
 public interface ItemHistoryData extends Item {
+
     String getProjectNumber();
+
+    String getTestType();
 
     String getHoleNumber();
 

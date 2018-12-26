@@ -51,4 +51,8 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract OrdinaryProbeActivity OrdinaryProbeActivity();
 
+//    @ActivityScoped
+//    @ContributesAndroidInjector
+//    abstract TestDataDetailsActivity TestDataDetailsActivity();
+
 }

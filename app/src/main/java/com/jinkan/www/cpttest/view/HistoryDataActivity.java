@@ -20,6 +20,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import static com.jinkan.www.cpttest.util.SystemConstant.VANE_TEST;
+
 public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, ActivityHistoryDataBinding, HistoryDataAdapter> {
     @Inject
     TestDao testDao;
@@ -51,6 +53,11 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
             @Override
             public void onClick(ItemHistoryData itemHistoryData) {
 
+                if (itemHistoryData.getTestType().equals(VANE_TEST)) {
+                    goTo(CrossTestDataDetailsActivity.class, itemHistoryData.getId());
+                } else {
+//                    goTo(TestDataDetailsActivity.class, itemHistoryData.getId());
+                }
             }
 
             @Override

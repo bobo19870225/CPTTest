@@ -32,6 +32,11 @@ public class TestEntity implements ItemHistoryData {
     }
 
     @Override
+    public String getTestType() {
+        return testType;
+    }
+
+    @Override
     public String getHoleNumber() {
         return holeNumber;
     }
@@ -40,6 +45,7 @@ public class TestEntity implements ItemHistoryData {
     public String getTestDate() {
         return testDate;
     }
+
 
     @Override
     public Object getId() {
