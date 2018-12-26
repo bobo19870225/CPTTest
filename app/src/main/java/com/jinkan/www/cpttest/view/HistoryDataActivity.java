@@ -14,8 +14,8 @@ import com.jinkan.www.cpttest.databinding.ActivityHistoryDataBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.view.adapter.HistoryDataAdapter;
-import com.jinkan.www.cpttest.view.adapter.ItemHistoryDataClickCallback;
 import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
+import com.jinkan.www.cpttest.view.adapter.ItemHistoryDataClickCallback;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
 import com.jinkan.www.cpttest.view_model.HistoryDataViewModel;
 
@@ -79,6 +79,11 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
         HistoryDataAdapter historyDataAdapter = new HistoryDataAdapter(R.layout.item_history_data, new ItemHistoryDataClickCallback() {
             @Override
             public void onClick(ItemHistoryData itemHistoryData) {
+
+            }
+
+            @Override
+            public void onDeleteClick(ItemHistoryData itemHistoryData) {
 
             }
         });

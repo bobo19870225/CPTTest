@@ -6,4 +6,6 @@ package com.jinkan.www.cpttest.view.adapter;
  */
 public interface ItemHistoryDataClickCallback {
     void onClick(ItemHistoryData itemHistoryData);
+
+    void onDeleteClick(ItemHistoryData itemHistoryData);
 }
