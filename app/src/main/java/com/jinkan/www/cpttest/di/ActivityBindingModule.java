@@ -8,6 +8,8 @@ import com.jinkan.www.cpttest.view.NewTestActivity;
 import com.jinkan.www.cpttest.view.OrdinaryProbeActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
 import com.jinkan.www.cpttest.view.TestDataDetailsActivity;
+import com.jinkan.www.cpttest.view.VersionInfoActivity;
+import com.jinkan.www.cpttest.view.VideoActivity;
 import com.jinkan.www.cpttest.view.base.BaseTestActivity;
 import com.jinkan.www.cpttest.view.main.MainActivity;
 import com.jinkan.www.cpttest.view_model.BaseModule;
@@ -66,5 +68,12 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract MyMsgActivity MyMsgActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract VideoActivity VideoActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract VersionInfoActivity VersionInfoActivity();
 
 }
