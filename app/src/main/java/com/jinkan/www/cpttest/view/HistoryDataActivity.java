@@ -56,7 +56,7 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
                 if (itemHistoryData.getTestType().equals(VANE_TEST)) {
                     goTo(CrossTestDataDetailsActivity.class, itemHistoryData.getId());
                 } else {
-//                    goTo(TestDataDetailsActivity.class, itemHistoryData.getId());
+                    goTo(TestDataDetailsActivity.class, itemHistoryData.getId());
                 }
             }
 
@@ -71,7 +71,7 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
 
     @Override
     protected void setViewWithOutListView() {
-
+        setToolBar("历史数据");
     }
 
     @Override
