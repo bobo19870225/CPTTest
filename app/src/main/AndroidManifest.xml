@@ -44,6 +44,10 @@
         <activity android:name=".view.OrdinaryProbeActivity" />
         <activity android:name=".view.CrossTestDataDetailsActivity" />
         <activity android:name=".view.TestDataDetailsActivity" />
+        <activity android:name=".view.MyLinkerActivity" />
+        <activity android:name=".view.VideoActivity" />
+        <activity android:name=".view.VersionInfoActivity" />
+        <activity android:name=".view.MyMsgActivity" />
 
     </application>
 

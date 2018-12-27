@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityMainBinding;
+import com.jinkan.www.cpttest.view.MeFragment;
 import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
 import com.jinkan.www.cpttest.view.adapter.MyPagerAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
@@ -36,6 +37,8 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
 
     @Inject
     OrdinaryTestFragment ordinaryTestFragment;
+    @Inject
+    MeFragment meFragment;
     private ViewPager view_page;
     private BottomNavigationView navigation;
     private int selectedIndex = 0;
@@ -86,7 +89,7 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
         fragmentList.add(ordinaryTestFragment);
         fragmentList.add(new OrdinaryTestFragment());
         fragmentList.add(new OrdinaryTestFragment());
-        fragmentList.add(new OrdinaryTestFragment());
+        fragmentList.add(meFragment);
         MyPagerAdapter myPagerAdapter = new MyPagerAdapter(mFragmentManager, fragmentList);
         view_page.setAdapter(myPagerAdapter);
         view_page.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

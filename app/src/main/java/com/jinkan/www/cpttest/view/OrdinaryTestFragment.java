@@ -1,9 +1,5 @@
 package com.jinkan.www.cpttest.view;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.FragmentOrdinaryTestBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
@@ -20,7 +16,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -55,10 +50,6 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
         return ViewModelProviders.of(this).get(OrdinaryTestViewModel.class);
     }
 
-    @Override
-    public View initView(LayoutInflater inflater, @Nullable ViewGroup container) {
-        return null;
-    }
 
     @Override
     protected void setView() {

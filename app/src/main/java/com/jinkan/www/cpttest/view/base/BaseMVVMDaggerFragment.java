@@ -31,6 +31,11 @@ public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB exten
     }
 
     @Override
+    public final View initView(LayoutInflater inflater, @Nullable ViewGroup container) {
+        return null;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
