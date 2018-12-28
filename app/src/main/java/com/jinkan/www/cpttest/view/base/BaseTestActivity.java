@@ -361,7 +361,7 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
                 showModifyDialog(mViewModel.obsStringDeepDistance.get());
                 break;
             case 1:
-                showWaitDialog("正在连接蓝牙", false, false);
+                showWaitDialog("正在连接蓝牙", false, true);
                 break;
             case 2:
                 Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);

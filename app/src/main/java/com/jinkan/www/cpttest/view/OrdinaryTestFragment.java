@@ -12,13 +12,14 @@ import com.jinkan.www.cpttest.util.SystemConstant;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.OrdinaryTestViewModel;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import javax.inject.Inject;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -57,41 +58,6 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
     @Override
     protected void setView() {
 
-        mViewModel.allTestes.observe(this, testEntities -> {
-            Lifecycle.State currentState = getLifecycle().getCurrentState();
-            if (currentState == Lifecycle.State.RESUMED) {
-                TestEntity testEntity = testEntities.get(0);
-                if (testEntity != null) {
-                    Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
-                    String add = linkerPreferences.get("add");
-                    if (StringUtil.isEmpty(add)) {
-                        goTo(LinkBluetoothActivity.class, new String[]{testEntity.projectNumber, testEntity.holeNumber, testEntity.testType});
-                    } else {//mac地址，工程编号，孔号，试验类型。
-                        String[] strings = {add, testEntity.projectNumber, testEntity.holeNumber};
-                        switch (testEntity.testType) {
-                            case SystemConstant.SINGLE_BRIDGE_TEST:
-                                goTo(SingleBridgeTestActivity.class, strings);
-                                break;
-                            case SystemConstant.SINGLE_BRIDGE_MULTI_TEST:
-                                goTo(SingleBridgeMultifunctionTestActivity.class, strings);
-                                break;
-                            case SystemConstant.DOUBLE_BRIDGE_TEST:
-                                goTo(DoubleBridgeTestActivity.class, strings);
-                                break;
-                            case SystemConstant.DOUBLE_BRIDGE_MULTI_TEST:
-                                goTo(DoubleBridgeMultifunctionTestActivity.class, strings);
-                                break;
-                            case SystemConstant.VANE_TEST:
-                                goTo(CrossTestActivity.class, strings);
-                                break;
-                        }
-
-                    }
-                } else {
-                    showToast("暂无可进行二次测量的试验");
-                }
-            }
-        });
     }
 
     private void showChooseDialog() {
@@ -120,7 +86,48 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
             case 2:
                 goTo(OrdinaryProbeActivity.class, null);
                 break;
+            case 3:
+                mViewModel.allTestes.observe(this, new Observer<List<TestEntity>>() {
+                    @Override
+                    public void onChanged(List<TestEntity> testEntities) {
+                        {
+                            //只观察一次数据
+                            mViewModel.allTestes.removeObserver(this);
+                            TestEntity testEntity = testEntities.get(0);
+                            if (testEntity != null) {
+                                Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
+                                String add = linkerPreferences.get("add");
+                                if (StringUtil.isEmpty(add)) {
+                                    goTo(LinkBluetoothActivity.class, new String[]{testEntity.projectNumber, testEntity.holeNumber, testEntity.testType});
+                                } else {//mac地址，工程编号，孔号，试验类型。
+                                    String[] strings = {add, testEntity.projectNumber, testEntity.holeNumber};
+                                    switch (testEntity.testType) {
+                                        case SystemConstant.SINGLE_BRIDGE_TEST:
+                                            goTo(SingleBridgeTestActivity.class, strings);
+                                            break;
+                                        case SystemConstant.SINGLE_BRIDGE_MULTI_TEST:
+                                            goTo(SingleBridgeMultifunctionTestActivity.class, strings);
+                                            break;
+                                        case SystemConstant.DOUBLE_BRIDGE_TEST:
+                                            goTo(DoubleBridgeTestActivity.class, strings);
+                                            break;
+                                        case SystemConstant.DOUBLE_BRIDGE_MULTI_TEST:
+                                            goTo(DoubleBridgeMultifunctionTestActivity.class, strings);
+                                            break;
+                                        case SystemConstant.VANE_TEST:
+                                            goTo(CrossTestActivity.class, strings);
+                                            break;
+                                    }
 
+                                }
+                            } else {
+                                showToast("暂无可进行二次测量的试验");
+                            }
+
+                        }
+                    }
+                });
+                break;
         }
 
 
