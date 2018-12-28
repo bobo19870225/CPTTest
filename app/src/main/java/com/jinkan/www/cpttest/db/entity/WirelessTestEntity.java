@@ -1,5 +1,7 @@
 package com.jinkan.www.cpttest.db.entity;
 
+import com.jinkan.www.cpttest.view.adapter.ItemMarkupFile;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,7 +11,7 @@ import androidx.room.PrimaryKey;
  * LastCPT 2
  */
 @Entity(tableName = "wirelessTest")
-public class WirelessTestEntity {
+public class WirelessTestEntity implements ItemMarkupFile {
     @PrimaryKey
     @NonNull
     public String testID = "";//projectNumber_holeNumber
@@ -23,18 +25,19 @@ public class WirelessTestEntity {
     public String testType;
     public String testDataID;//projectNumber_holeNumber
 
-    public TestEntity castToTestEntity() {
-        TestEntity testModel = new TestEntity();
-        testModel.testID = testID;
-        testModel.testDate = testDate;
-        testModel.projectNumber = projectNumber;
-        testModel.holeNumber = holeNumber;
-        testModel.holeHigh = holeHigh;
-        testModel.waterLevel = waterLevel;
-        testModel.location = location;
-        testModel.tester = tester;
-        testModel.testType = testType;
-        testModel.testDataID = testDataID;
-        return testModel;
+
+    @Override
+    public String getTestId() {
+        return testID;
+    }
+
+    @Override
+    public String getTestData() {
+        return testDate;
+    }
+
+    @Override
+    public Object getId() {
+        return testID;
     }
 }

@@ -8,6 +8,7 @@ import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityHistoryDataBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.adapter.HistoryDataAdapter;
 import com.jinkan.www.cpttest.view.adapter.ItemHistoryData;
 import com.jinkan.www.cpttest.view.adapter.ItemHistoryDataClickCallback;
@@ -85,5 +86,10 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
                 .setPositiveButton("确定", (dialog, which) -> mViewModel.deleteOneHistoryData(itemHistoryData))
                 .setNegativeButton("取消", (dialog, which) -> dialog.dismiss()).create();
         alertDialog.show();
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityVersionInfoBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.VersionInfoVM;
 
@@ -31,5 +32,10 @@ public class VersionInfoActivity extends BaseMVVMDaggerActivity<VersionInfoVM, A
     @Override
     public VersionInfoVM createdViewModel() {
         return ViewModelProviders.of(this).get(VersionInfoVM.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

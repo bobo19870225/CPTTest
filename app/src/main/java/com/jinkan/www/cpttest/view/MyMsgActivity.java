@@ -7,6 +7,7 @@ package com.jinkan.www.cpttest.view;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityMyMsgBinding;
 import com.jinkan.www.cpttest.db.dao.MsgDao;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.adapter.MyMsgAdapter;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
 import com.jinkan.www.cpttest.view_model.MyMsgViewModel;
@@ -64,5 +65,10 @@ public class MyMsgActivity extends ListMVVMActivity<MyMsgViewModel, ActivityMyMs
     @Override
     public MyMsgViewModel createdViewModel() {
         return ViewModelProviders.of(this).get(MyMsgViewModel.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

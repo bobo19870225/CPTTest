@@ -100,7 +100,8 @@ public class BaseTestViewModel extends BaseViewModel {
                 if (StringUtil.isFloat(s)) {
                     obsTestDeep.set(floatDeep + Float.valueOf(s));
                 } else {
-                    toast.setValue("测量间距不合法！");
+                    callbackMessage.setValue(Toast, "测量间距不合法！");
+                    getView().callback(callbackMessage);
                     return;
                 }
             }

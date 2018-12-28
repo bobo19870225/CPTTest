@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityCrossTestBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.CrossTestViewModel;
 
@@ -30,5 +31,10 @@ public class CrossTestActivity extends DialogMVVMDaggerActivity<CrossTestViewMod
     @Override
     public int initView() {
         return R.layout.activity_cross_test;
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityVideoBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.VideoViewModel;
 
@@ -30,5 +31,10 @@ public class VideoActivity extends BaseMVVMDaggerActivity<VideoViewModel, Activi
     @Override
     public VideoViewModel createdViewModel() {
         return ViewModelProviders.of(this).get(VideoViewModel.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

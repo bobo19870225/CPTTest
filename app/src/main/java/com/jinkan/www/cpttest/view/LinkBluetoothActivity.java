@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityLinkBluetoothBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.SystemConstant;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
@@ -222,5 +223,10 @@ public class LinkBluetoothActivity extends BaseMVVMDaggerActivity<LinkBluetoothV
     @Override
     public int initView() {
         return R.layout.activity_link_bluetooth;
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel;
  */
 
 public interface MVVMView<VM extends ViewModel, VDB extends ViewDataBinding> {
+
     VM createdViewModel();
 
     VDB setViewDataBinding(@LayoutRes int layOutId);

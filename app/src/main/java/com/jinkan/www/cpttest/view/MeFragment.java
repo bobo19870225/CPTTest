@@ -6,6 +6,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.FragmentMeBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.MeViewModel;
 
@@ -58,5 +59,10 @@ public class MeFragment extends BaseMVVMDaggerFragment<MeViewModel, FragmentMeBi
     @Override
     public MeViewModel createdViewModel() {
         return ViewModelProviders.of(this).get(MeViewModel.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

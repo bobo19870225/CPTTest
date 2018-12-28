@@ -48,6 +48,7 @@
         <activity android:name=".view.VideoActivity" />
         <activity android:name=".view.VersionInfoActivity" />
         <activity android:name=".view.MyMsgActivity" />
+        <activity android:name=".view.MarkFileActivity" />
 
     </application>
 

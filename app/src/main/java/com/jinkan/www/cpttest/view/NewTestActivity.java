@@ -11,9 +11,9 @@ import android.widget.TextView;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityNewTestBinding;
 import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.SystemConstant;
-import com.jinkan.www.cpttest.util.bluetooth.BluetoothMessage;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.new_test.NewTestViewModel;
@@ -41,12 +41,11 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
     TestDaoHelper testDaoHelper;
     @Inject
     PreferencesUtil preferencesUtil;
-    @Inject
-    BluetoothMessage bluetoothMessage;
+
 
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[]{mData, bluetoothMessage, testDaoHelper, preferencesUtil};
+        return new Object[]{mData, testDaoHelper, preferencesUtil};
     }
 
     @Override
@@ -57,16 +56,7 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
                 isWireless = true;
         }
         mViewDataBinding.choseType.setOnClickListener(view -> showTestType());
-        mViewModel.action.observe(this, bluetoothMessage -> {
-            switch (bluetoothMessage.what) {
-                case ACTION_LINK_BLUETOOTH:
-                    goTo(LinkBluetoothActivity.class, bluetoothMessage.obj);
-                    break;
-                case ACTION_SINGLE_BRIDGE:
-                    goTo(SingleBridgeTestActivity.class, bluetoothMessage.obj);
-                    break;
-            }
-        });
+
 
     }
 
@@ -130,5 +120,19 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
     public NewTestViewModel createdViewModel() {
         return newTestViewModel;
 //        return ViewModelProviders.of(this).get(NewTestViewModel.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
+        switch (callbackMessage.what) {
+            case ACTION_LINK_BLUETOOTH:
+                goTo(LinkBluetoothActivity.class, callbackMessage.obj);
+                break;
+            case ACTION_SINGLE_BRIDGE:
+                goTo(SingleBridgeTestActivity.class, callbackMessage.obj);
+                break;
+        }
+
     }
 }

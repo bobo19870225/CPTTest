@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jinkan.www.cpttest.BR;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
+
+import javax.inject.Inject;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -18,16 +21,21 @@ import androidx.databinding.ViewDataBinding;
  * CPTTest
  */
 public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseDaggerFragment
-        implements MVVMView<VM, VDB> {
+        implements MVVMView<VM, VDB>, ViewCallback {
     protected VM mViewModel;
     protected VDB mViewDataBinding;
-
+    @Inject
+    CallbackMessage callbackMessage;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = createdViewModel();
-        if (mViewModel == null)
+        if (mViewModel == null) {
             throw new RuntimeException("ViewModel can't be null!");
+        } else {
+            mViewModel.attachView(this, callbackMessage);
+        }
+
     }
 
     @Override

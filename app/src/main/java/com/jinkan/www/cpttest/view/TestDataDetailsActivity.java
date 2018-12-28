@@ -3,6 +3,7 @@ package com.jinkan.www.cpttest.view;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityTestDataDetailsBinding;
 import com.jinkan.www.cpttest.db.dao.TestDataDao;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.adapter.TestDataDetailsAdapter;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
 import com.jinkan.www.cpttest.view_model.TestDataDetailsVM;
@@ -51,5 +52,10 @@ public class TestDataDetailsActivity extends ListMVVMActivity<TestDataDetailsVM,
     @Override
     public TestDataDetailsVM createdViewModel() {
         return ViewModelProviders.of(this).get(TestDataDetailsVM.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

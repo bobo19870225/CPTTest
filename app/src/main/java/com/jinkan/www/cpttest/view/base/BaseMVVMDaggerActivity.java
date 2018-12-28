@@ -7,7 +7,10 @@ package com.jinkan.www.cpttest.view.base;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.BR;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
+
+import javax.inject.Inject;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -18,21 +21,22 @@ import androidx.databinding.ViewDataBinding;
  */
 
 public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseDaggerActivity
-        implements MVVMView<VM, VDB> {
+        implements MVVMView<VM, VDB>, ViewCallback {
     protected VM mViewModel;
     protected VDB mViewDataBinding;
 
-
+    @Inject
+    CallbackMessage callbackMessage;
     @Override
     protected final void setView() {
         if (createdViewModel() == null) {
             throw new RuntimeException("ViewModel can't be null!");
         } else {
             mViewModel = createdViewModel();
+            mViewModel.attachView(this, callbackMessage);
             mViewDataBinding.setVariable(BR.model, mViewModel);
         }
         mViewModel.inject(injectToViewModel());
-        mViewModel.toast.observe(this, this::showToast);
         setMVVMView();
     }
 

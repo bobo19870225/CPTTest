@@ -24,6 +24,7 @@ import com.jinkan.www.cpttest.db.dao.TestDataDao;
 import com.jinkan.www.cpttest.db.entity.ProbeEntity;
 import com.jinkan.www.cpttest.db.entity.TestDataEntity;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.util.VibratorUtil;
@@ -363,5 +364,10 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
     @Override
     public void sendToastMsg(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

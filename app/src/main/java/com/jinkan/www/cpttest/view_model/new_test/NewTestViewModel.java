@@ -7,7 +7,6 @@ import com.jinkan.www.cpttest.db.dao.TestDaoHelper;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
-import com.jinkan.www.cpttest.util.bluetooth.BluetoothMessage;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import java.util.Map;
@@ -27,6 +26,7 @@ import static com.jinkan.www.cpttest.util.SystemConstant.VANE_TEST;
  */
 
 public class NewTestViewModel extends BaseViewModel {
+
     public MutableLiveData<String> obsProjectNumber = new MutableLiveData<>();
     public MutableLiveData<String> obsHoleNumber = new MutableLiveData<>();
     public MutableLiveData<String> obsHoleHigh = new MutableLiveData<>();
@@ -34,9 +34,7 @@ public class NewTestViewModel extends BaseViewModel {
     public MutableLiveData<String> obsLocation = new MutableLiveData<>();
     public MutableLiveData<String> obsTester = new MutableLiveData<>();
     public MutableLiveData<String> obsTestType = new MutableLiveData<>();
-    public MutableLiveData<BluetoothMessage> action = new MutableLiveData<>();
 
-    private BluetoothMessage bluetoothMessage;
     private TestDaoHelper testDaoHelper;
     private PreferencesUtil preferencesUtil;
     private boolean isAnalog;
@@ -52,55 +50,64 @@ public class NewTestViewModel extends BaseViewModel {
         String mData = (String) objects[0];
         if (mData.equals("模拟探头"))
             isAnalog = true;
-        bluetoothMessage = (BluetoothMessage) objects[1];
-        testDaoHelper = (TestDaoHelper) objects[2];
-        preferencesUtil = (PreferencesUtil) objects[3];
+        testDaoHelper = (TestDaoHelper) objects[1];
+        preferencesUtil = (PreferencesUtil) objects[2];
     }
 
 
     public void submit() {
         TestEntity testEntity = new TestEntity();
         if (obsProjectNumber.getValue() == null) {
-            toast.setValue("工程编号不能为空");
+            callbackMessage.setValue(Toast, "工程编号不能为空");
+            getView().callback(callbackMessage);
             return;
         }
         testEntity.projectNumber = obsProjectNumber.getValue();
 
         if (obsHoleNumber.getValue() == null) {
-            toast.setValue("孔号不能为空");
+            callbackMessage.setValue(Toast, "孔号不能为空");
+            getView().callback(callbackMessage);
             return;
         }
         testEntity.holeNumber = obsHoleNumber.getValue();
         testEntity.testID = obsProjectNumber.getValue() + "_" + obsHoleNumber.getValue();
         if (obsHoleHigh.getValue() == null) {
-            toast.setValue("孔口高程不能为空");
+            callbackMessage.setValue(Toast, "孔口高程不能为空");
+            getView().callback(callbackMessage);
             return;
         }
         testEntity.holeHigh = Float.valueOf(obsHoleHigh.getValue());
 
         if (obsWaterLevel.getValue() == null) {
-            toast.setValue("地下水位不能为空");
+            callbackMessage.setValue(Toast, "地下水位不能为空");
+            getView().callback(callbackMessage);
             return;
         }
         testEntity.waterLevel = Float.valueOf(obsWaterLevel.getValue());
 
         if (obsTester.getValue() == null) {
-            toast.setValue("操作员不能为空");
+            callbackMessage.setValue(Toast, "操作员不能为空");
+            getView().callback(callbackMessage);
             return;
         }
         testEntity.tester = obsTester.getValue();
 
         if (obsTestType.getValue() == null) {
-            toast.setValue("试验类型不能为空");
+            callbackMessage.setValue(Toast, "试验类型不能为空");
+            getView().callback(callbackMessage);
             return;
         }
         testEntity.testType = obsTestType.getValue();
-        testDaoHelper.addData(testEntity, () -> toast.setValue("添加成功！"));
+        testDaoHelper.addData(testEntity, () -> {
+                    callbackMessage.setValue(Toast, "添加成功！");
+                    getView().callback(callbackMessage);
+                }
+        );
 
         Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
         String add = linkerPreferences.get("add");
         if (StringUtil.isEmpty(add)) {
-            bluetoothMessage.setValue
+            callbackMessage.setValue
                     (
                             ACTION_LINK_BLUETOOTH,
                             new String[]{
@@ -110,15 +117,15 @@ public class NewTestViewModel extends BaseViewModel {
                                     isAnalog ? "模拟探头" : "数字探头"
                             }
                     );
-            action.setValue(bluetoothMessage);
+            getView().callback(callbackMessage);
 //            goTo(LinkBluetoothActivity.class, new String[]{strProjectNumber, strHoleNumber, strTestType, isAnalog ? "模拟探头" : "数字探头"});
         } else {
             String[] dataToSend = {add, testEntity.projectNumber, testEntity.holeNumber, isAnalog ? "模拟探头" : "数字探头"};
             switch (testEntity.testType) {
                 case SINGLE_BRIDGE_TEST:
                     //mac地址，工程编号，孔号。
-                    bluetoothMessage.setValue(ACTION_SINGLE_BRIDGE, dataToSend);
-                    action.setValue(bluetoothMessage);
+                    callbackMessage.setValue(ACTION_SINGLE_BRIDGE, dataToSend);
+                    getView().callback(callbackMessage);
                     break;
                 case SINGLE_BRIDGE_MULTI_TEST:
 //                    goTo(SingleBridgeMultifunctionTestActivity.class, dataToSend);

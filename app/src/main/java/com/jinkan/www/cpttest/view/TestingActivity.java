@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityTestingBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.TestingViewModel;
 
@@ -30,5 +31,10 @@ public class TestingActivity extends DialogMVVMDaggerActivity<TestingViewModel, 
     @Override
     public int initView() {
         return R.layout.activity_testing;
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

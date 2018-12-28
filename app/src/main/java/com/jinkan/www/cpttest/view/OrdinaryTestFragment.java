@@ -5,6 +5,7 @@ import com.jinkan.www.cpttest.databinding.FragmentOrdinaryTestBinding;
 import com.jinkan.www.cpttest.db.dao.TestDao;
 import com.jinkan.www.cpttest.db.entity.TestEntity;
 import com.jinkan.www.cpttest.di.ActivityScoped;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.util.SystemConstant;
@@ -120,4 +121,8 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
         alertDialog.show();
     }
 
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
+    }
 }

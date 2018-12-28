@@ -7,9 +7,14 @@ package com.jinkan.www.cpttest.view_model.base;
 import android.app.Application;
 import android.content.Intent;
 
+import com.jinkan.www.cpttest.util.CallbackMessage;
+import com.jinkan.www.cpttest.view.base.ViewCallback;
+
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by lushengbo on 2018/1/12.
@@ -18,12 +23,29 @@ import androidx.lifecycle.MutableLiveData;
  */
 
 public abstract class BaseViewModel extends AndroidViewModel {
-
-    public final MutableLiveData<String> toast = new MutableLiveData<>();
+    public static final int Toast = 0;
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }
 
+    protected Reference<ViewCallback> mViewCallback;
+
+    protected CallbackMessage callbackMessage;
+
+    public void attachView(ViewCallback viewCallback, CallbackMessage callbackMessage) {
+        this.callbackMessage = callbackMessage;
+        mViewCallback = new WeakReference<>(viewCallback);
+    }
+
+    public ViewCallback getView() {
+        return mViewCallback.get();
+    }
+
+
+    @Override
+    protected void onCleared() {
+        mViewCallback = null;
+    }
 
     public abstract void inject(Object... objects);
 

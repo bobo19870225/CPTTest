@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.di;
 
 import com.jinkan.www.cpttest.view.HistoryDataActivity;
 import com.jinkan.www.cpttest.view.LinkBluetoothActivity;
+import com.jinkan.www.cpttest.view.MarkFileActivity;
 import com.jinkan.www.cpttest.view.MyLinkerActivity;
 import com.jinkan.www.cpttest.view.MyMsgActivity;
 import com.jinkan.www.cpttest.view.NewTestActivity;
@@ -46,34 +47,38 @@ public abstract class ActivityBindingModule {
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract LinkBluetoothActivity LinkBluetoothActivity();
+    abstract LinkBluetoothActivity linkBluetoothActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract HistoryDataActivity HistoryDataActivity();
+    abstract HistoryDataActivity historyDataActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract OrdinaryProbeActivity OrdinaryProbeActivity();
+    abstract OrdinaryProbeActivity ordinaryProbeActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract TestDataDetailsActivity TestDataDetailsActivity();
+    abstract TestDataDetailsActivity testDataDetailsActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract MyLinkerActivity MyLinkerActivity();
+    abstract MyLinkerActivity myLinkerActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract MyMsgActivity MyMsgActivity();
+    abstract MyMsgActivity myMsgActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract VideoActivity VideoActivity();
+    abstract VideoActivity videoActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract VersionInfoActivity VersionInfoActivity();
+    abstract VersionInfoActivity versionInfoActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract MarkFileActivity markFileActivity();
 
 }

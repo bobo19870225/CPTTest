@@ -1,4 +1,4 @@
-package com.jinkan.www.cpttest.util.bluetooth;
+package com.jinkan.www.cpttest.util;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -8,9 +8,9 @@ import javax.inject.Singleton;
  * CPTTest
  */
 @Singleton
-public class BluetoothMessage {
+public class CallbackMessage {
     @Inject
-    public BluetoothMessage() {
+    public CallbackMessage() {
     }
 
     public int what;

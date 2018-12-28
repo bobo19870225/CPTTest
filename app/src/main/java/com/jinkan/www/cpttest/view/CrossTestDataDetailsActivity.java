@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityCrossTestDataDetailsBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.CrossTestDataDetailsMV;
 
@@ -31,5 +32,10 @@ public class CrossTestDataDetailsActivity extends BaseMVVMDaggerActivity<CrossTe
     @Override
     public CrossTestDataDetailsMV createdViewModel() {
         return ViewModelProviders.of(this).get(CrossTestDataDetailsMV.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

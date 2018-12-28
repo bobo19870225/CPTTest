@@ -3,6 +3,7 @@ package com.jinkan.www.cpttest.view_model.main;
 import com.jinkan.www.cpttest.di.FragmentScoped;
 import com.jinkan.www.cpttest.view.MeFragment;
 import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
+import com.jinkan.www.cpttest.view.WirelessTestFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -20,4 +21,9 @@ public abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract MeFragment meFragment();
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract WirelessTestFragment wirelessTestFragment();
+
 }

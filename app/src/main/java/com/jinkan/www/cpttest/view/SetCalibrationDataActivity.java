@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivitySetCalibrationDataBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.SetCalibrationDataVM;
 
@@ -28,5 +29,10 @@ public class SetCalibrationDataActivity extends BaseMVVMDaggerActivity<SetCalibr
     @Override
     public int initView() {
         return R.layout.activity_set_calibration_data;
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

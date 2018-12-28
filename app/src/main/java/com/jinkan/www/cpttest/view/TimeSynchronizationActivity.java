@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityTimeSynchronizationBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.TimeSynchronizationVM;
 
@@ -30,5 +31,10 @@ public class TimeSynchronizationActivity extends DialogMVVMDaggerActivity<TimeSy
     @Override
     public int initView() {
         return R.layout.activity_time_synchronization;
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

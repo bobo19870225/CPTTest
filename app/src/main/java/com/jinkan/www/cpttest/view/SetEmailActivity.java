@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivitySetEmailBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
@@ -149,5 +150,10 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
     @Override
     public SetEmailViewModel createdViewModel() {
         return ViewModelProviders.of(this).get(SetEmailViewModel.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

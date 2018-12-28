@@ -17,8 +17,10 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityMainBinding;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.MeFragment;
 import com.jinkan.www.cpttest.view.OrdinaryTestFragment;
+import com.jinkan.www.cpttest.view.WirelessTestFragment;
 import com.jinkan.www.cpttest.view.adapter.MyPagerAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.main.MainViewModel;
@@ -39,6 +41,9 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
     OrdinaryTestFragment ordinaryTestFragment;
     @Inject
     MeFragment meFragment;
+    @Inject
+    WirelessTestFragment wirelessTestFragment;
+
     private ViewPager view_page;
     private BottomNavigationView navigation;
     private int selectedIndex = 0;
@@ -87,7 +92,7 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
     private void initViewPage() {
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(ordinaryTestFragment);
-        fragmentList.add(new OrdinaryTestFragment());
+        fragmentList.add(wirelessTestFragment);
         fragmentList.add(new OrdinaryTestFragment());
         fragmentList.add(meFragment);
         MyPagerAdapter myPagerAdapter = new MyPagerAdapter(mFragmentManager, fragmentList);
@@ -153,5 +158,10 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
 
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

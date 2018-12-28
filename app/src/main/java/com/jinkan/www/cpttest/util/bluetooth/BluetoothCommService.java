@@ -10,6 +10,8 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
+import com.jinkan.www.cpttest.util.CallbackMessage;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,8 +32,8 @@ public class BluetoothCommService {
     private final BluetoothAdapter mAdapter;
     //    private final Handler mHandler;
     @Inject
-    BluetoothMessage bluetoothMessage;
-    private final MutableLiveData<BluetoothMessage> bluetoothMessageMutableLiveData = new MutableLiveData<>();
+    CallbackMessage callbackMessage;
+    private final MutableLiveData<CallbackMessage> bluetoothMessageMutableLiveData = new MutableLiveData<>();
     private int mState;
     private AcceptThread mAcceptThread;
     private ConnectThread mConnectThread;
@@ -59,7 +61,7 @@ public class BluetoothCommService {
         mState = STATE_NONE;
     }
 
-    public MutableLiveData<BluetoothMessage> getBluetoothMessageMutableLiveData() {
+    public MutableLiveData<CallbackMessage> getBluetoothMessageMutableLiveData() {
         return bluetoothMessageMutableLiveData;
     }
 
@@ -76,8 +78,8 @@ public class BluetoothCommService {
 //        mHandler.obtainMessage(MESSAGE_STATE_CHANGE, state, -1)
 //                .sendToTarget();
 
-        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, state, -1);
-        bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
+        callbackMessage.setValue(MESSAGE_STATE_CHANGE, state, -1);
+        bluetoothMessageMutableLiveData.postValue(callbackMessage);
 
     }
 
@@ -166,8 +168,8 @@ public class BluetoothCommService {
 //        bundle.putString(DEVICE_NAME, device.getName());
 //        msg.setData(bundle);
 //        mHandler.sendMessage(msg);
-        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECTED, -1, device.getName());
-        bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
+        callbackMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECTED, -1, device.getName());
+        bluetoothMessageMutableLiveData.postValue(callbackMessage);
         setState(STATE_CONNECTED);
 
     }
@@ -223,8 +225,8 @@ public class BluetoothCommService {
 //        bundle.putString(TOAST, "无法连接设备");
 //        msg.setData(bundle);
 //        mHandler.sendMessage(msg);
-//        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_FAILED, -1, "无法连接设备");
-        bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
+//        callbackMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_FAILED, -1, "无法连接设备");
+        bluetoothMessageMutableLiveData.postValue(callbackMessage);
 
         setState(STATE_CONNECT_FAILED);
     }
@@ -240,8 +242,8 @@ public class BluetoothCommService {
 //        bundle.putString(TOAST, "失去设备的连接");
 //        msg.setData(bundle);
 //        mHandler.sendMessage(msg);
-//        bluetoothMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_LOST, -1, "失去设备的连接");
-        bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
+//        callbackMessage.setValue(MESSAGE_STATE_CHANGE, STATE_CONNECT_LOST, -1, "失去设备的连接");
+        bluetoothMessageMutableLiveData.postValue(callbackMessage);
 
         setState(STATE_CONNECT_LOST);
     }
@@ -437,8 +439,8 @@ public class BluetoothCommService {
                     if (b[0] != '\r' && b[0] != '\n') {
 //                        mHandler.obtainMessage(MESSAGE_READ, i, -1, b)
 //                                .sendToTarget();
-                        bluetoothMessage.setValue(MESSAGE_READ, i, -1, b);
-                        bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
+                        callbackMessage.setValue(MESSAGE_READ, i, -1, b);
+                        bluetoothMessageMutableLiveData.postValue(callbackMessage);
                     }
 
                 } catch (IOException e) {
@@ -506,8 +508,8 @@ public class BluetoothCommService {
                 // Share the sent message back to the UI Activity
 //                mHandler.obtainMessage(MESSAGE_WRITE, -1, -1,
 //                        buffer).sendToTarget();
-                bluetoothMessage.setValue(MESSAGE_WRITE, -1, -1, buffer);
-                bluetoothMessageMutableLiveData.postValue(bluetoothMessage);
+                callbackMessage.setValue(MESSAGE_WRITE, -1, -1, buffer);
+                bluetoothMessageMutableLiveData.postValue(callbackMessage);
 
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);

@@ -3,6 +3,7 @@ package com.jinkan.www.cpttest.view;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityOrdinaryProbeBinding;
 import com.jinkan.www.cpttest.db.dao.ProbeDao;
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.adapter.ItemOrdinaryProbeCallback;
 import com.jinkan.www.cpttest.view.adapter.OrdinaryProbeAdapter;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
@@ -58,5 +59,10 @@ public class OrdinaryProbeActivity extends ListMVVMActivity<OrdinaryProbeVM, Act
     @Override
     public OrdinaryProbeVM createdViewModel() {
         return ViewModelProviders.of(this).get(OrdinaryProbeVM.class);
+    }
+
+    @Override
+    public void callback(CallbackMessage callbackMessage) {
+
     }
 }

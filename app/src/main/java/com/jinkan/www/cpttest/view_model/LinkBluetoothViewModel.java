@@ -4,10 +4,10 @@ import android.Manifest;
 import android.app.Application;
 import android.content.Intent;
 
+import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.acp.Acp;
 import com.jinkan.www.cpttest.util.acp.AcpListener;
 import com.jinkan.www.cpttest.util.acp.AcpOptions;
-import com.jinkan.www.cpttest.util.bluetooth.BluetoothMessage;
 import com.jinkan.www.cpttest.util.bluetooth.BluetoothUtil;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
@@ -22,7 +22,7 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class LinkBluetoothViewModel extends BaseViewModel {
     private BluetoothUtil bluetoothUtil;
-    public final MutableLiveData<BluetoothMessage> action = new MutableLiveData<>();
+    public final MutableLiveData<CallbackMessage> action = new MutableLiveData<>();
 
     public LinkBluetoothViewModel(@NonNull Application application) {
         super(application);
@@ -55,7 +55,8 @@ public class LinkBluetoothViewModel extends BaseViewModel {
 
                     @Override
                     public void onDenied(List<String> permissions) {
-                        toast.setValue(permissions.toString() + "权限拒绝");
+                        callbackMessage.setValue(Toast, permissions.toString() + "权限拒绝");
+                        getView().callback(callbackMessage);
                     }
                 });
     }
