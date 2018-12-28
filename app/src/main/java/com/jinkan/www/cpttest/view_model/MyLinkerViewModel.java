@@ -13,7 +13,6 @@ import androidx.lifecycle.MutableLiveData;
  * CPTTest
  */
 public class MyLinkerViewModel extends BaseViewModel {
-    public final MutableLiveData<String> action = new MutableLiveData<>();
 
     public MyLinkerViewModel(@NonNull Application application) {
         super(application);
@@ -35,11 +34,15 @@ public class MyLinkerViewModel extends BaseViewModel {
     }
 
     public void setLinker() {
-        action.setValue("setLinker");
+        callbackMessage.setValue(0);
+        getView().callback(callbackMessage);
+//        action.setValue("setLinker");
     }
 
     public void setAnalogLinker() {
-        action.setValue("setAnalogLinker");
+        callbackMessage.setValue(1);
+        getView().callback(callbackMessage);
+//        action.setValue("setAnalogLinker");
     }
 
 }

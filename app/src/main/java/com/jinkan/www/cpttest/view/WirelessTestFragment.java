@@ -36,25 +36,7 @@ public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestVie
 
     @Override
     protected void setView() {
-        mViewModel.action.observe(this, integer -> {
-            switch (integer) {
-                case 0:
-                    goTo(NewTestActivity.class, "无缆试验");
-                    break;
-                case 1:
-                    goTo(MarkFileActivity.class, null);
-                    break;
-                case 2:
-//                    goTo(WirelessProbeActivity.class, null);
-                    break;
-                case 3:
-//                    goTo(DataSyncActivity.class, null);
-                    break;
-                case 4:
-//                    goTo(WirelessTestDataActivity.class, null);
-                    break;
-            }
-        });
+
         mViewModel.listMediatorLiveData.observe(this, wirelessTestEntities -> {
 
             if (wirelessTestEntities != null && !wirelessTestEntities.isEmpty()) {
@@ -97,6 +79,24 @@ public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestVie
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
+
+        switch (callbackMessage.what) {
+            case 0:
+                goTo(NewTestActivity.class, "无缆试验");
+                break;
+            case 1:
+                goTo(MarkFileActivity.class, null);
+                break;
+            case 2:
+//                    goTo(WirelessProbeActivity.class, null);
+                break;
+            case 3:
+//                    goTo(DataSyncActivity.class, null);
+                break;
+            case 4:
+//                    goTo(WirelessTestDataActivity.class, null);
+                break;
+        }
 
     }
 }

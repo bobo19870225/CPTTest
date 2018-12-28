@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.acp.Acp;
 import com.jinkan.www.cpttest.util.acp.AcpListener;
 import com.jinkan.www.cpttest.util.acp.AcpOptions;
@@ -14,7 +13,6 @@ import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/21.
@@ -22,7 +20,6 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class LinkBluetoothViewModel extends BaseViewModel {
     private BluetoothUtil bluetoothUtil;
-    public final MutableLiveData<CallbackMessage> action = new MutableLiveData<>();
 
     public LinkBluetoothViewModel(@NonNull Application application) {
         super(application);

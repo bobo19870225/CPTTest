@@ -132,20 +132,7 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
                     }
 
                 });
-        mViewModel.action.observe(this, s -> {
-            switch (s) {
-                case "showModifyDialog":
-                    showModifyDialog(mViewModel.obsStringDeepDistance.get());
-                    break;
-                case "showWaitDialog":
-                    showWaitDialog("正在连接蓝牙", false, false);
-                    break;
-                case "startActivityForResult":
-                    Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(intent, 0);
-                    break;
-            }
-        });
+
         mViewModel.loadTestData(strProjectNumber + "_" + strHoleNumber)
                 .observe(this, testDataEntities -> {
                     if (testDataEntities != null && !testDataEntities.isEmpty()) {
@@ -368,6 +355,19 @@ public class BaseTestActivity extends DialogMVVMDaggerActivity<BaseTestViewModel
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
+
+        switch (callbackMessage.what) {
+            case 0:
+                showModifyDialog(mViewModel.obsStringDeepDistance.get());
+                break;
+            case 1:
+                showWaitDialog("正在连接蓝牙", false, false);
+                break;
+            case 2:
+                Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(intent, 0);
+                break;
+        }
 
     }
 }

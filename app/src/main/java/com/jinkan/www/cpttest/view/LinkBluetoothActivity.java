@@ -27,6 +27,8 @@ import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import static com.jinkan.www.cpttest.view_model.base.BaseViewModel.Toast;
+
 /**
  * Created by Sampson on 2018/12/21.
  * CPTTest
@@ -227,6 +229,10 @@ public class LinkBluetoothActivity extends BaseMVVMDaggerActivity<LinkBluetoothV
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
-
+        switch (callbackMessage.what) {
+            case Toast:
+                showToast((String) callbackMessage.obj);
+                break;
+        }
     }
 }

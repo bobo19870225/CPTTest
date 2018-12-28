@@ -11,7 +11,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/16.
@@ -26,14 +25,15 @@ public class OrdinaryTestViewModel extends BaseViewModel {
 
     @Override
     public void inject(Object... objects) {
-
+        testDao = (TestDao) objects[1];
     }
 
     private TestDao testDao;
-    public final MutableLiveData<String> action = new MutableLiveData<>();
     public final MediatorLiveData<List<TestEntity>> allTestes = new MediatorLiveData<>();
     public void newTest() {
-        action.setValue("NewTest");
+        callbackMessage.setValue(0);
+        getView().callback(callbackMessage);
+//        action.setValue("NewTest");
     }
 
     public void reDoTest() {
@@ -41,11 +41,15 @@ public class OrdinaryTestViewModel extends BaseViewModel {
     }
 
     public void showHistoryData() {
-        action.setValue("HistoryDataActivity");
+        callbackMessage.setValue(1);
+        getView().callback(callbackMessage);
+//        action.setValue("HistoryDataActivity");
     }
 
     public void showOrdinaryProbe() {
-        action.setValue("OrdinaryProbeActivity");
+        callbackMessage.setValue(2);
+        getView().callback(callbackMessage);
+//        action.setValue("OrdinaryProbeActivity");
     }
 
 
@@ -59,7 +63,5 @@ public class OrdinaryTestViewModel extends BaseViewModel {
 
     }
 
-    public void setTestDao(TestDao testDao) {
-        this.testDao = testDao;
-    }
+
 }

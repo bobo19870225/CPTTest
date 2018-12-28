@@ -13,30 +13,39 @@ import androidx.lifecycle.MutableLiveData;
  * CPTTest
  */
 public class MeViewModel extends BaseViewModel {
-    public final MutableLiveData<String> action = new MutableLiveData<>();
 
     public MeViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void setLinker() {
-        action.setValue("MyLinkerActivity");
+        callbackMessage.setValue(0);
+        getView().callback(callbackMessage);
+//        action.setValue("MyLinkerActivity");
     }
 
     public void setEmail() {
-        action.setValue("SetEmailActivity");
+        callbackMessage.setValue(1);
+        getView().callback(callbackMessage);
+//        action.setValue("SetEmailActivity");
     }
 
     public void setVideo() {
-        action.setValue("VideoActivity");
+        callbackMessage.setValue(2);
+        getView().callback(callbackMessage);
+//        action.setValue("VideoActivity");
     }
 
     public void checkVersion() {
-        action.setValue("VersionInfoActivity");
+        callbackMessage.setValue(3);
+        getView().callback(callbackMessage);
+//        action.setValue("VersionInfoActivity");
     }
 
     public void myMsg() {
-        action.setValue("MyMsgActivity");
+        callbackMessage.setValue(4);
+        getView().callback(callbackMessage);
+//        action.setValue("MyMsgActivity");
     }
 
 

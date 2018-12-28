@@ -11,7 +11,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/27.
@@ -19,7 +18,6 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class WirelessTestViewModel extends BaseViewModel {
 
-    public final MutableLiveData<Integer> action = new MutableLiveData<>();
     public final MediatorLiveData<List<WirelessTestEntity>> listMediatorLiveData = new MediatorLiveData<>();
 
     private WirelessTestDao wirelessTestDao;
@@ -34,7 +32,8 @@ public class WirelessTestViewModel extends BaseViewModel {
     }
 
     public void newTest() {
-        action.setValue(0);
+        callbackMessage.setValue(0);
+        getView().callback(callbackMessage);
     }
 
     public void reTest() {
@@ -42,20 +41,24 @@ public class WirelessTestViewModel extends BaseViewModel {
     }
 
     public void markupFile() {
-        action.setValue(1);
+        callbackMessage.setValue(1);
+        getView().callback(callbackMessage);
     }
 
     public void wirelessProbe() {
-        action.setValue(2);
+        callbackMessage.setValue(2);
+        getView().callback(callbackMessage);
 
     }
 
     public void dataSync() {
-        action.setValue(3);
+        callbackMessage.setValue(3);
+        getView().callback(callbackMessage);
     }
 
     public void testData() {
-        action.setValue(4);
+        callbackMessage.setValue(4);
+        getView().callback(callbackMessage);
     }
 
 

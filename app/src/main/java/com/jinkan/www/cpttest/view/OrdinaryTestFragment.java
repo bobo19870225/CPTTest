@@ -18,6 +18,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -36,9 +37,10 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
     TestDao testDao;
     @Inject
     PreferencesUtil preferencesUtil;
+
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[0];
+        return new Object[]{mData, testDao};
     }
 
     @Override
@@ -54,62 +56,46 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
 
     @Override
     protected void setView() {
-        mViewModel.setTestDao(testDao);
+
         mViewModel.allTestes.observe(this, testEntities -> {
-            TestEntity testEntity = testEntities.get(0);
-            if (testEntity != null) {
-                Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
-                String add = linkerPreferences.get("add");
-                if (StringUtil.isEmpty(add)) {
-                    goTo(LinkBluetoothActivity.class, new String[]{testEntity.projectNumber, testEntity.holeNumber, testEntity.testType});
-                } else {//mac地址，工程编号，孔号，试验类型。
-                    String[] strings = {add, testEntity.projectNumber, testEntity.holeNumber};
-                    switch (testEntity.testType) {
-                        case SystemConstant.SINGLE_BRIDGE_TEST:
-                            goTo(SingleBridgeTestActivity.class, strings);
-                            break;
-                        case SystemConstant.SINGLE_BRIDGE_MULTI_TEST:
-                            goTo(SingleBridgeMultifunctionTestActivity.class, strings);
-                            break;
-                        case SystemConstant.DOUBLE_BRIDGE_TEST:
-                            goTo(DoubleBridgeTestActivity.class, strings);
-                            break;
-                        case SystemConstant.DOUBLE_BRIDGE_MULTI_TEST:
-                            goTo(DoubleBridgeMultifunctionTestActivity.class, strings);
-                            break;
-                        case SystemConstant.VANE_TEST:
-                            goTo(CrossTestActivity.class, strings);
-                            break;
+            Lifecycle.State currentState = getLifecycle().getCurrentState();
+            if (currentState == Lifecycle.State.RESUMED) {
+                TestEntity testEntity = testEntities.get(0);
+                if (testEntity != null) {
+                    Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
+                    String add = linkerPreferences.get("add");
+                    if (StringUtil.isEmpty(add)) {
+                        goTo(LinkBluetoothActivity.class, new String[]{testEntity.projectNumber, testEntity.holeNumber, testEntity.testType});
+                    } else {//mac地址，工程编号，孔号，试验类型。
+                        String[] strings = {add, testEntity.projectNumber, testEntity.holeNumber};
+                        switch (testEntity.testType) {
+                            case SystemConstant.SINGLE_BRIDGE_TEST:
+                                goTo(SingleBridgeTestActivity.class, strings);
+                                break;
+                            case SystemConstant.SINGLE_BRIDGE_MULTI_TEST:
+                                goTo(SingleBridgeMultifunctionTestActivity.class, strings);
+                                break;
+                            case SystemConstant.DOUBLE_BRIDGE_TEST:
+                                goTo(DoubleBridgeTestActivity.class, strings);
+                                break;
+                            case SystemConstant.DOUBLE_BRIDGE_MULTI_TEST:
+                                goTo(DoubleBridgeMultifunctionTestActivity.class, strings);
+                                break;
+                            case SystemConstant.VANE_TEST:
+                                goTo(CrossTestActivity.class, strings);
+                                break;
+                        }
+
                     }
-
+                } else {
+                    showToast("暂无可进行二次测量的试验");
                 }
-            } else {
-                showToast("暂无可进行二次测量的试验");
             }
-
         });
-
-        mViewModel.action.observe(this, s -> {
-            switch (s) {
-                case "NewTest":
-                    showChooseDialog();
-                    break;
-                case "HistoryDataActivity":
-                    goTo(HistoryDataActivity.class, null);
-                    break;
-                case "OrdinaryProbeActivity":
-                    goTo(OrdinaryProbeActivity.class, null);
-                    break;
-            }
-
-        });
-
     }
 
     private void showChooseDialog() {
-
         CharSequence[] saveItems = new CharSequence[]{"数字探头", "模拟探头"};
-
         AlertDialog alertDialog = new AlertDialog.Builder(Objects.requireNonNull(getContext()))
                 .setTitle("请选择要使用的探头类型")
                 .setSingleChoiceItems(saveItems, 0, (dialog, which) -> probeType = which)
@@ -123,6 +109,20 @@ public class OrdinaryTestFragment extends BaseMVVMDaggerFragment<OrdinaryTestVie
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
+
+        switch (callbackMessage.what) {
+            case 0:
+                showChooseDialog();
+                break;
+            case 1:
+                goTo(HistoryDataActivity.class, null);
+                break;
+            case 2:
+                goTo(OrdinaryProbeActivity.class, null);
+                break;
+
+        }
+
 
     }
 }

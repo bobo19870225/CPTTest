@@ -52,20 +52,7 @@ public class MyLinkerActivity extends BaseMVVMDaggerActivity<MyLinkerViewModel, 
     @Override
     protected void setMVVMView() {
         setToolBar("我的连接器");
-        mViewModel.action.observe(this, s -> {
-            switch (s) {
-                case "setLinker":
-                    HashMap<String, String> stringHashMap = new HashMap<>();
-                    stringHashMap.put("action", "选择数字连接器");
-                    goTo(LinkBluetoothActivity.class, stringHashMap);
-                    break;
-                case "setAnalogLinker":
-                    stringHashMap = new HashMap<>();
-                    stringHashMap.put("action", "选择模拟连接器");
-                    goTo(LinkBluetoothActivity.class, stringHashMap);
-                    break;
-            }
-        });
+
     }
 
     @Override
@@ -81,6 +68,19 @@ public class MyLinkerActivity extends BaseMVVMDaggerActivity<MyLinkerViewModel, 
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
+
+        switch (callbackMessage.what) {
+            case 0:
+                HashMap<String, String> stringHashMap = new HashMap<>();
+                stringHashMap.put("action", "选择数字连接器");
+                goTo(LinkBluetoothActivity.class, stringHashMap);
+                break;
+            case 1:
+                stringHashMap = new HashMap<>();
+                stringHashMap.put("action", "选择模拟连接器");
+                goTo(LinkBluetoothActivity.class, stringHashMap);
+                break;
+        }
 
     }
 }

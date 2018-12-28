@@ -49,7 +49,6 @@ public class BaseTestViewModel extends BaseViewModel {
     public final ObservableField<Float> obsTestDeep = new ObservableField<>(0f);
     public final ObservableField<String> obsStringDeepDistance = new ObservableField<>("0.1");
     public final ObservableField<Boolean> obsIsShock = new ObservableField<>(false);
-    public final MutableLiveData<String> action = new MutableLiveData<>();
     public final MediatorLiveData<List<ProbeEntity>> loadProbe = new MediatorLiveData<>();
     public final MutableLiveData<float[]> recordValue = new MutableLiveData<>();
     private boolean isIdentification;
@@ -204,12 +203,16 @@ public class BaseTestViewModel extends BaseViewModel {
     }
 
     public void modifyDistance() {
-        action.setValue("showModifyDialog");
+        callbackMessage.setValue(0);
+        getView().callback(callbackMessage);
+//        action.setValue("showModifyDialog");
 //        getView().showModifyDialog(obsStringDeepDistance.get());
     }
 
     public void linkDevice(String mac) {
-        action.setValue("showWaitDialog");
+        callbackMessage.setValue(1);
+        getView().callback(callbackMessage);
+//        action.setValue("showWaitDialog");
 //        getView().showWaitDialog("正在连接蓝牙", false, false);
         BluetoothAdapter bluetoothAdapter = bluetoothUtil.getBluetoothAdapter();
         if (bluetoothAdapter.isEnabled()) {// 蓝牙已打开
@@ -217,7 +220,9 @@ public class BaseTestViewModel extends BaseViewModel {
             bluetoothCommService.connect(bluetoothDevice);
         } else {
             // 蓝牙没有打开，调用系统方法要求用户打开蓝牙
-            action.setValue("startActivityForResult");
+            callbackMessage.setValue(2);
+            getView().callback(callbackMessage);
+//            action.setValue("startActivityForResult");
 //            myView.get().startActivityForResult(intent, 0);
         }
     }

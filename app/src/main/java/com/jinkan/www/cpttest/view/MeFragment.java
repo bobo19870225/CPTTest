@@ -24,25 +24,7 @@ public class MeFragment extends BaseMVVMDaggerFragment<MeViewModel, FragmentMeBi
 
     @Override
     protected void setView() {
-        mViewModel.action.observe(this, s -> {
-            switch (s) {
-                case "MyLinkerActivity":
-                    goTo(MyLinkerActivity.class, "设置连接器");
-                    break;
-                case "SetEmailActivity":
-                    goTo(SetEmailActivity.class, null);
-                    break;
-                case "VideoActivity":
-                    goTo(VideoActivity.class, null);
-                    break;
-                case "VersionInfoActivity":
-                    goTo(VersionInfoActivity.class, null);
-                    break;
-                case "MyMsgActivity":
-                    goTo(MyMsgActivity.class, null);
-                    break;
-            }
-        });
+
     }
 
 
@@ -63,6 +45,24 @@ public class MeFragment extends BaseMVVMDaggerFragment<MeViewModel, FragmentMeBi
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
+
+        switch (callbackMessage.what) {
+            case 0:
+                goTo(MyLinkerActivity.class, "设置连接器");
+                break;
+            case 1:
+                goTo(SetEmailActivity.class, null);
+                break;
+            case 2:
+                goTo(VideoActivity.class, null);
+                break;
+            case 3:
+                goTo(VersionInfoActivity.class, null);
+                break;
+            case 4:
+                goTo(MyMsgActivity.class, null);
+                break;
+        }
 
     }
 }

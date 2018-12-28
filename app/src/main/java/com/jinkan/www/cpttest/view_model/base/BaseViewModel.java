@@ -23,7 +23,7 @@ import androidx.lifecycle.AndroidViewModel;
  */
 
 public abstract class BaseViewModel extends AndroidViewModel {
-    public static final int Toast = 0;
+    public static final int Toast = -1;
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }
