@@ -50,6 +50,6 @@ public class DoubleBridgeFragment extends BaseMVVMDaggerFragment<AddProbeInfoVM,
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
-
+        ((AddProbeInfoActivity) Objects.requireNonNull(getActivity())).callback(callbackMessage);
     }
 }
