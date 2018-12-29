@@ -1,5 +1,7 @@
 package com.jinkan.www.cpttest.di;
 
+import com.jinkan.www.cpttest.view.AddProbeActivity;
+import com.jinkan.www.cpttest.view.AddProbeInfoActivity;
 import com.jinkan.www.cpttest.view.HistoryDataActivity;
 import com.jinkan.www.cpttest.view.LinkBluetoothActivity;
 import com.jinkan.www.cpttest.view.MarkFileActivity;
@@ -13,7 +15,6 @@ import com.jinkan.www.cpttest.view.VersionInfoActivity;
 import com.jinkan.www.cpttest.view.VideoActivity;
 import com.jinkan.www.cpttest.view.base.BaseTestActivity;
 import com.jinkan.www.cpttest.view.main.MainActivity;
-import com.jinkan.www.cpttest.view_model.BaseModule;
 import com.jinkan.www.cpttest.view_model.main.MainModule;
 import com.jinkan.www.cpttest.view_model.new_test.NewTestModule;
 
@@ -34,11 +35,11 @@ public abstract class ActivityBindingModule {
     abstract NewTestActivity newTestDaggerActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = BaseModule.class)
+    @ContributesAndroidInjector
     abstract SingleBridgeTestActivity singleBridgeTestActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = BaseModule.class)
+    @ContributesAndroidInjector
     abstract BaseTestActivity baseTestDaggerActivity();
 
     @ActivityScoped
@@ -81,4 +82,11 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract MarkFileActivity markFileActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract AddProbeActivity addProbeActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = AddProbeInfoModule.class)
+    abstract AddProbeInfoActivity addProbeInfoActivity();
 }

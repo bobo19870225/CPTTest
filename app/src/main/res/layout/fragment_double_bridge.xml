@@ -209,7 +209,7 @@
                 android:layout_toEndOf="@+id/tv_qq"
                 android:background="@null"
                 android:inputType="number"
-                android:text="@={model.fsLinit}"
+                android:text="@={model.fsLimit}"
                 android:textSize="16sp" />
 
             <View

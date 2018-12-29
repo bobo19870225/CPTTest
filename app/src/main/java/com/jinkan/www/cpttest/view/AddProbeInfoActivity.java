@@ -30,7 +30,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM, ActivityAddProbeInfoBinding> {
 
-
+    @Inject
+    SingleBridgeFragment singleBridgeFragment;
+    @Inject
+    DoubleBridgeFragment doubleBridgeFragment;
+    @Inject
+    CrossFragment crossFragment;
     @Inject
     ProbeDao probeDao;
 
@@ -118,14 +123,14 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
         switch (type) {
             case "单桥":
             case "单桥测斜":
-                setFragment(R.id.change, new SingleBridgeFragment(), strings);
+                setFragment(R.id.change, singleBridgeFragment, strings);
                 break;
             case "双桥":
             case "双桥测斜":
-                setFragment(R.id.change, new DoubleBridgeFragment(), strings);
+                setFragment(R.id.change, doubleBridgeFragment, strings);
                 break;
             default:
-                setFragment(R.id.change, new CrossFragment(), strings);
+                setFragment(R.id.change, crossFragment, strings);
                 break;
         }
     }

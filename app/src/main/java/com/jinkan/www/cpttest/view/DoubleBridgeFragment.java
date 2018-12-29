@@ -6,6 +6,10 @@ import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.AddProbeInfoVM;
 
+import java.util.Objects;
+
+import javax.inject.Inject;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,9 +18,15 @@ import androidx.lifecycle.ViewModelProviders;
  * CPTTest
  */
 public class DoubleBridgeFragment extends BaseMVVMDaggerFragment<AddProbeInfoVM, FragmentDoubleBridgeBinding> {
+    @Inject
+    public DoubleBridgeFragment() {
+
+    }
+
+
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[0];
+        return ((AddProbeInfoActivity) Objects.requireNonNull(getActivity())).injectToViewModel();
     }
 
     @Override

@@ -28,7 +28,7 @@ public class AddProbeInfoVM extends BaseViewModel {
     public final MutableLiveData<String> qcCoefficient = new MutableLiveData<>();
     public final MutableLiveData<String> fsCoefficient = new MutableLiveData<>();
     public final MutableLiveData<String> qcLimit = new MutableLiveData<>();
-    public final MutableLiveData<String> fsLinit = new MutableLiveData<>();
+    public final MutableLiveData<String> fsLimit = new MutableLiveData<>();
 
 
     private ProbeDao probeDao;
@@ -140,7 +140,7 @@ public class AddProbeInfoVM extends BaseViewModel {
                     toast("侧壁标定系数不合法");
                     return;
                 }
-                String strFsLimit = fsLinit.getValue();
+                String strFsLimit = fsLimit.getValue();
                 if (strFsLimit != null && StringUtil.isInteger(strFsLimit)) {
                     probeModel.fs_limit = Integer.parseInt(strFsLimit);
                 } else {
