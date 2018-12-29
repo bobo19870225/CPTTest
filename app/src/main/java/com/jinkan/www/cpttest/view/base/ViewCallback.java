@@ -8,4 +8,6 @@ import com.jinkan.www.cpttest.util.CallbackMessage;
  */
 public interface ViewCallback {
     void callback(CallbackMessage callbackMessage);
+
+    void toast(CallbackMessage callbackMessage);
 }

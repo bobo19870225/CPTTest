@@ -49,6 +49,9 @@
         <activity android:name=".view.VersionInfoActivity" />
         <activity android:name=".view.MyMsgActivity" />
         <activity android:name=".view.MarkFileActivity" />
+        <activity android:name=".view.AddProbeActivity" />
+        <activity android:name=".util.qrcode.qrSimple.CaptureActivity" />
+        <activity android:name=".view.AddProbeInfoActivity" />
 
     </application>
 

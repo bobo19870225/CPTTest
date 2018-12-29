@@ -58,49 +58,42 @@ public class NewTestViewModel extends BaseViewModel {
     public void submit() {
         TestEntity testEntity = new TestEntity();
         if (obsProjectNumber.getValue() == null) {
-            callbackMessage.setValue(Toast, "工程编号不能为空");
-            getView().callback(callbackMessage);
+            toast("工程编号不能为空");
             return;
         }
         testEntity.projectNumber = obsProjectNumber.getValue();
 
         if (obsHoleNumber.getValue() == null) {
-            callbackMessage.setValue(Toast, "孔号不能为空");
-            getView().callback(callbackMessage);
+            toast("孔号不能为空");
             return;
         }
         testEntity.holeNumber = obsHoleNumber.getValue();
         testEntity.testID = obsProjectNumber.getValue() + "_" + obsHoleNumber.getValue();
         if (obsHoleHigh.getValue() == null) {
-            callbackMessage.setValue(Toast, "孔口高程不能为空");
-            getView().callback(callbackMessage);
+            toast("孔口高程不能为空");
             return;
         }
         testEntity.holeHigh = Float.valueOf(obsHoleHigh.getValue());
 
         if (obsWaterLevel.getValue() == null) {
-            callbackMessage.setValue(Toast, "地下水位不能为空");
-            getView().callback(callbackMessage);
+            toast("地下水位不能为空");
             return;
         }
         testEntity.waterLevel = Float.valueOf(obsWaterLevel.getValue());
 
         if (obsTester.getValue() == null) {
-            callbackMessage.setValue(Toast, "操作员不能为空");
-            getView().callback(callbackMessage);
+            toast("操作员不能为空");
             return;
         }
         testEntity.tester = obsTester.getValue();
 
         if (obsTestType.getValue() == null) {
-            callbackMessage.setValue(Toast, "试验类型不能为空");
-            getView().callback(callbackMessage);
+            toast("试验类型不能为空");
             return;
         }
         testEntity.testType = obsTestType.getValue();
         testDaoHelper.addData(testEntity, () -> {
-                    callbackMessage.setValue(Toast, "添加成功！");
-                    getView().callback(callbackMessage);
+            toast("添加成功！");
                 }
         );
 

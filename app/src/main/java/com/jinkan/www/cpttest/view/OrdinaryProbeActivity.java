@@ -63,6 +63,10 @@ public class OrdinaryProbeActivity extends ListMVVMActivity<OrdinaryProbeVM, Act
 
     @Override
     public void callback(CallbackMessage callbackMessage) {
-
+        switch (callbackMessage.what) {
+            case 0:
+                goTo(AddProbeActivity.class, null);
+                break;
+        }
     }
 }

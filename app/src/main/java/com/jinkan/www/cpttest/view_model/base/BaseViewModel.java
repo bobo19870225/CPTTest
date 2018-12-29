@@ -41,7 +41,15 @@ public abstract class BaseViewModel extends AndroidViewModel {
         return mViewCallback.get();
     }
 
+    protected void toast(String msg) {
+        callbackMessage.setValue(Toast, msg);
+        getView().toast(callbackMessage);
+    }
 
+    protected void action(int what, Object object) {
+        callbackMessage.setValue(what, object);
+        getView().callback(callbackMessage);
+    }
     @Override
     protected void onCleared() {
         mViewCallback = null;

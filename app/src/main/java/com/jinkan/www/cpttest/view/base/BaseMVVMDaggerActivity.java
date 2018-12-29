@@ -15,6 +15,8 @@ import javax.inject.Inject;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import static com.jinkan.www.cpttest.view_model.base.BaseViewModel.Toast;
+
 /**
  * Created by lushengbo on 2018/1/12.
  * MVVM View基类
@@ -79,5 +81,12 @@ public abstract class BaseMVVMDaggerActivity<VM extends BaseViewModel, VDB exten
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mViewModel.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void toast(CallbackMessage callbackMessage) {
+        if (callbackMessage.what == Toast && callbackMessage.obj != null) {
+            showToast((String) callbackMessage.obj);
+        }
     }
 }

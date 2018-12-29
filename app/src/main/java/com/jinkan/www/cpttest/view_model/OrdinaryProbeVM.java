@@ -36,6 +36,11 @@ public class OrdinaryProbeVM extends BaseListViewModel<List<ProbeEntity>> {
         probeDao = (ProbeDao) objects[1];
     }
 
+    public void addProbe() {
+        callbackMessage.setValue(0);
+        getView().callback(callbackMessage);
+
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 

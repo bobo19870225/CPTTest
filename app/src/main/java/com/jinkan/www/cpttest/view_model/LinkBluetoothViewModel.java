@@ -52,8 +52,7 @@ public class LinkBluetoothViewModel extends BaseViewModel {
 
                     @Override
                     public void onDenied(List<String> permissions) {
-                        callbackMessage.setValue(Toast, permissions.toString() + "权限拒绝");
-                        getView().callback(callbackMessage);
+                        toast(permissions.toString() + "权限拒绝");
                     }
                 });
     }
