@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM, ActivityAddProbeInfoBinding> {
@@ -148,7 +149,20 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
                 showChoseTypeWindow();
                 break;
             case 1:
-                goTo(OrdinaryProbeActivity.class, null, true);
+                String strSn = mViewModel.sn.getValue();
+                if (strSn != null && strSn.length() == 8) {
+                    LiveData<List<ProbeEntity>> liveData = probeDao.getProbeByProbeId(strSn);
+                    List<ProbeEntity> probeEntities = liveData.getValue();
+                    if (probeEntities != null && !probeEntities.isEmpty()) {
+                        mViewModel.saveDataToLocal(true);
+                    } else {
+                        mViewModel.saveDataToLocal(false);
+                    }
+                    goTo(OrdinaryProbeActivity.class, null, true);
+                } else {
+                    showToast("序列号错误，请查询！");
+                }
+
                 break;
         }
     }

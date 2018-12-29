@@ -8,10 +8,7 @@ import com.jinkan.www.cpttest.db.entity.ProbeEntity;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 /**
@@ -48,25 +45,11 @@ public class AddProbeInfoVM extends BaseViewModel {
     }
 
     public void addProbe() {
-        String strSn = sn.getValue();
-        if (strSn != null && strSn.length() == 8) {
-            LiveData<List<ProbeEntity>> liveData = probeDao.getProbeByProbeId(strSn);
-            List<ProbeEntity> probeEntities = liveData.getValue();
-            if (probeEntities != null && !probeEntities.isEmpty()) {
-                saveDataToLocal(true);
-            } else {
-                saveDataToLocal(false);
-            }
-            callbackMessage.setValue(1);
-            getView().callback(callbackMessage);
-        } else {
-            toast("序列号错误，请查询！");
-        }
-
-
+        callbackMessage.setValue(1);
+        getView().callback(callbackMessage);
     }
 
-    private void saveDataToLocal(boolean isUpdate) {
+    public void saveDataToLocal(boolean isUpdate) {
         String strSn = sn.getValue();
         String strNumber = number.getValue();
         String strProbeType = probeType.getValue();
