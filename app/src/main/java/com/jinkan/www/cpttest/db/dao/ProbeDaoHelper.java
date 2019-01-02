@@ -41,6 +41,7 @@ public class ProbeDaoHelper extends BaseDao<ProbeEntity> {
                     probeDao.deleteProbeByProbeId(probeEntities[0].probeID);
                     break;
                 case 2:
+                    probeDao.upDateProbe(probeEntities[0]);
                     break;
             }
             return null;
@@ -63,7 +64,7 @@ public class ProbeDaoHelper extends BaseDao<ProbeEntity> {
 
     @Override
     public void modifyData(ProbeEntity entity, DataBaseCallBack dataBaseCallBack) {
-
+        new MyDataBaseAsyncTask(2, probeDao, dataBaseCallBack).execute(entity);
     }
 
 

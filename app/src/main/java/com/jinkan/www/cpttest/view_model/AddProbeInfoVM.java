@@ -3,8 +3,10 @@ package com.jinkan.www.cpttest.view_model;
 import android.app.Application;
 import android.content.Intent;
 
-import com.jinkan.www.cpttest.db.dao.ProbeDao;
+import com.jinkan.www.cpttest.db.dao.ProbeDaoHelper;
+import com.jinkan.www.cpttest.db.dao.WirelessProbeDaoHelper;
 import com.jinkan.www.cpttest.db.entity.ProbeEntity;
+import com.jinkan.www.cpttest.db.entity.WirelessProbeEntity;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
@@ -27,16 +29,19 @@ public class AddProbeInfoVM extends BaseViewModel {
     public final MutableLiveData<String> qcLimit = new MutableLiveData<>();
     public final MutableLiveData<String> fsLimit = new MutableLiveData<>();
 
-
-    private ProbeDao probeDao;
-
+    //    private Boolean isWireless;
+    //    private ProbeDao probeDao;
+    private ProbeDaoHelper probeDaoHelper;
+    private WirelessProbeDaoHelper wirelessProbeDaoHelper;
     public AddProbeInfoVM(@NonNull Application application) {
         super(application);
     }
 
     @Override
     public void inject(Object... objects) {
-        probeDao = (ProbeDao) objects[1];
+//        isWireless = objects[0].equals("无缆探头");
+        probeDaoHelper = (ProbeDaoHelper) objects[1];
+        wirelessProbeDaoHelper = (WirelessProbeDaoHelper) objects[2];
     }
 
     public void choseType() {
@@ -49,96 +54,178 @@ public class AddProbeInfoVM extends BaseViewModel {
         getView().callback(callbackMessage);
     }
 
-    public void saveDataToLocal(boolean isUpdate) {
-        String strSn = sn.getValue();
-        String strNumber = number.getValue();
-        String strProbeType = probeType.getValue();
-        ProbeEntity probeModel = new ProbeEntity();
-        if (strSn == null) {
-            return;
-        }
-        if (strNumber == null) {
-            toast("探头编号不能为空");
-            return;
-        }
-        if (strProbeType == null) {
-            toast("探头类型不能为空");
-            return;
-        }
-        probeModel.probeID = strSn;
-        probeModel.sn = strSn;
-        probeModel.number = strNumber;
-        probeModel.type = strProbeType;
-        //--------------------------------------------------------------
-        if (StringUtil.isInteger(qcArea.getValue())) {
-            probeModel.qc_area = qcArea.getValue();
-        } else {
-            if (strProbeType.equals("十字板")) {
-                toast("板头面积不合法");
+    public void saveDataToLocal(boolean isUpdate, boolean isWireless) {
+        if (isWireless) {
+            String strSn = sn.getValue();
+            String strNumber = number.getValue();
+            String strProbeType = probeType.getValue();
+            WirelessProbeEntity probeModel = new WirelessProbeEntity();
+            if (strSn == null) {
+                return;
+            }
+            if (strNumber == null) {
+                toast("探头编号不能为空");
+                return;
+            }
+            if (strProbeType == null) {
+                toast("探头类型不能为空");
+                return;
+            }
+            probeModel.probeID = strSn;
+            probeModel.sn = strSn;
+            probeModel.number = strNumber;
+            probeModel.type = strProbeType;
+            //--------------------------------------------------------------
+            if (StringUtil.isInteger(qcArea.getValue())) {
+                probeModel.qc_area = qcArea.getValue();
             } else {
                 toast("锥底面积不合法");
+                return;
             }
-            return;
-        }
 
-        String strQcCoefficient = qcCoefficient.getValue();
-        if (strQcCoefficient != null && StringUtil.isFloat(strQcCoefficient)) {
-            probeModel.qc_coefficient = Float.parseFloat(strQcCoefficient);
-        } else {
-            if (strProbeType.equals("十字板")) {
-                toast("板头标定系数不合法");
+            String strQcCoefficient = qcCoefficient.getValue();
+            if (strQcCoefficient != null && StringUtil.isFloat(strQcCoefficient)) {
+                probeModel.qc_coefficient = Float.parseFloat(strQcCoefficient);
             } else {
                 toast("锥头标定系数不合法");
+                return;
             }
-
-            return;
-        }
-        String strQcLimit = qcLimit.getValue();
-        if (strQcLimit != null && StringUtil.isInteger(strQcLimit)) {
-            probeModel.qc_limit = Integer.parseInt(strQcLimit);
-        } else {
-
-            if (strProbeType.equals("十字板")) {
-                toast("板头限值不合法");
+            String strQcLimit = qcLimit.getValue();
+            if (strQcLimit != null && StringUtil.isInteger(strQcLimit)) {
+                probeModel.qc_limit = Integer.parseInt(strQcLimit);
             } else {
                 toast("锥头限值不合法");
+                return;
             }
-            return;
-        }
-        switch (strProbeType) {
+            switch (strProbeType) {
+                case "双桥测斜":
+                    String strFsArea = fsArea.getValue();
+                    if (strFsArea != null && StringUtil.isInteger(strFsArea)) {
+                        probeModel.fs_area = strFsArea;
+                    } else {
+                        toast("侧壁面积不合法");
+                        return;
+                    }
+                    String strFsCoefficient = fsCoefficient.getValue();
+                    if (strFsCoefficient != null && StringUtil.isFloat(strFsCoefficient)) {
+                        probeModel.fs_coefficient = Float.parseFloat(strFsCoefficient);
+                    } else {
+                        toast("侧壁标定系数不合法");
+                        return;
+                    }
+                    String strFsLimit = fsLimit.getValue();
+                    if (strFsLimit != null && StringUtil.isInteger(strFsLimit)) {
+                        probeModel.fs_limit = Integer.parseInt(strFsLimit);
+                    } else {
+                        toast("侧壁限值不合法");
+                        return;
+                    }
+                    break;
 
-            case "双桥":
-            case "双桥测斜":
-                String strFsArea = fsArea.getValue();
-                if (strFsArea != null && StringUtil.isInteger(strFsArea)) {
-                    probeModel.fs_area = strFsArea;
-                } else {
-                    toast("侧壁面积不合法");
-                    return;
-                }
-                String strFsCoefficient = fsCoefficient.getValue();
-                if (strFsCoefficient != null && StringUtil.isFloat(strFsCoefficient)) {
-                    probeModel.fs_coefficient = Float.parseFloat(strFsCoefficient);
-                } else {
-                    toast("侧壁标定系数不合法");
-                    return;
-                }
-                String strFsLimit = fsLimit.getValue();
-                if (strFsLimit != null && StringUtil.isInteger(strFsLimit)) {
-                    probeModel.fs_limit = Integer.parseInt(strFsLimit);
-                } else {
-                    toast("侧壁限值不合法");
-                    return;
-                }
-                break;
-
-        }
-        if (isUpdate) {
-            probeDao.upDateProbe(probeModel);
+            }
+            if (isUpdate) {
+                wirelessProbeDaoHelper.modifyData(probeModel, () -> {
+                    toast("修改完成");
+                });
+            } else {
+                wirelessProbeDaoHelper.addData(probeModel, () -> {
+                    toast("添加完成");
+                });
+            }
         } else {
-            probeDao.insertProbeEntity(probeModel);
-        }
+            String strSn = sn.getValue();
+            String strNumber = number.getValue();
+            String strProbeType = probeType.getValue();
+            ProbeEntity probeModel = new ProbeEntity();
+            if (strSn == null) {
+                return;
+            }
+            if (strNumber == null) {
+                toast("探头编号不能为空");
+                return;
+            }
+            if (strProbeType == null) {
+                toast("探头类型不能为空");
+                return;
+            }
+            probeModel.probeID = strSn;
+            probeModel.sn = strSn;
+            probeModel.number = strNumber;
+            probeModel.type = strProbeType;
+            //--------------------------------------------------------------
+            if (StringUtil.isInteger(qcArea.getValue())) {
+                probeModel.qc_area = qcArea.getValue();
+            } else {
+                if (strProbeType.equals("十字板")) {
+                    toast("板头面积不合法");
+                } else {
+                    toast("锥底面积不合法");
+                }
+                return;
+            }
 
+            String strQcCoefficient = qcCoefficient.getValue();
+            if (strQcCoefficient != null && StringUtil.isFloat(strQcCoefficient)) {
+                probeModel.qc_coefficient = Float.parseFloat(strQcCoefficient);
+            } else {
+                if (strProbeType.equals("十字板")) {
+                    toast("板头标定系数不合法");
+                } else {
+                    toast("锥头标定系数不合法");
+                }
+
+                return;
+            }
+            String strQcLimit = qcLimit.getValue();
+            if (strQcLimit != null && StringUtil.isInteger(strQcLimit)) {
+                probeModel.qc_limit = Integer.parseInt(strQcLimit);
+            } else {
+
+                if (strProbeType.equals("十字板")) {
+                    toast("板头限值不合法");
+                } else {
+                    toast("锥头限值不合法");
+                }
+                return;
+            }
+            switch (strProbeType) {
+
+                case "双桥":
+                case "双桥测斜":
+                    String strFsArea = fsArea.getValue();
+                    if (strFsArea != null && StringUtil.isInteger(strFsArea)) {
+                        probeModel.fs_area = strFsArea;
+                    } else {
+                        toast("侧壁面积不合法");
+                        return;
+                    }
+                    String strFsCoefficient = fsCoefficient.getValue();
+                    if (strFsCoefficient != null && StringUtil.isFloat(strFsCoefficient)) {
+                        probeModel.fs_coefficient = Float.parseFloat(strFsCoefficient);
+                    } else {
+                        toast("侧壁标定系数不合法");
+                        return;
+                    }
+                    String strFsLimit = fsLimit.getValue();
+                    if (strFsLimit != null && StringUtil.isInteger(strFsLimit)) {
+                        probeModel.fs_limit = Integer.parseInt(strFsLimit);
+                    } else {
+                        toast("侧壁限值不合法");
+                        return;
+                    }
+                    break;
+
+            }
+            if (isUpdate) {
+                probeDaoHelper.modifyData(probeModel, () -> {
+                    toast("修改完成");
+                });
+            } else {
+                probeDaoHelper.addData(probeModel, () -> {
+                    toast("添加完成");
+                });
+            }
+        }
     }
 
     @Override

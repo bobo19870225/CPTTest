@@ -55,7 +55,7 @@ public class WirelessProbeActivity extends ListMVVMActivity<WirelessProbeVM, Act
     public void callback(CallbackMessage callbackMessage) {
         switch (callbackMessage.what) {
             case 0:
-//                goTo(AddWirelessProbeActivity.class, null);
+                goTo(AddProbeActivity.class, "无缆探头");
                 break;
         }
     }

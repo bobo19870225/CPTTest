@@ -15,7 +15,11 @@ import android.widget.TextView;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityAddProbeInfoBinding;
 import com.jinkan.www.cpttest.db.dao.ProbeDao;
+import com.jinkan.www.cpttest.db.dao.ProbeDaoHelper;
+import com.jinkan.www.cpttest.db.dao.WirelessProbeDao;
+import com.jinkan.www.cpttest.db.dao.WirelessProbeDaoHelper;
 import com.jinkan.www.cpttest.db.entity.ProbeEntity;
+import com.jinkan.www.cpttest.db.entity.WirelessProbeEntity;
 import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
@@ -27,10 +31,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM, ActivityAddProbeInfoBinding> {
-
+    private Boolean isWireless;
     @Inject
     SingleBridgeFragment singleBridgeFragment;
     @Inject
@@ -39,11 +44,18 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
     CrossFragment crossFragment;
     @Inject
     ProbeDao probeDao;
+    @Inject
+    ProbeDaoHelper probeDaoHelper;
+    @Inject
+    WirelessProbeDao wirelessProbeDao;
+    @Inject
+    WirelessProbeDaoHelper wirelessProbeDaoHelper;
 
 
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[]{mData, probeDao};
+        isWireless = mData.equals("无缆探头");
+        return new Object[]{mData, probeDaoHelper, wirelessProbeDaoHelper};
     }
 
     @Override
@@ -151,13 +163,36 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
             case 1:
                 String strSn = mViewModel.sn.getValue();
                 if (strSn != null && strSn.length() == 8) {
-                    LiveData<List<ProbeEntity>> liveData = probeDao.getProbeByProbeId(strSn);
-                    List<ProbeEntity> probeEntities = liveData.getValue();
-                    if (probeEntities != null && !probeEntities.isEmpty()) {
-                        mViewModel.saveDataToLocal(true);
+                    if (isWireless) {
+                        LiveData<List<WirelessProbeEntity>> liveData = wirelessProbeDao.getWirelessProbeEntityByProbeId(strSn);
+
+                        liveData.observe(this, new Observer<List<WirelessProbeEntity>>() {
+                            @Override
+                            public void onChanged(List<WirelessProbeEntity> wirelessProbeEntities) {
+                                liveData.removeObserver(this);
+                                if (wirelessProbeEntities != null && !wirelessProbeEntities.isEmpty()) {
+                                    mViewModel.saveDataToLocal(true, true);
+                                } else {
+                                    mViewModel.saveDataToLocal(false, true);
+                                }
+                            }
+                        });
                     } else {
-                        mViewModel.saveDataToLocal(false);
+                        LiveData<List<ProbeEntity>> liveData = probeDao.getProbeByProbeId(strSn);
+                        liveData.observe(this, new Observer<List<ProbeEntity>>() {
+                            @Override
+                            public void onChanged(List<ProbeEntity> probeEntities) {
+                                liveData.removeObserver(this);
+                                if (probeEntities != null && !probeEntities.isEmpty()) {
+                                    mViewModel.saveDataToLocal(true, false);
+                                } else {
+                                    mViewModel.saveDataToLocal(false, false);
+                                }
+                            }
+                        });
+
                     }
+
                     goTo(OrdinaryProbeActivity.class, null, true);
                 } else {
                     showToast("序列号错误，请查询！");

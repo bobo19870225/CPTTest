@@ -65,7 +65,7 @@ public class OrdinaryProbeActivity extends ListMVVMActivity<OrdinaryProbeVM, Act
     public void callback(CallbackMessage callbackMessage) {
         switch (callbackMessage.what) {
             case 0:
-                goTo(AddProbeActivity.class, null);
+                goTo(AddProbeActivity.class, "普通探头");
                 break;
         }
     }

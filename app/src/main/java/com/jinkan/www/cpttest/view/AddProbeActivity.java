@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityAddProbeBinding;
 import com.jinkan.www.cpttest.db.dao.ProbeDaoHelper;
+import com.jinkan.www.cpttest.db.dao.WirelessProbeDaoHelper;
 import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.acp.Acp;
 import com.jinkan.www.cpttest.util.acp.AcpListener;
@@ -27,17 +28,26 @@ import androidx.lifecycle.ViewModelProviders;
  */
 public class AddProbeActivity extends BaseMVVMDaggerActivity<AddProbeVM, ActivityAddProbeBinding> {
     private final int OK = 0;
-
+    private Boolean isWireless;
     @Inject
     ProbeDaoHelper probeDaoHelper;
+    @Inject
+    WirelessProbeDaoHelper wirelessProbeDaoHelper;
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[]{mData, probeDaoHelper};
+        return new Object[]{mData, probeDaoHelper, wirelessProbeDaoHelper};
     }
 
     @Override
     protected void setMVVMView() {
-        setToolBar("添加探头");
+        if (mData.equals("无缆探头")) {
+            isWireless = true;
+            setToolBar("添加普通探头");
+        } else {
+            isWireless = false;
+            setToolBar("添加无缆探头");
+        }
+
     }
 
     @Override
@@ -71,10 +81,13 @@ public class AddProbeActivity extends BaseMVVMDaggerActivity<AddProbeVM, Activit
                         });
                 break;
             case 1:
-                goTo(AddProbeInfoActivity.class, null);
+                goTo(AddProbeInfoActivity.class, isWireless ? "无缆探头" : "普通探头");
                 break;
             case 2:
                 goTo(OrdinaryProbeActivity.class, null, true);
+                break;
+            case 3:
+                goTo(WirelessProbeActivity.class, null, true);
                 break;
         }
     }
