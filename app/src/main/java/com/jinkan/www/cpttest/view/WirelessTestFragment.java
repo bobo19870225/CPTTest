@@ -14,10 +14,12 @@ import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
 import com.jinkan.www.cpttest.view_model.WirelessTestViewModel;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 
@@ -37,26 +39,31 @@ public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestVie
     @Override
     protected void setView() {
 
-        mViewModel.listMediatorLiveData.observe(this, wirelessTestEntities -> {
-
-            if (wirelessTestEntities != null && !wirelessTestEntities.isEmpty()) {
-                Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
-                String add = linkerPreferences.get("add");
-                WirelessTestEntity wirelessTestEntity = wirelessTestEntities.get(0);
-                if (StringUtil.isEmpty(add)) {
-                    goTo(LinkBluetoothActivity.class,
-                            new String[]{wirelessTestEntity.projectNumber,
-                                    wirelessTestEntity.holeNumber,
-                                    wirelessTestEntity.testType});
-                } else {//mac地址，工程编号，孔号，试验类型。
-                    goTo(TimeSynchronizationActivity.class,
-                            new String[]{add,
-                                    wirelessTestEntity.projectNumber,
-                                    wirelessTestEntity.holeNumber,
-                                    wirelessTestEntity.testType});
+        mViewModel.listMediatorLiveData.observe(this, new Observer<List<WirelessTestEntity>>() {
+            @Override
+            public void onChanged(List<WirelessTestEntity> wirelessTestEntities) {
+                {
+                    mViewModel.listMediatorLiveData.removeObserver(this);
+                    if (wirelessTestEntities != null && !wirelessTestEntities.isEmpty()) {
+                        Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();
+                        String add = linkerPreferences.get("add");
+                        WirelessTestEntity wirelessTestEntity = wirelessTestEntities.get(0);
+                        if (StringUtil.isEmpty(add)) {
+                            goTo(LinkBluetoothActivity.class,
+                                    new String[]{wirelessTestEntity.projectNumber,
+                                            wirelessTestEntity.holeNumber,
+                                            wirelessTestEntity.testType});
+                        } else {//mac地址，工程编号，孔号，试验类型。
+                            goTo(TimeSynchronizationActivity.class,
+                                    new String[]{add,
+                                            wirelessTestEntity.projectNumber,
+                                            wirelessTestEntity.holeNumber,
+                                            wirelessTestEntity.testType});
+                        }
+                    } else {
+                        showToast("暂无可进行二次测量的试验");
+                    }
                 }
-            } else {
-                showToast("暂无可进行二次测量的试验");
             }
         });
     }
@@ -88,7 +95,7 @@ public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestVie
                 goTo(MarkFileActivity.class, null);
                 break;
             case 2:
-//                    goTo(WirelessProbeActivity.class, null);
+                goTo(WirelessProbeActivity.class, null);
                 break;
             case 3:
 //                    goTo(DataSyncActivity.class, null);
