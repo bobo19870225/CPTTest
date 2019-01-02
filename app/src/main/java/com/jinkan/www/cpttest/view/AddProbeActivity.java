@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityAddProbeBinding;
+import com.jinkan.www.cpttest.db.dao.ProbeDaoHelper;
 import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.acp.Acp;
 import com.jinkan.www.cpttest.util.acp.AcpListener;
@@ -14,6 +15,8 @@ import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view_model.AddProbeVM;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -25,9 +28,11 @@ import androidx.lifecycle.ViewModelProviders;
 public class AddProbeActivity extends BaseMVVMDaggerActivity<AddProbeVM, ActivityAddProbeBinding> {
     private final int OK = 0;
 
+    @Inject
+    ProbeDaoHelper probeDaoHelper;
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[0];
+        return new Object[]{mData, probeDaoHelper};
     }
 
     @Override
@@ -67,6 +72,9 @@ public class AddProbeActivity extends BaseMVVMDaggerActivity<AddProbeVM, Activit
                 break;
             case 1:
                 goTo(AddProbeInfoActivity.class, null);
+                break;
+            case 2:
+                goTo(OrdinaryProbeActivity.class, null, true);
                 break;
         }
     }
