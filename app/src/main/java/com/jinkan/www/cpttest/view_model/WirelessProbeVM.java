@@ -3,6 +3,7 @@ package com.jinkan.www.cpttest.view_model;
 import android.app.Application;
 import android.content.Intent;
 
+import com.jinkan.www.cpttest.db.dao.WirelessProbeDao;
 import com.jinkan.www.cpttest.db.entity.WirelessProbeEntity;
 import com.jinkan.www.cpttest.view_model.base.BaseListViewModel;
 
@@ -16,18 +17,20 @@ import androidx.lifecycle.LiveData;
  * CPTTest
  */
 public class WirelessProbeVM extends BaseListViewModel<List<WirelessProbeEntity>> {
+
+    private WirelessProbeDao wirelessProbeDao;
     public WirelessProbeVM(@NonNull Application application) {
         super(application);
     }
 
     @Override
     public LiveData<List<WirelessProbeEntity>> loadListViewData() {
-        return null;
+        return wirelessProbeDao.getAllWirelessProbeEntity();
     }
 
     @Override
     public void inject(Object... objects) {
-
+        wirelessProbeDao = (WirelessProbeDao) objects[1];
     }
 
     public void addProbe() {

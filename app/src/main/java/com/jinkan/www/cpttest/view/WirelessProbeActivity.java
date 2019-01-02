@@ -2,10 +2,13 @@ package com.jinkan.www.cpttest.view;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityWirelessProbeBinding;
+import com.jinkan.www.cpttest.db.dao.WirelessProbeDao;
 import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.adapter.WirelessProbeAdapter;
 import com.jinkan.www.cpttest.view.base.ListMVVMActivity;
 import com.jinkan.www.cpttest.view_model.WirelessProbeVM;
+
+import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -15,7 +18,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * CPTTest
  */
 public class WirelessProbeActivity extends ListMVVMActivity<WirelessProbeVM, ActivityWirelessProbeBinding, WirelessProbeAdapter> {
-
+    @Inject
+    WirelessProbeDao wirelessProbeDao;
     @SuppressWarnings("unchecked")
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {
@@ -29,12 +33,12 @@ public class WirelessProbeActivity extends ListMVVMActivity<WirelessProbeVM, Act
 
     @Override
     protected void setViewWithOutListView() {
-
+        setToolBar("无缆探头列表");
     }
 
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[0];
+        return new Object[]{mData, wirelessProbeDao};
     }
 
     @Override

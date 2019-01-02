@@ -13,6 +13,7 @@ import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
 import com.jinkan.www.cpttest.view.TestDataDetailsActivity;
 import com.jinkan.www.cpttest.view.VersionInfoActivity;
 import com.jinkan.www.cpttest.view.VideoActivity;
+import com.jinkan.www.cpttest.view.WirelessProbeActivity;
 import com.jinkan.www.cpttest.view.base.BaseTestActivity;
 import com.jinkan.www.cpttest.view.main.MainActivity;
 import com.jinkan.www.cpttest.view_model.main.MainModule;
@@ -89,4 +90,9 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = AddProbeInfoModule.class)
     abstract AddProbeInfoActivity addProbeInfoActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = AddProbeInfoModule.class)
+    abstract WirelessProbeActivity wirelessProbeActivity();
+
 }
