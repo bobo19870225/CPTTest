@@ -98,7 +98,7 @@ public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestVie
                 goTo(WirelessProbeActivity.class, null);
                 break;
             case 3:
-//                    goTo(DataSyncActivity.class, null);
+                goTo(DataSyncActivity.class, null);
                 break;
             case 4:
 //                    goTo(WirelessTestDataActivity.class, null);

@@ -60,6 +60,8 @@
         <activity android:name=".util.qrcode.qrSimple.CaptureActivity" />
         <activity android:name=".view.AddProbeInfoActivity" />
         <activity android:name=".view.WirelessProbeActivity" />
+        <activity android:name=".view.DataSyncActivity" />
+        <activity android:name=".view.OpenWFileActivity" />
 
     </application>
 
