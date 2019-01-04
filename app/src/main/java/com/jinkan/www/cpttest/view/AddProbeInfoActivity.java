@@ -69,12 +69,7 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
             mViewModel.probeType.setValue(type);
             mViewModel.sn.setValue(mProbeModel.sn);
             mViewModel.number.setValue(mProbeModel.number);
-            setMyFragment(type, new String[]{mProbeModel.qc_area,
-                    String.valueOf(mProbeModel.qc_coefficient),
-                    String.valueOf(mProbeModel.qc_limit),
-                    mProbeModel.fs_area,
-                    String.valueOf(mProbeModel.fs_coefficient),
-                    String.valueOf(mProbeModel.fs_limit)});
+            setMyFragment(type);
         } else {
             setToolBar("填写探头参数");
         }
@@ -87,7 +82,7 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
     }
 
     private void showChoseTypeWindow() {
-        View v = getLayoutInflater().inflate(R.layout.theo, null);
+        View v = getLayoutInflater().inflate(R.layout.theo, null, false);
         final PopupWindow popupWindow = new PopupWindow(v);
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -96,11 +91,17 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
         popupWindow.setOutsideTouchable(true);
         ListView lv_list = v.findViewById(R.id.lv_item);
         List<String> list = new ArrayList<>();
-        list.add("单桥");
-        list.add("单桥测斜");
-        list.add("双桥");
-        list.add("双桥测斜");
-        list.add("十字板");
+        if (isWireless) {
+            list.add("单桥测斜");
+            list.add("双桥测斜");
+        } else {
+            list.add("单桥");
+            list.add("单桥测斜");
+            list.add("双桥");
+            list.add("双桥测斜");
+            list.add("十字板");
+        }
+
         OneTextListAdapter adapter = new OneTextListAdapter(AddProbeInfoActivity.this, R.layout.listitem, list);
         lv_list.setAdapter(adapter);
         lv_list.setOnItemClickListener((parent, view, position, id) -> {
@@ -128,22 +129,6 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
                 break;
             default:
                 setFragment(R.id.change, new CrossFragment());
-                break;
-        }
-    }
-
-    private void setMyFragment(String type, String[] strings) {
-        switch (type) {
-            case "单桥":
-            case "单桥测斜":
-                setFragment(R.id.change, singleBridgeFragment, strings);
-                break;
-            case "双桥":
-            case "双桥测斜":
-                setFragment(R.id.change, doubleBridgeFragment, strings);
-                break;
-            default:
-                setFragment(R.id.change, crossFragment, strings);
                 break;
         }
     }
