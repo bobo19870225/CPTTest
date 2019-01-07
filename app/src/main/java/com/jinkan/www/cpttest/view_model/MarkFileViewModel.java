@@ -29,6 +29,11 @@ public class MarkFileViewModel extends BaseListViewModel<List<WirelessTestEntity
     }
 
     @Override
+    public void beforeLoadListViewData() {
+
+    }
+
+    @Override
     public void inject(Object... objects) {
         wirelessTestDao = (WirelessTestDao) objects[1];
     }

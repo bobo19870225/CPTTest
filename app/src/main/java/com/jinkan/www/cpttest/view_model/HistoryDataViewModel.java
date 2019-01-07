@@ -37,7 +37,10 @@ public class HistoryDataViewModel extends BaseListViewModel<List<TestEntity>> {
         return testDao.getAllTestes();
     }
 
+    @Override
+    public void beforeLoadListViewData() {
 
+    }
 
 
     @Override

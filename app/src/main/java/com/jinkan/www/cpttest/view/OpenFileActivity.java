@@ -30,7 +30,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * 打开文件
  */
 
-public class OpenWFileActivity extends ListMVVMActivity<OpenFileViewModel, ActivityOpenFileBinding, OpenFileAdapter> {
+public class OpenFileActivity extends ListMVVMActivity<OpenFileViewModel, ActivityOpenFileBinding, OpenFileAdapter> {
     public static String EXTRA_FILE_DATES = "file_dates";
 
     @Override
@@ -43,6 +43,7 @@ public class OpenWFileActivity extends ListMVVMActivity<OpenFileViewModel, Activ
     protected void setViewWithOutListView() {
         setToolBar("打开标记文件");
     }
+
 
     @Override
     protected <SRL extends SwipeRefreshLayout> SRL setSwipeRefreshLayout() {

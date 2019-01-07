@@ -14,8 +14,9 @@ public class OpenFileAdapter extends MyBaseAdapter<ItemFileBinding, ItemFile> {
     }
 
     @Override
-    protected boolean ifContentsTheSame(int oldItemPosition, int newItemPosition, List list) {
-        return false;
+    protected boolean ifContentsTheSame(int oldItemPosition, int newItemPosition, List<? extends ItemFile> list) {
+        return mList.get(oldItemPosition).getId().equals(list.get(newItemPosition).getId())
+                && mList.get(oldItemPosition).getFileName().equals(list.get(newItemPosition).getFileName());
     }
 
 

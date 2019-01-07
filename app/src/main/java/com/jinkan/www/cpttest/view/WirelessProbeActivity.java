@@ -36,6 +36,7 @@ public class WirelessProbeActivity extends ListMVVMActivity<WirelessProbeVM, Act
         setToolBar("无缆探头列表");
     }
 
+
     @Override
     protected Object[] injectToViewModel() {
         return new Object[]{mData, wirelessProbeDao};

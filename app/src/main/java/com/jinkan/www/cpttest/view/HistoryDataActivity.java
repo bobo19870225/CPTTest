@@ -75,6 +75,7 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
         setToolBar("历史数据");
     }
 
+
     @Override
     public HistoryDataViewModel createdViewModel() {
         return ViewModelProviders.of(this).get(HistoryDataViewModel.class);

@@ -41,9 +41,8 @@ public class OpenFileViewModel extends BaseListViewModel<List<ItemFile>> {
         return files;
     }
 
-
     @Override
-    public void inject(Object... objects) {
+    public void beforeLoadListViewData() {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             File file = Environment.getExternalStorageDirectory();
@@ -71,6 +70,12 @@ public class OpenFileViewModel extends BaseListViewModel<List<ItemFile>> {
         } else {
             toast("er");
         }
+    }
+
+
+    @Override
+    public void inject(Object... objects) {
+
     }
 
     @Override

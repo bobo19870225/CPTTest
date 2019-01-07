@@ -29,6 +29,11 @@ public class WirelessProbeVM extends BaseListViewModel<List<WirelessProbeEntity>
     }
 
     @Override
+    public void beforeLoadListViewData() {
+
+    }
+
+    @Override
     public void inject(Object... objects) {
         wirelessProbeDao = (WirelessProbeDao) objects[1];
     }

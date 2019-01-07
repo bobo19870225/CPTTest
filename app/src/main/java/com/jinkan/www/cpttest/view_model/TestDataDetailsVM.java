@@ -31,6 +31,11 @@ public class TestDataDetailsVM extends BaseListViewModel<List<TestDataEntity>> {
         return testDataDao.getTestDataByTestId(testId);
     }
 
+    @Override
+    public void beforeLoadListViewData() {
+
+    }
+
 
     @Override
     public void inject(Object... objects) {

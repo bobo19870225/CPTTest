@@ -2,7 +2,8 @@
   ~ Copyright (c) 2018. 代码著作权归卢声波所有。
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -44,10 +45,10 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_height="match_parent"
             android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="#00000000" />
+            app:layoutManager="LinearLayoutManager" />
     </LinearLayout>
 
 </layout>

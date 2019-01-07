@@ -73,6 +73,7 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
 
     @SuppressWarnings("unchecked")
     private void loadListData() {
+        mViewModel.beforeLoadListViewData();
         stopLoading();
         mViewModel.loadListViewData().observe(this, o -> {
             if (o == null) {

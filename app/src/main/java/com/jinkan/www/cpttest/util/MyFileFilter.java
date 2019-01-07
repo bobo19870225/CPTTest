@@ -11,7 +11,7 @@ public class MyFileFilter implements FileFilter {
 
     @Override
     public boolean accept(File pathname) {
-        return !pathname.getName().startsWith(".");
+        return pathname.getName().endsWith("W.txt");
     }
 
 }

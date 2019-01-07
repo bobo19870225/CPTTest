@@ -18,7 +18,7 @@ import com.jinkan.www.cpttest.db.entity.WirelessTestEntity;
 import com.jinkan.www.cpttest.util.DataUtil;
 import com.jinkan.www.cpttest.util.MyFileUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
-import com.jinkan.www.cpttest.view.OpenWFileActivity;
+import com.jinkan.www.cpttest.view.OpenFileActivity;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import org.apache.commons.io.FileUtils;
@@ -81,7 +81,7 @@ public class DataSyncViewModel extends BaseViewModel {
         if (data != null) {
             String strFileName = (String) data;
             File mFile = new File(MyFileUtil.getSDPath() + "/" + strFileName);
-            ByteArrayOutputStream byteArrayOutputStream = OpenWFileActivity.readFile(mFile);
+            ByteArrayOutputStream byteArrayOutputStream = OpenFileActivity.readFile(mFile);
             if (byteArrayOutputStream != null) {
                 readWFile(new String[]{strFileName, byteArrayOutputStream.toString()}, "正在同步...");
                 new Handler().postDelayed(new Runnable() {
@@ -104,7 +104,7 @@ public class DataSyncViewModel extends BaseViewModel {
                 if (resultCode == Activity.RESULT_OK) {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
-                        String[] str = extras.getStringArray(OpenWFileActivity.EXTRA_FILE_DATES);
+                        String[] str = extras.getStringArray(OpenFileActivity.EXTRA_FILE_DATES);
                         if (str != null) {
                             readWFile(str, "成功打开定位文件");
                         }
@@ -208,7 +208,7 @@ public class DataSyncViewModel extends BaseViewModel {
                 int by = Integer.valueOf(str, 16);
                 if ((long) by * 256 > cptR[1]) {
                     final File file = files[i];
-                    ByteArrayOutputStream byteArrayOutputStream = OpenWFileActivity.readFile(file);
+                    ByteArrayOutputStream byteArrayOutputStream = OpenFileActivity.readFile(file);
                     byte[] byt = new byte[0];
                     if (byteArrayOutputStream != null) {
                         byt = byteArrayOutputStream.toByteArray();

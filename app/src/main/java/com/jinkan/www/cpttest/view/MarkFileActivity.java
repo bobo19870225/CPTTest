@@ -37,6 +37,7 @@ public class MarkFileActivity extends ListMVVMActivity<MarkFileViewModel, Activi
 
     }
 
+
     @Override
     protected Object[] injectToViewModel() {
         return new Object[]{mData, wirelessTestDao};

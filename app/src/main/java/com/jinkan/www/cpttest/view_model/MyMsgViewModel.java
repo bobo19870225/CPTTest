@@ -29,6 +29,11 @@ public class MyMsgViewModel extends BaseListViewModel<List<MsgDataEntity>> {
     }
 
     @Override
+    public void beforeLoadListViewData() {
+
+    }
+
+    @Override
     public void inject(Object... objects) {
         msgDao = (MsgDao) objects[1];
     }

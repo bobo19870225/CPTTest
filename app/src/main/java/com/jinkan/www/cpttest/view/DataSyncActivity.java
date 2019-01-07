@@ -4,6 +4,7 @@
 
 package com.jinkan.www.cpttest.view;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +20,9 @@ import com.jinkan.www.cpttest.db.dao.WirelessResultDataDao;
 import com.jinkan.www.cpttest.db.dao.WirelessTestDao;
 import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.DataUtil;
+import com.jinkan.www.cpttest.util.acp.Acp;
+import com.jinkan.www.cpttest.util.acp.AcpListener;
+import com.jinkan.www.cpttest.util.acp.AcpOptions;
 import com.jinkan.www.cpttest.view.adapter.OneTextListAdapter;
 import com.jinkan.www.cpttest.view.base.DialogMVVMDaggerActivity;
 import com.jinkan.www.cpttest.view.chart.DoubleBridgeMultifunctionStrategy;
@@ -98,8 +102,22 @@ public class DataSyncActivity extends DialogMVVMDaggerActivity<DataSyncViewModel
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.open://打开标记文件
-                Intent intent = new Intent(this, OpenWFileActivity.class);
-                startActivityForResult(intent, REQUEST_OPEN_MARK_FILE);
+                Acp.getInstance(getApplicationContext()).request(new AcpOptions.Builder().
+                                setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE).build(),
+                        new AcpListener() {
+                            @Override
+                            public void onGranted() {
+                                Intent intent = new Intent(DataSyncActivity.this, OpenFileActivity.class);
+                                startActivityForResult(intent, REQUEST_OPEN_MARK_FILE);
+                            }
+
+                            @Override
+                            public void onDenied(List<String> permissions) {
+                                showToast(permissions.toString() + "权限拒绝");
+                            }
+                        });
+
                 return false;
             case R.id.data_syn://数据同步
                 mViewModel.doDataSync();

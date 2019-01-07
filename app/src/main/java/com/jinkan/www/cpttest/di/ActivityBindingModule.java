@@ -2,15 +2,18 @@ package com.jinkan.www.cpttest.di;
 
 import com.jinkan.www.cpttest.view.AddProbeActivity;
 import com.jinkan.www.cpttest.view.AddProbeInfoActivity;
+import com.jinkan.www.cpttest.view.DataSyncActivity;
 import com.jinkan.www.cpttest.view.HistoryDataActivity;
 import com.jinkan.www.cpttest.view.LinkBluetoothActivity;
 import com.jinkan.www.cpttest.view.MarkFileActivity;
 import com.jinkan.www.cpttest.view.MyLinkerActivity;
 import com.jinkan.www.cpttest.view.MyMsgActivity;
 import com.jinkan.www.cpttest.view.NewTestActivity;
+import com.jinkan.www.cpttest.view.OpenFileActivity;
 import com.jinkan.www.cpttest.view.OrdinaryProbeActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
 import com.jinkan.www.cpttest.view.TestDataDetailsActivity;
+import com.jinkan.www.cpttest.view.TimeSynchronizationActivity;
 import com.jinkan.www.cpttest.view.VersionInfoActivity;
 import com.jinkan.www.cpttest.view.VideoActivity;
 import com.jinkan.www.cpttest.view.WirelessProbeActivity;
@@ -94,5 +97,17 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = AddProbeInfoModule.class)
     abstract WirelessProbeActivity wirelessProbeActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract TimeSynchronizationActivity timeSynchronizationActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract OpenFileActivity openWFileActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract DataSyncActivity dataSyncActivity();
 
 }

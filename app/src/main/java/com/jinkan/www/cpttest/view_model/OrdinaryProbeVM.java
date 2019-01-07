@@ -30,6 +30,11 @@ public class OrdinaryProbeVM extends BaseListViewModel<List<ProbeEntity>> {
         return probeDao.getAllProbe();
     }
 
+    @Override
+    public void beforeLoadListViewData() {
+
+    }
+
 
     @Override
     public void inject(Object... objects) {

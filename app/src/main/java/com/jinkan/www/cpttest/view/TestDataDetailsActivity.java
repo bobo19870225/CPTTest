@@ -38,6 +38,7 @@ public class TestDataDetailsActivity extends ListMVVMActivity<TestDataDetailsVM,
         setToolBar("历史数据", R.menu.test_data_details);
     }
 
+
     @Override
     protected Object[] injectToViewModel() {
         return new Object[]{mData, testDataDao};

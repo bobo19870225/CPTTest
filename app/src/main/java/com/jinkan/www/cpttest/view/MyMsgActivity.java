@@ -46,6 +46,7 @@ public class MyMsgActivity extends ListMVVMActivity<MyMsgViewModel, ActivityMyMs
         setToolBar("我的消息列表");
     }
 
+
     @SuppressWarnings("unchecked")
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {

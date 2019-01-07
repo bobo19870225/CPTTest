@@ -18,6 +18,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name=".CPTApplication"
         android:icon="@mipmap/ic_launcher"
@@ -61,7 +64,7 @@
         <activity android:name=".view.AddProbeInfoActivity" />
         <activity android:name=".view.WirelessProbeActivity" />
         <activity android:name=".view.DataSyncActivity" />
-        <activity android:name=".view.OpenWFileActivity" />
+        <activity android:name=".view.OpenFileActivity" />
 
     </application>
 
