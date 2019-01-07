@@ -31,7 +31,7 @@ public class OrdinaryProbeVM extends BaseListViewModel<List<ProbeEntity>> {
     }
 
     @Override
-    public void beforeLoadListViewData() {
+    public void afterLoadListViewData() {
 
     }
 

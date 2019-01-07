@@ -38,7 +38,7 @@ public class HistoryDataViewModel extends BaseListViewModel<List<TestEntity>> {
     }
 
     @Override
-    public void beforeLoadListViewData() {
+    public void afterLoadListViewData() {
 
     }
 

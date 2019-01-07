@@ -19,5 +19,5 @@ public abstract class BaseListViewModel<T> extends BaseViewModel {
 
     public abstract LiveData<T> loadListViewData();
 
-    public abstract void beforeLoadListViewData();
+    public abstract void afterLoadListViewData();
 }

@@ -29,7 +29,7 @@ public class MarkFileViewModel extends BaseListViewModel<List<WirelessTestEntity
     }
 
     @Override
-    public void beforeLoadListViewData() {
+    public void afterLoadListViewData() {
 
     }
 

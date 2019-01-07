@@ -32,7 +32,7 @@ public class TestDataDetailsVM extends BaseListViewModel<List<TestDataEntity>> {
     }
 
     @Override
-    public void beforeLoadListViewData() {
+    public void afterLoadListViewData() {
 
     }
 

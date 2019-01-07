@@ -42,7 +42,7 @@ public class OpenFileViewModel extends BaseListViewModel<List<ItemFile>> {
     }
 
     @Override
-    public void beforeLoadListViewData() {
+    public void afterLoadListViewData() {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             File file = Environment.getExternalStorageDirectory();

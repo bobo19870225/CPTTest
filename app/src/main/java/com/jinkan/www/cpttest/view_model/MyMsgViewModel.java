@@ -29,7 +29,7 @@ public class MyMsgViewModel extends BaseListViewModel<List<MsgDataEntity>> {
     }
 
     @Override
-    public void beforeLoadListViewData() {
+    public void afterLoadListViewData() {
 
     }
 

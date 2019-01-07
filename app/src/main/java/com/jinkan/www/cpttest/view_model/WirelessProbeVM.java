@@ -29,7 +29,7 @@ public class WirelessProbeVM extends BaseListViewModel<List<WirelessProbeEntity>
     }
 
     @Override
-    public void beforeLoadListViewData() {
+    public void afterLoadListViewData() {
 
     }
 
