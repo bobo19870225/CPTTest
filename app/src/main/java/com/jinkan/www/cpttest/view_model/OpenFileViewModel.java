@@ -48,14 +48,12 @@ public class OpenFileViewModel extends BaseListViewModel<List<ItemFile>> {
             File file = Environment.getExternalStorageDirectory();
             File[] listFiles = file.listFiles(new MyFileFilter());
             List<File> fileList = FileUtil.sort(listFiles);//这个List不可修改
-//            List<File> mFileList = new ArrayList<>();
             List<ItemFile> itemFiles = new ArrayList<>();
             for (int i = 0; i < fileList.size(); i++) {
                 File mFile = fileList.get(i);
                 if (mFile.isFile()) {
                     String mFileName = mFile.getName();
                     if (mFileName.contains("W.txt")) {
-//                        mFileList.add(mFile);
                         ItemFile itemFile = new ItemFile();
                         itemFile.setId(i);
                         itemFile.setFileName(mFile.getName());
@@ -65,13 +63,11 @@ public class OpenFileViewModel extends BaseListViewModel<List<ItemFile>> {
                 }
             }
             files.setValue(itemFiles);
-//            myView.get().setListView(mFileList);
 
         } else {
             toast("er");
         }
     }
-
 
     @Override
     public void inject(Object... objects) {

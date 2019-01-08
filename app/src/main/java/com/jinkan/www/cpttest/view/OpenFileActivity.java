@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 
 import com.jinkan.www.cpttest.R;
 import com.jinkan.www.cpttest.databinding.ActivityOpenFileBinding;
+import com.jinkan.www.cpttest.db.dao.ProbeDao;
 import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.view.adapter.BaseItemCallback;
 import com.jinkan.www.cpttest.view.adapter.ItemFile;
@@ -22,6 +23,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -33,7 +36,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class OpenFileActivity extends ListMVVMActivity<OpenFileViewModel, ActivityOpenFileBinding, OpenFileAdapter> {
     public static String EXTRA_FILE_DATES = "file_dates";
-
+    @Inject
+    ProbeDao probeDao;
     @Override
     public OpenFileViewModel createdViewModel() {
         return ViewModelProviders.of(this).get(OpenFileViewModel.class);
@@ -135,7 +139,7 @@ public class OpenFileActivity extends ListMVVMActivity<OpenFileViewModel, Activi
 
     @Override
     protected Object[] injectToViewModel() {
-        return new Object[0];
+        return new Object[]{mData, probeDao};
     }
 
     @Override
