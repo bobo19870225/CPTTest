@@ -49,7 +49,7 @@ public class OpenFileActivity extends ListMVVMActivity<OpenFileViewModel, Activi
         setToolBar("打开标记文件");
     }
 
-
+    @SuppressWarnings("unchecked")
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {
         return mViewDataBinding.srl;

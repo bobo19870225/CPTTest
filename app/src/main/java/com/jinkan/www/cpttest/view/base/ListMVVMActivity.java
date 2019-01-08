@@ -9,6 +9,8 @@ import com.jinkan.www.cpttest.view_model.base.BaseListViewModel;
 import java.util.List;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -81,14 +83,19 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
     private void loadListData() {
 
         stopLoading();
-        mViewModel.loadListViewData().observe(this, o -> {
-            if (o == null) {
-                mViewModel.isEmpty.setValue(true);
-            } else if (o instanceof List && ((List) o).size() != 0) {
-                mViewModel.isEmpty.setValue(false);
-                mAdapter.setList((List) o);
-            } else {
-                mViewModel.isEmpty.setValue(true);
+        LiveData liveData = mViewModel.loadListViewData();
+        liveData.observe(this, new Observer() {
+            @Override
+            public void onChanged(Object o) {
+                liveData.removeObserver(this);//避免重复刷新
+                if (o == null) {
+                    mViewModel.isEmpty.setValue(true);
+                } else if (o instanceof List && ((List) o).size() != 0) {
+                    mViewModel.isEmpty.setValue(false);
+                    mAdapter.setList((List) o);
+                } else {
+                    mViewModel.isEmpty.setValue(true);
+                }
             }
         });
         mViewModel.afterLoadListViewData();
