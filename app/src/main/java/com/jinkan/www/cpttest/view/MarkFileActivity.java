@@ -11,6 +11,7 @@ import com.jinkan.www.cpttest.view_model.MarkFileViewModel;
 import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -25,6 +26,11 @@ public class MarkFileActivity extends ListMVVMActivity<MarkFileViewModel, Activi
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {
         return mViewDataBinding.srl;
+    }
+
+    @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.listView;
     }
 
     @Override

@@ -86,9 +86,8 @@
                 android:layout_toEndOf="@+id/tv_oas"
                 android:background="@null"
                 android:inputType="text"
-                android:text="@{model.sn}"
+                android:text="@={model.sn}"
                 android:textSize="16sp" />
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -116,7 +115,7 @@
                 android:layout_toEndOf="@+id/tv_qsk"
                 android:background="@null"
                 android:inputType="text"
-                android:text="@{model.number}"
+                android:text="@={model.number}"
                 android:textSize="16sp" />
         </RelativeLayout>
 

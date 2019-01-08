@@ -11,6 +11,7 @@ import com.jinkan.www.cpttest.view_model.WirelessProbeVM;
 import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -24,6 +25,11 @@ public class WirelessProbeActivity extends ListMVVMActivity<WirelessProbeVM, Act
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {
         return mViewDataBinding.srl;
+    }
+
+    @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.listView;
     }
 
     @Override

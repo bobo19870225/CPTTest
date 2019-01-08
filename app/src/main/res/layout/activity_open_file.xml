@@ -7,21 +7,27 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="model"
             type="com.jinkan.www.cpttest.view_model.OpenFileViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar" />
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/toolbar" />
 
         <TextView
+            android:id="@+id/tip"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_below="@+id/tool_bar"
             android:background="@color/rl_gray"
             android:gravity="center_vertical"
             android:paddingStart="8dp"
@@ -33,6 +39,7 @@
             android:id="@+id/pathInfo"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_below="@+id/tip"
             android:layout_gravity="center_vertical"
             android:background="@color/rl_gray"
             android:gravity="center_vertical"
@@ -43,12 +50,30 @@
             android:text="@{model.pathInfo}"
             android:textSize="16sp" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
             android:layout_height="match_parent"
-            android:id="@+id/list_view"
             android:layout_width="match_parent"
-            app:layoutManager="LinearLayoutManager" />
-    </LinearLayout>
+            android:layout_below="@+id/pathInfo">
+
+            <TextView
+                android:id="@+id/hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="您还没有添加任何探头,您可以点击加号按钮添加"
+                android:visibility="@{model.isEmpty ? View.VISIBLE : View.GONE}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="LinearLayoutManager" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </RelativeLayout>
 
 </layout>

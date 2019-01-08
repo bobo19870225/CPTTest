@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.jinkan.www.cpttest.util.SystemConstant.VANE_TEST;
@@ -48,9 +49,14 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
 
 
     @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.listView;
+    }
+
+    @Override
     protected HistoryDataAdapter setAdapter() {
 
-        HistoryDataAdapter historyDataAdapter = new HistoryDataAdapter(R.layout.item_history_data, new ItemHistoryDataClickCallback() {
+        return new HistoryDataAdapter(R.layout.item_history_data, new ItemHistoryDataClickCallback() {
             @Override
             public void onClick(ItemHistoryData itemHistoryData) {
 
@@ -66,8 +72,6 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
                 showDeleteDialog(itemHistoryData);
             }
         });
-        mViewDataBinding.listView.setAdapter(historyDataAdapter);
-        return historyDataAdapter;
     }
 
     @Override

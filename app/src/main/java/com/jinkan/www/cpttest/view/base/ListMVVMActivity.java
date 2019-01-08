@@ -9,6 +9,8 @@ import com.jinkan.www.cpttest.view_model.base.BaseListViewModel;
 import java.util.List;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -17,8 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  */
 @SuppressLint("Registered")
 public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends ViewDataBinding, A extends MyBaseAdapter> extends BaseMVVMDaggerActivity<VM, VDB> {
-    protected A mAdapter;
-
+    private A mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener = this::loadListData;
 
@@ -44,8 +45,13 @@ public abstract class ListMVVMActivity<VM extends BaseListViewModel, VDB extends
                     android.R.color.holo_purple);
         }
         mAdapter = setAdapter();
+        RecyclerView recyclerView = setRecyclerView();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
         setViewWithOutListView();
     }
+
+    protected abstract RecyclerView setRecyclerView();
 
     protected abstract A setAdapter();
 

@@ -3,6 +3,7 @@ package com.jinkan.www.cpttest.view_model;
 import android.app.Application;
 import android.content.Intent;
 
+import com.jinkan.www.cpttest.db.dao.ProbeDao;
 import com.jinkan.www.cpttest.db.dao.ProbeDaoHelper;
 import com.jinkan.www.cpttest.db.dao.WirelessProbeDaoHelper;
 import com.jinkan.www.cpttest.db.entity.ProbeEntity;
@@ -10,7 +11,10 @@ import com.jinkan.www.cpttest.db.entity.WirelessProbeEntity;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 /**
@@ -30,9 +34,10 @@ public class AddProbeInfoVM extends BaseViewModel {
     public final MutableLiveData<String> fsLimit = new MutableLiveData<>();
 
     //    private Boolean isWireless;
-    //    private ProbeDao probeDao;
+
     private ProbeDaoHelper probeDaoHelper;
     private WirelessProbeDaoHelper wirelessProbeDaoHelper;
+    private ProbeDao probeDao;
     public AddProbeInfoVM(@NonNull Application application) {
         super(application);
     }
@@ -42,6 +47,7 @@ public class AddProbeInfoVM extends BaseViewModel {
 //        isWireless = objects[0].equals("无缆探头");
         probeDaoHelper = (ProbeDaoHelper) objects[1];
         wirelessProbeDaoHelper = (WirelessProbeDaoHelper) objects[2];
+        probeDao = (ProbeDao) objects[3];
     }
 
     public void choseType() {
@@ -236,5 +242,9 @@ public class AddProbeInfoVM extends BaseViewModel {
     @Override
     public void clear() {
 
+    }
+
+    public LiveData<List<ProbeEntity>> getProbeEntity(String probeId) {
+        return probeDao.getProbeByProbeId(probeId);
     }
 }

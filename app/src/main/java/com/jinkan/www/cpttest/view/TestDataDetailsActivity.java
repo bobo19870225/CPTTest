@@ -11,6 +11,7 @@ import com.jinkan.www.cpttest.view_model.TestDataDetailsVM;
 import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -27,6 +28,11 @@ public class TestDataDetailsActivity extends ListMVVMActivity<TestDataDetailsVM,
         return null;
     }
 
+
+    @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.listView;
+    }
 
     @Override
     protected TestDataDetailsAdapter setAdapter() {

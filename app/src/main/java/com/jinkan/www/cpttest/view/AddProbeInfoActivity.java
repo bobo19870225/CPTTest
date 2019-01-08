@@ -51,25 +51,43 @@ public class AddProbeInfoActivity extends BaseMVVMDaggerActivity<AddProbeInfoVM,
     @Inject
     WirelessProbeDaoHelper wirelessProbeDaoHelper;
 
-
+    private String[] strings;
     @Override
     protected Object[] injectToViewModel() {
-        isWireless = mData.equals("无缆探头");
-        return new Object[]{mData, probeDaoHelper, wirelessProbeDaoHelper};
+        strings = (String[]) mData;
+        isWireless = strings[0].equals("无缆探头");
+        return new Object[]{mData, probeDaoHelper, wirelessProbeDaoHelper, probeDao};
     }
 
     @Override
     protected void setMVVMView() {
         mViewModel.titleProbeType.setValue("选择探头类型");
-        if (mData instanceof ProbeEntity) {
+        if (strings.length == 2) {
             setToolBar("编辑探头参数");
-            ProbeEntity mProbeModel = (ProbeEntity) mData;
-            mViewModel.titleProbeType.setValue("探头类型：");
-            String type = mProbeModel.type;
-            mViewModel.probeType.setValue(type);
-            mViewModel.sn.setValue(mProbeModel.sn);
-            mViewModel.number.setValue(mProbeModel.number);
-            setMyFragment(type);
+            mViewModel.getProbeEntity(strings[1]).observe(this, new Observer<List<ProbeEntity>>() {
+                @Override
+                public void onChanged(List<ProbeEntity> probeEntities) {
+                    ProbeEntity probeEntity = probeEntities.get(0);
+                    mViewModel.titleProbeType.setValue("探头类型：");
+                    String type = probeEntity.type;
+                    mViewModel.probeType.setValue(type);
+                    mViewModel.sn.setValue(probeEntity.sn);
+                    mViewModel.number.setValue(probeEntity.number);
+                    mViewModel.qcArea.setValue(probeEntity.qc_area);
+                    mViewModel.qcCoefficient.setValue(String.valueOf(probeEntity.qc_coefficient));
+                    mViewModel.qcLimit.setValue(String.valueOf(probeEntity.qc_limit));
+                    switch (type) {
+                        case "双桥":
+                        case "双桥测斜":
+                            mViewModel.fsArea.setValue(probeEntity.fs_area);
+                            mViewModel.fsCoefficient.setValue(String.valueOf(probeEntity.fs_coefficient));
+                            mViewModel.fsLimit.setValue(String.valueOf(probeEntity.fs_limit));
+                            break;
+                    }
+                    setMyFragment(type);
+                }
+            });
+
         } else {
             setToolBar("填写探头参数");
         }

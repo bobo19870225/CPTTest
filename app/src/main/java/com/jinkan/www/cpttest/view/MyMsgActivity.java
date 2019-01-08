@@ -15,6 +15,7 @@ import com.jinkan.www.cpttest.view_model.MyMsgViewModel;
 import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -35,6 +36,11 @@ public class MyMsgActivity extends ListMVVMActivity<MyMsgViewModel, ActivityMyMs
 
     @Inject
     MsgDao msgDao;
+
+    @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.listView;
+    }
 
     @Override
     protected MyMsgAdapter setAdapter() {

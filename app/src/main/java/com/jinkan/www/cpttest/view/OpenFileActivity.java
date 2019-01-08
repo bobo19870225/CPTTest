@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -46,8 +47,13 @@ public class OpenFileActivity extends ListMVVMActivity<OpenFileViewModel, Activi
 
 
     @Override
-    protected <SRL extends SwipeRefreshLayout> SRL setSwipeRefreshLayout() {
-        return null;
+    protected SwipeRefreshLayout setSwipeRefreshLayout() {
+        return mViewDataBinding.srl;
+    }
+
+    @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.listView;
     }
 
     @Override

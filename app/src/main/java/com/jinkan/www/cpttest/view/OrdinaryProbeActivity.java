@@ -12,6 +12,7 @@ import com.jinkan.www.cpttest.view_model.OrdinaryProbeVM;
 import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -31,12 +32,16 @@ public class OrdinaryProbeActivity extends ListMVVMActivity<OrdinaryProbeVM, Act
 
 
     @Override
-    protected OrdinaryProbeAdapter setAdapter() {
-        OrdinaryProbeAdapter ordinaryProbeAdapter = new OrdinaryProbeAdapter(R.layout.item_ordinary_probe, (ItemOrdinaryProbeCallback) itemOrdinaryProbe -> {
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.listView;
+    }
 
+    @Override
+    protected OrdinaryProbeAdapter setAdapter() {
+
+        return new OrdinaryProbeAdapter(R.layout.item_ordinary_probe, (ItemOrdinaryProbeCallback) itemOrdinaryProbe -> {
+            goTo(AddProbeInfoActivity.class, new String[]{"普通探头", (String) itemOrdinaryProbe.getId()});
         });
-        mViewDataBinding.listView.setAdapter(ordinaryProbeAdapter);
-        return ordinaryProbeAdapter;
     }
 
     @Override

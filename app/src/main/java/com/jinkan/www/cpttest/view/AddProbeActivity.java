@@ -81,7 +81,7 @@ public class AddProbeActivity extends BaseMVVMDaggerActivity<AddProbeVM, Activit
                         });
                 break;
             case 1:
-                goTo(AddProbeInfoActivity.class, isWireless ? "无缆探头" : "普通探头");
+                goTo(AddProbeInfoActivity.class, new String[]{isWireless ? "无缆探头" : "普通探头"});
                 break;
             case 2:
                 goTo(OrdinaryProbeActivity.class, null, true);

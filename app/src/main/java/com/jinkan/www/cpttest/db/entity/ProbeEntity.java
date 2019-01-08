@@ -1,5 +1,7 @@
 package com.jinkan.www.cpttest.db.entity;
 
+import com.jinkan.www.cpttest.view.adapter.ItemOrdinaryProbe;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,7 +11,7 @@ import androidx.room.PrimaryKey;
  * LastCPT 2
  */
 @Entity(tableName = "probe")
-public class ProbeEntity {
+public class ProbeEntity implements ItemOrdinaryProbe {
     @PrimaryKey
     @NonNull
     public String probeID = "";
@@ -22,4 +24,14 @@ public class ProbeEntity {
     public float fs_coefficient = 1;
     public int qc_limit = 36;
     public int fs_limit = 360;
+
+    @Override
+    public String getProbeNumber() {
+        return number;
+    }
+
+    @Override
+    public Object getId() {
+        return probeID;
+    }
 }
