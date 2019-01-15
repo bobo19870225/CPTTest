@@ -66,6 +66,7 @@
         <activity android:name=".view.WirelessProbeActivity" />
         <activity android:name=".view.DataSyncActivity" />
         <activity android:name=".view.OpenFileActivity" />
+        <activity android:name=".view.WirelessTestActivity" />
     </application>
 
 </manifest>

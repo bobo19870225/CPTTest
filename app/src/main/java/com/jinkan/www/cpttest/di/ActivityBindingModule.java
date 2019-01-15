@@ -17,6 +17,7 @@ import com.jinkan.www.cpttest.view.TimeSynchronizationActivity;
 import com.jinkan.www.cpttest.view.VersionInfoActivity;
 import com.jinkan.www.cpttest.view.VideoActivity;
 import com.jinkan.www.cpttest.view.WirelessProbeActivity;
+import com.jinkan.www.cpttest.view.WirelessTestActivity;
 import com.jinkan.www.cpttest.view.base.BaseTestActivity;
 import com.jinkan.www.cpttest.view.main.MainActivity;
 import com.jinkan.www.cpttest.view_model.main.MainModule;
@@ -109,5 +110,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector
     abstract DataSyncActivity dataSyncActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract WirelessTestActivity wirelessTestActivity();
+
 
 }

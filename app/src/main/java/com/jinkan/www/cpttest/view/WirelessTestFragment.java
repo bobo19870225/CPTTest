@@ -12,7 +12,7 @@ import com.jinkan.www.cpttest.util.CallbackMessage;
 import com.jinkan.www.cpttest.util.PreferencesUtil;
 import com.jinkan.www.cpttest.util.StringUtil;
 import com.jinkan.www.cpttest.view.base.BaseMVVMDaggerFragment;
-import com.jinkan.www.cpttest.view_model.WirelessTestViewModel;
+import com.jinkan.www.cpttest.view_model.WirelessTestFragmentViewModel;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 
-public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestViewModel, FragmentWirelessTestBinding> {
+public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestFragmentViewModel, FragmentWirelessTestBinding> {
 
 
     @Inject
@@ -80,8 +80,8 @@ public class WirelessTestFragment extends BaseMVVMDaggerFragment<WirelessTestVie
     }
 
     @Override
-    public WirelessTestViewModel createdViewModel() {
-        return ViewModelProviders.of(this).get(WirelessTestViewModel.class);
+    public WirelessTestFragmentViewModel createdViewModel() {
+        return ViewModelProviders.of(this).get(WirelessTestFragmentViewModel.class);
     }
 
     @Override

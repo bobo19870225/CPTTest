@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.cpttest.view_model.WirelessTestViewModel" />
+            type="com.jinkan.www.cpttest.view_model.WirelessTestFragmentViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
