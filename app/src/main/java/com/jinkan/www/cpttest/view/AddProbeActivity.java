@@ -61,7 +61,7 @@ public class AddProbeActivity extends BaseMVVMDaggerActivity<AddProbeVM, Activit
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
         switch (callbackMessage.what) {
             case 0:
                 Acp.getInstance(AddProbeActivity.this).request(new AcpOptions.Builder()

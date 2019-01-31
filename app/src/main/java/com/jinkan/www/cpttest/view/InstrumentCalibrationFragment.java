@@ -51,7 +51,7 @@ public class InstrumentCalibrationFragment extends BaseMVVMDaggerFragment<Instru
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
         switch (callbackMessage.what) {
             case 0:
 //                goTo(AnalogActivity.class, null);

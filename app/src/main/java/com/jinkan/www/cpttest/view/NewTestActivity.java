@@ -123,7 +123,7 @@ public class NewTestActivity extends BaseMVVMDaggerActivity<NewTestViewModel, Ac
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
         switch (callbackMessage.what) {
             case ACTION_LINK_BLUETOOTH:

@@ -62,7 +62,7 @@ public class TestDataDetailsActivity extends ListMVVMActivity<TestDataDetailsVM,
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

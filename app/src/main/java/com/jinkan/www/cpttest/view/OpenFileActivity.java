@@ -143,7 +143,7 @@ public class OpenFileActivity extends ListMVVMActivity<OpenFileViewModel, Activi
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

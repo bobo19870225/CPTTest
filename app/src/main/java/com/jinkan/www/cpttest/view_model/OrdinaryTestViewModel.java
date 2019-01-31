@@ -34,26 +34,26 @@ public class OrdinaryTestViewModel extends BaseViewModel {
     public final MutableLiveData<Integer> test = new MutableLiveData<>();
     public void newTest() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("NewTest");
     }
 
     public void reDoTest() {
         allTestes.addSource(testDao.getAllTestes(), allTestes::setValue);
         callbackMessage.setValue(3);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void showHistoryData() {
         test.setValue(0);
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("HistoryDataActivity");
     }
 
     public void showOrdinaryProbe() {
         callbackMessage.setValue(2);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("OrdinaryProbeActivity");
     }
 

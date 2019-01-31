@@ -49,7 +49,7 @@ public class CrossFragment extends BaseMVVMDaggerFragment<AddProbeInfoVM, Fragme
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
-        ((AddProbeInfoActivity) Objects.requireNonNull(getActivity())).callback(callbackMessage);
+    public void action(CallbackMessage callbackMessage) {
+        ((AddProbeInfoActivity) Objects.requireNonNull(getActivity())).action(callbackMessage);
     }
 }

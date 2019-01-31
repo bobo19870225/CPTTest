@@ -32,7 +32,7 @@ public class SetCalibrationDataActivity extends BaseMVVMDaggerActivity<SetCalibr
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

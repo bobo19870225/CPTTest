@@ -34,7 +34,7 @@ public class CrossTestActivity extends DialogMVVMDaggerActivity<CrossTestViewMod
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

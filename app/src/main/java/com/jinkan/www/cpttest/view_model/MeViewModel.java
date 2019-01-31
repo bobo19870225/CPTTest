@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/27.
@@ -20,31 +19,31 @@ public class MeViewModel extends BaseViewModel {
 
     public void setLinker() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("MyLinkerActivity");
     }
 
     public void setEmail() {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("SetEmailActivity");
     }
 
     public void setVideo() {
         callbackMessage.setValue(2);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("VideoActivity");
     }
 
     public void checkVersion() {
         callbackMessage.setValue(3);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("VersionInfoActivity");
     }
 
     public void myMsg() {
         callbackMessage.setValue(4);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("MyMsgActivity");
     }
 

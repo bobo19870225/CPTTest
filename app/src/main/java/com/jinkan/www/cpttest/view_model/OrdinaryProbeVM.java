@@ -43,7 +43,7 @@ public class OrdinaryProbeVM extends BaseListViewModel<List<ProbeEntity>> {
 
     public void addProbe() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 
     }
     @Override

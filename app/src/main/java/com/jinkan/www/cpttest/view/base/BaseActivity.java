@@ -29,7 +29,7 @@ import androidx.fragment.app.FragmentTransaction;
  * Created by Sampson on 2018/12/16.
  * CPTTest
  */
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity {
     protected Object mData;
     protected FragmentManager mFragmentManager;
     protected View mRootView;

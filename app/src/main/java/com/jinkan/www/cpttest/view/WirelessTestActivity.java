@@ -124,7 +124,7 @@ public class WirelessTestActivity extends BaseMVVMDaggerActivity<WirelessTestVie
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

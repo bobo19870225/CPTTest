@@ -163,7 +163,7 @@ public class MainActivity extends BaseMVVMDaggerActivity<MainViewModel, Activity
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

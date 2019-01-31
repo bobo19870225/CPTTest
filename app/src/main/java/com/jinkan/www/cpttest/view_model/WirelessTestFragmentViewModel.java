@@ -33,7 +33,7 @@ public class WirelessTestFragmentViewModel extends BaseViewModel {
 
     public void newTest() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void reTest() {
@@ -42,23 +42,23 @@ public class WirelessTestFragmentViewModel extends BaseViewModel {
 
     public void markupFile() {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void wirelessProbe() {
         callbackMessage.setValue(2);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 
     }
 
     public void dataSync() {
         callbackMessage.setValue(3);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void testData() {
         callbackMessage.setValue(4);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
 

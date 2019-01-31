@@ -226,7 +226,7 @@ public class LinkBluetoothActivity extends BaseMVVMDaggerActivity<LinkBluetoothV
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

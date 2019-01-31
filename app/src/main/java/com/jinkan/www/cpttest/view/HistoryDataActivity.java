@@ -94,7 +94,7 @@ public class HistoryDataActivity extends ListMVVMActivity<HistoryDataViewModel, 
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

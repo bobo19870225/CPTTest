@@ -35,7 +35,7 @@ public class CrossTestDataDetailsActivity extends BaseMVVMDaggerActivity<CrossTe
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

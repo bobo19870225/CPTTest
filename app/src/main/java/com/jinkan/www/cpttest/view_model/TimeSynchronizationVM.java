@@ -89,7 +89,7 @@ public class TimeSynchronizationVM extends BaseViewModel {
 
     public void doSynchronization() {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 
     }
 
@@ -100,7 +100,7 @@ public class TimeSynchronizationVM extends BaseViewModel {
             bluetoothCommService.connect(bluetoothDevice);
         } else {
             callbackMessage.setValue(0);
-            getView().callback(callbackMessage);
+            getView().action(callbackMessage);
 
         }
     }

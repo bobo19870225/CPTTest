@@ -40,7 +40,7 @@ public class WirelessProbeVM extends BaseListViewModel<List<WirelessProbeEntity>
 
     public void addProbe() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class MeFragment extends BaseMVVMDaggerFragment<MeViewModel, FragmentMeBi
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
         switch (callbackMessage.what) {
             case 0:

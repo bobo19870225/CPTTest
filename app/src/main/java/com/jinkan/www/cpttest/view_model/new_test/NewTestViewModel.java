@@ -110,7 +110,7 @@ public class NewTestViewModel extends BaseViewModel {
                                     isAnalog ? "模拟探头" : "数字探头"
                             }
                     );
-            getView().callback(callbackMessage);
+            getView().action(callbackMessage);
 //            goTo(LinkBluetoothActivity.class, new String[]{strProjectNumber, strHoleNumber, strTestType, isAnalog ? "模拟探头" : "数字探头"});
         } else {
             String[] dataToSend = {add, testEntity.projectNumber, testEntity.holeNumber, isAnalog ? "模拟探头" : "数字探头"};
@@ -118,7 +118,7 @@ public class NewTestViewModel extends BaseViewModel {
                 case SINGLE_BRIDGE_TEST:
                     //mac地址，工程编号，孔号。
                     callbackMessage.setValue(ACTION_SINGLE_BRIDGE, dataToSend);
-                    getView().callback(callbackMessage);
+                    getView().action(callbackMessage);
                     break;
                 case SINGLE_BRIDGE_MULTI_TEST:
 //                    goTo(SingleBridgeMultifunctionTestActivity.class, dataToSend);

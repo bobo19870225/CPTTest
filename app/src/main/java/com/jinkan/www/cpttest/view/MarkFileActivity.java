@@ -60,7 +60,7 @@ public class MarkFileActivity extends ListMVVMActivity<MarkFileViewModel, Activi
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

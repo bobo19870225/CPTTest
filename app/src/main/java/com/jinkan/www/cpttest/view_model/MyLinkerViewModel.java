@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2018/12/27.
@@ -35,13 +34,13 @@ public class MyLinkerViewModel extends BaseViewModel {
 
     public void setLinker() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("setLinker");
     }
 
     public void setAnalogLinker() {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("setAnalogLinker");
     }
 

@@ -34,7 +34,7 @@ public class VideoActivity extends BaseMVVMDaggerActivity<VideoViewModel, Activi
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

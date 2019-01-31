@@ -36,12 +36,12 @@ public class AddProbeVM extends BaseViewModel {
 
     public void scanCode() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void inPut() {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     @Override
@@ -165,7 +165,7 @@ public class AddProbeVM extends BaseViewModel {
 
         wirelessProbeDaoHelper.addData(wirelessProbeModel, () -> {
             callbackMessage.setValue(3);
-            getView().callback(callbackMessage);
+            getView().action(callbackMessage);
 
         });
 
@@ -275,7 +275,7 @@ public class AddProbeVM extends BaseViewModel {
     private void addData(ProbeEntity probeModel) {
         probeDaoHelper.addData(probeModel, () -> {
             callbackMessage.setValue(2);
-            getView().callback(callbackMessage);
+            getView().action(callbackMessage);
         });
     }
 

@@ -403,7 +403,7 @@ public class DataSyncViewModel extends BaseViewModel {
                     + "%");
             callbackMessage.setValue(0, cpt);
 
-            getView().callback(callbackMessage);
+            getView().action(callbackMessage);
             strDeep.set(StringUtil.format(0.1 * cpt.length, 1));
         }
     }

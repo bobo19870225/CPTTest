@@ -32,7 +32,7 @@ public class CalibrationVerificationActivity extends BaseMVVMDaggerActivity<Cali
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

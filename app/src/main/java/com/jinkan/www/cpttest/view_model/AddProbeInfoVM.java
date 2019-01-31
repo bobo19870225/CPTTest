@@ -52,12 +52,12 @@ public class AddProbeInfoVM extends BaseViewModel {
 
     public void choseType() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void addProbe() {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void saveDataToLocal(boolean isUpdate, boolean isWireless) {

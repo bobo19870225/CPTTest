@@ -34,7 +34,7 @@ public class TestingActivity extends DialogMVVMDaggerActivity<TestingViewModel, 
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

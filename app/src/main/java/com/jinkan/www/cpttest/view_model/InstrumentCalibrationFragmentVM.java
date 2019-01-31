@@ -24,17 +24,17 @@ public class InstrumentCalibrationFragmentVM extends BaseViewModel {
 
     public void analogCalibration() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void digitalCalibration() {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     public void test() {
         callbackMessage.setValue(2);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.jinkan.www.cpttest.util.CallbackMessage;
  * CPTTest
  */
 public interface ViewCallback {
-    void callback(CallbackMessage callbackMessage);
+    void action(CallbackMessage callbackMessage);
 
     void toast(CallbackMessage callbackMessage);
 }

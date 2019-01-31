@@ -203,14 +203,14 @@ public class BaseTestViewModel extends BaseViewModel {
 
     public void modifyDistance() {
         callbackMessage.setValue(0);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("showModifyDialog");
 //        getView().showModifyDialog(obsStringDeepDistance.get());
     }
 
     public void linkDevice(String mac) {
         callbackMessage.setValue(1);
-        getView().callback(callbackMessage);
+        getView().action(callbackMessage);
 //        action.setValue("showWaitDialog");
 //        getView().showWaitDialog("正在连接蓝牙", false, false);
         BluetoothAdapter bluetoothAdapter = bluetoothUtil.getBluetoothAdapter();
@@ -220,7 +220,7 @@ public class BaseTestViewModel extends BaseViewModel {
         } else {
             // 蓝牙没有打开，调用系统方法要求用户打开蓝牙
             callbackMessage.setValue(2);
-            getView().callback(callbackMessage);
+            getView().action(callbackMessage);
 //            action.setValue("startActivityForResult");
 //            myView.get().startActivityForResult(intent, 0);
         }

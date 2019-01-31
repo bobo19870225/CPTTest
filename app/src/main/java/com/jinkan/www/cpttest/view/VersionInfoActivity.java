@@ -35,7 +35,7 @@ public class VersionInfoActivity extends BaseMVVMDaggerActivity<VersionInfoVM, A
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

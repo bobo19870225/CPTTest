@@ -75,7 +75,7 @@ public class MyMsgActivity extends ListMVVMActivity<MyMsgViewModel, ActivityMyMs
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

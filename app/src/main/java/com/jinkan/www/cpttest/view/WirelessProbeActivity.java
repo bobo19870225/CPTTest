@@ -59,7 +59,7 @@ public class WirelessProbeActivity extends ListMVVMActivity<WirelessProbeVM, Act
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
         switch (callbackMessage.what) {
             case 0:
                 goTo(AddProbeActivity.class, "无缆探头");

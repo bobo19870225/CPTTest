@@ -163,7 +163,7 @@ public class TimeSynchronizationActivity extends DialogMVVMDaggerActivity<TimeSy
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
         switch (callbackMessage.what) {
             case 0:
                 // 蓝牙没有打开，调用系统方法要求用户打开蓝牙

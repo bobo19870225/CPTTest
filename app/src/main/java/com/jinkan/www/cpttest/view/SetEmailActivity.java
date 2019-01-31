@@ -153,7 +153,7 @@ public class SetEmailActivity extends BaseMVVMDaggerActivity<SetEmailViewModel, 
     }
 
     @Override
-    public void callback(CallbackMessage callbackMessage) {
+    public void action(CallbackMessage callbackMessage) {
 
     }
 }

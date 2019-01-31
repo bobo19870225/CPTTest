@@ -126,7 +126,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             // surfaceCreated() won't be called, so init the camera here.
             initCamera(scanPreview.getHolder());
         } else {
-            // Install the callback and wait for surfaceCreated() to init the
+            // Install the action and wait for surfaceCreated() to init the
             // camera.
             scanPreview.getHolder().addCallback(this);
         }
@@ -197,7 +197,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             throw new IllegalStateException("No SurfaceHolder provided");
         }
         if (cameraManager.isOpen()) {
-            Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
+            Log.w(TAG, "initCamera() while already open -- late SurfaceView action?");
             return;
         }
         try {
