@@ -23,7 +23,6 @@ import androidx.lifecycle.AndroidViewModel;
  */
 
 public abstract class BaseViewModel extends AndroidViewModel {
-    public static final int Toast = -1;
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }
@@ -42,13 +41,20 @@ public abstract class BaseViewModel extends AndroidViewModel {
     }
 
     protected void toast(String msg) {
-        callbackMessage.setValue(Toast, msg);
-        getView().toast(callbackMessage);
+        getView().toast(msg);
     }
 
     protected void action(int what, Object object) {
         callbackMessage.setValue(what, object);
         getView().action(callbackMessage);
+    }
+
+    protected void goTo(Class mClass, Object data, boolean isTop) {
+        getView().goTo(mClass, data, isTop);
+    }
+
+    protected void goTo(Class mClass, Object data) {
+        getView().goTo(mClass, data);
     }
     @Override
     protected void onCleared() {

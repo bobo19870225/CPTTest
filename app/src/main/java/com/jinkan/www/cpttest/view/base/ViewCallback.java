@@ -9,5 +9,9 @@ import com.jinkan.www.cpttest.util.CallbackMessage;
 public interface ViewCallback {
     void action(CallbackMessage callbackMessage);
 
-    void toast(CallbackMessage callbackMessage);
+    void goTo(Class mClass, Object data);
+
+    void goTo(Class mClass, Object data, boolean isTop);
+
+    void toast(String msg);
 }

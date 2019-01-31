@@ -16,8 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import static com.jinkan.www.cpttest.view_model.base.BaseViewModel.Toast;
-
 /**
  * Created by Sampson on 2018/12/16.
  * CPTTest
@@ -81,8 +79,7 @@ public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB exten
     int setLayOutId();
 
     @Override
-    public void toast(CallbackMessage callbackMessage) {
-        if (callbackMessage.what == Toast && callbackMessage.obj != null)
-            showToast((String) callbackMessage.obj);
+    public final void toast(String msg) {
+        showToast(msg);
     }
 }
