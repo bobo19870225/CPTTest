@@ -53,12 +53,7 @@ public class InstrumentCalibrationFragment extends BaseMVVMDaggerFragment<Instru
     @Override
     public void action(CallbackMessage callbackMessage) {
         switch (callbackMessage.what) {
-            case 0:
-//                goTo(AnalogActivity.class, null);
-                break;
-            case 1:
-//                goTo(DigitalCalibrationActivity.class, null);
-                break;
+
             case 2:
 
                 Map<String, String> linkerPreferences = preferencesUtil.getLinkerPreferences();

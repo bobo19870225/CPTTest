@@ -67,6 +67,8 @@
         <activity android:name=".view.DataSyncActivity" />
         <activity android:name=".view.OpenFileActivity" />
         <activity android:name=".view.WirelessTestActivity" />
+        <activity android:name=".view.AnalogCalibrationActivity" />
+        <activity android:name=".view.CalibrationParameterActivity" />
     </application>
 
 </manifest>
