@@ -62,7 +62,7 @@ public abstract class BaseMVVMDaggerFragment<VM extends BaseViewModel, VDB exten
         mViewDataBinding = DataBindingUtil.inflate(inflater, viewId, container, false);
         mViewDataBinding.setVariable(BR.model, mViewModel);
         mViewDataBinding.setLifecycleOwner(this);
-//         ViewModelProviders.of(this, new ViewModelProvider.NewInstanceFactory()).get(NewTestViewModel.class);
+//        ViewModelProviders.of(this).get();
         mRootView = mViewDataBinding.getRoot();
         mViewModel.inject(injectToViewModel());
         return mRootView;

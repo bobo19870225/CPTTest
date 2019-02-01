@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.jinkan.www.cpttest.view.AnalogCalibrationActivity;
+import com.jinkan.www.cpttest.view.DigitalCalibrationActivity;
 import com.jinkan.www.cpttest.view_model.base.BaseViewModel;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ public class InstrumentCalibrationFragmentVM extends BaseViewModel {
     }
 
     public void digitalCalibration() {
-//        goTo(DigitalCalibrationActivity.class, null);
+        goTo(DigitalCalibrationActivity.class, null);
     }
 
     public void test() {

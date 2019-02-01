@@ -69,6 +69,9 @@
         <activity android:name=".view.WirelessTestActivity" />
         <activity android:name=".view.AnalogCalibrationActivity" />
         <activity android:name=".view.CalibrationParameterActivity" />
+        <activity android:name=".view.DigitalCalibrationActivity" />
+        <activity android:name=".view.ChooseProbeTypeActivity" />
+        <activity android:name=".view.ChooseCalibrationTypeActivity" />
     </application>
 
 </manifest>

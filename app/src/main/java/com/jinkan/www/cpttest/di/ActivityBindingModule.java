@@ -2,6 +2,7 @@ package com.jinkan.www.cpttest.di;
 
 import com.jinkan.www.cpttest.view.AddProbeActivity;
 import com.jinkan.www.cpttest.view.AddProbeInfoActivity;
+import com.jinkan.www.cpttest.view.CalibrationParameterActivity;
 import com.jinkan.www.cpttest.view.DataSyncActivity;
 import com.jinkan.www.cpttest.view.HistoryDataActivity;
 import com.jinkan.www.cpttest.view.LinkBluetoothActivity;
@@ -115,5 +116,8 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract WirelessTestActivity wirelessTestActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract CalibrationParameterActivity calibrationParameterActivity();
 
 }
