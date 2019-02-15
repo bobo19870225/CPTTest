@@ -12,6 +12,7 @@ import com.jinkan.www.cpttest.view.MyMsgActivity;
 import com.jinkan.www.cpttest.view.NewTestActivity;
 import com.jinkan.www.cpttest.view.OpenFileActivity;
 import com.jinkan.www.cpttest.view.OrdinaryProbeActivity;
+import com.jinkan.www.cpttest.view.SetEmailActivity;
 import com.jinkan.www.cpttest.view.SingleBridgeTestActivity;
 import com.jinkan.www.cpttest.view.TestDataDetailsActivity;
 import com.jinkan.www.cpttest.view.TimeSynchronizationActivity;
@@ -119,5 +120,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector
     abstract CalibrationParameterActivity calibrationParameterActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract SetEmailActivity setEmailActivity();
+
 
 }
